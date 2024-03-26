@@ -44,7 +44,7 @@ function Library:Window(options)
 
 	local GUI = {
 		CurrentTab = nil,
-		CurrentPlayer = nil,
+		Hover = false,
 	}
 
 	do -- Main Frame
@@ -189,6 +189,25 @@ function Library:Window(options)
 		GUI["49"]["Padding"] = UDim.new(0, 1);
 		GUI["49"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 		
+	end
+
+	do
+		GUI["58"].MouseEnter:Connect(function()
+			GUI.Hover = true
+		end)
+
+		GUI["58"].MouseLeave:Connect(function()
+			GUI.Hover = false
+		end)
+
+
+		uis.InputBegan:Connect(function(input, gpe)
+			if gpe then return end
+
+			if input.UserInputType == Enum.UserInputType.MouseButton1 and GUI.Hover then
+				GUI["1"]:Destroy()
+			end
+		end)
 	end
 
 	function GUI:CreateTab(options)
@@ -1831,6 +1850,10 @@ function Library:Window(options)
 		end
 		
 		return Tab
+	end
+	
+	function Library:Unload()
+		if GUI["1"] then GUI["1"]:Destroy() end
 	end
 	
 	function Library:Init()
