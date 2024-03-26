@@ -1408,7 +1408,7 @@ function Library:Window(options)
 					Name = "Preview Slider",
 					Min = 0,
 					Max = 100,
-					Default = options.Min or 1,
+					Default = 50,
 					Flag = Library.NewFlag(),
 					Callback = function(v) print(v) end
 				}, options or {})
@@ -1891,6 +1891,6 @@ local Button = Section:Button()
 Section:Label()
 Section:Toggle()
 Section:Slider()
-local Drop = Section:Dropdown({Content = {"Option 1", "Option 2"}})
+local Drop = Section:Dropdown({Content = {"Option 1", "Option 2", "Option 3"}})
 
 Library:Init()
