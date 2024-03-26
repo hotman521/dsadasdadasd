@@ -1828,7 +1828,7 @@ local UniversalTab = Main:CreateTab({Name = "Universal", Icon = "rbxassetid://16
 local VisualsTab = Main:CreateTab({Name = "Visuals", Icon = "rbxassetid://16863266011"})
 local VisualsTab = Main:CreateTab({Name = "Misc", Icon = "rbxassetid://16864702418"})
 local VisualsTab = Main:CreateTab({Name = "Skins", Icon = "rbxassetid://16866165737"})
-local PlayersTab = Main:CreateTab({Name = "Players", Icon = "rbxassetid://16863267075", PlayerList = true})
+local PlayersTab = Main:CreateTab({Name = "Players", Icon = "rbxassetid://16863267075"})
 local SettingsTab = Main:CreateTab({Name = "Settings", Icon = "rbxassetid://16863267906"})
 
 local Section = MainTab:Section({Side = "Left"})
