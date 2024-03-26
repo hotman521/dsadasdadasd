@@ -386,6 +386,7 @@ function Library:Window(options)
 				CurrentScroll = 0,
 				test = false,
 				test2 = false,
+				CurrentPlayer = nil,
 			}
 			
 			do -- Render
@@ -682,110 +683,34 @@ function Library:Window(options)
 				PlayerListTab["2c"]["Size"] = UDim2.new(1, 0, 0.6000000238418579, 0);
 				PlayerListTab["2c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				PlayerListTab["2c"]["Name"] = [[ScrollBar]];
+				
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.Holder
+				PlayerListTab["24"] = Instance.new("Frame", PlayerListTab["23"]);
+				PlayerListTab["24"]["BorderSizePixel"] = 0;
+				PlayerListTab["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				PlayerListTab["24"]["BackgroundTransparency"] = 1;
+				PlayerListTab["24"]["Size"] = UDim2.new(1, 0, 1, 0);
+				PlayerListTab["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				PlayerListTab["24"]["Name"] = [[Holder]];
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.UIListLayout
+				PlayerListTab["2f"] = Instance.new("UIListLayout", PlayerListTab["24"]);
+				PlayerListTab["2f"]["Padding"] = UDim.new(0, 2);
+				PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			end
 			
 			do -- Methods
-				function PlayerListTab:AddPlayer(Player)
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.Holder
-					PlayerListTab["24"] = Instance.new("Frame", PlayerListTab["23"]);
-					PlayerListTab["24"]["BorderSizePixel"] = 0;
-					PlayerListTab["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["24"]["BackgroundTransparency"] = 1;
-					PlayerListTab["24"]["Size"] = UDim2.new(1, 0, 1, 0);
-					PlayerListTab["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					PlayerListTab["24"]["Name"] = [[Holder]];
-					
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.UIListLayout
-					PlayerListTab["2f"] = Instance.new("UIListLayout", PlayerListTab["24"]);
-					PlayerListTab["2f"]["Padding"] = UDim.new(0, 2);
-					PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.Name;
-					
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame
-					PlayerListTab["25"] = Instance.new("Frame", PlayerListTab["24"]);
-					PlayerListTab["25"]["BorderSizePixel"] = 0;
-					PlayerListTab["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["25"]["BackgroundTransparency"] = 1;
-					PlayerListTab["25"]["Size"] = UDim2.new(1, 0, 0, 15);
-					PlayerListTab["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					PlayerListTab["25"]["Name"] = Player.Name;
-
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName
-					PlayerListTab["26"] = Instance.new("TextLabel", PlayerListTab["25"]);
-					PlayerListTab["26"]["BorderSizePixel"] = 0;
-					PlayerListTab["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["26"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-					PlayerListTab["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					PlayerListTab["26"]["TextSize"] = 17;
-					PlayerListTab["26"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
-					PlayerListTab["26"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
-					PlayerListTab["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					PlayerListTab["26"]["Text"] = Player.Name;
-					PlayerListTab["26"]["Name"] = [[PlayerName]];
-					PlayerListTab["26"]["BackgroundTransparency"] = 1;
-
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName.UIPadding
-					PlayerListTab["27"] = Instance.new("UIPadding", PlayerListTab["26"]);
-					PlayerListTab["27"]["PaddingLeft"] = UDim.new(0, 10);
-
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.Team
-					PlayerListTab["28"] = Instance.new("TextLabel", PlayerListTab["25"]);
-					PlayerListTab["28"]["BorderSizePixel"] = 0;
-					PlayerListTab["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-					PlayerListTab["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					PlayerListTab["28"]["TextSize"] = 17;
-					PlayerListTab["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["28"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
-					PlayerListTab["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					PlayerListTab["28"]["Text"] = Player.Team ~= nil and Player.Team or "None";
-					PlayerListTab["28"]["Name"] = [[Team]];
-					PlayerListTab["28"]["BackgroundTransparency"] = 1;
-					PlayerListTab["28"]["Position"] = UDim2.new(0.33000001311302185, 0, 0, 0);
-
-					if Player == players.LocalPlayer then
-						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerPlayerListTab.PlayerListSection.PlayerList.PlayerFrame.Flags
-						PlayerListTab["29"] = Instance.new("TextLabel", PlayerListTab["25"]);
-						PlayerListTab["29"]["BorderSizePixel"] = 0;
-						PlayerListTab["29"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-						PlayerListTab["29"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-						PlayerListTab["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-						PlayerListTab["29"]["TextSize"] = 17;
-						PlayerListTab["29"]["TextColor3"] = Color3.fromRGB(255, 0, 255);
-						PlayerListTab["29"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
-						PlayerListTab["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-						PlayerListTab["29"]["Text"] = [[Local Player]];
-						PlayerListTab["29"]["Name"] = [[Flags]];
-						PlayerListTab["29"]["BackgroundTransparency"] = 1;
-						PlayerListTab["29"]["Position"] = UDim2.new(0.6600000262260437, 0, 0, 0);
-					else
-						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerPlayerListTab.PlayerListSection.PlayerList.PlayerFrame.Flags
-						PlayerListTab["29"] = Instance.new("TextLabel", PlayerListTab["25"]);
-						PlayerListTab["29"]["BorderSizePixel"] = 0;
-						PlayerListTab["29"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-						PlayerListTab["29"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-						PlayerListTab["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-						PlayerListTab["29"]["TextSize"] = 17;
-						PlayerListTab["29"]["TextColor3"] = Color3.fromRGB(214, 214, 214);
-						PlayerListTab["29"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
-						PlayerListTab["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-						PlayerListTab["29"]["Text"] = [[None]];
-						PlayerListTab["29"]["Name"] = [[Flags]];
-						PlayerListTab["29"]["BackgroundTransparency"] = 1;
-						PlayerListTab["29"]["Position"] = UDim2.new(0.6600000262260437, 0, 0, 0);
-					end
-				end
-				
 				function PlayerListTab:RemnovePlayer(Player)
 					for Index, Value in pairs(PlayerListTab["24"]:GetDescendants()) do
-						if Value.Name == Player.Name .. "Frame" then
+						if Value.Name == Player.Name then
 							Value:Destroy()
 						end
 					end
 				end
 
 				function PlayerListTab:UpdateTexts()
-					if  GUI.CurrentPlayer ~= nil then
-						local TargetPlayer = GUI.CurrentPlayer ~= nil and players:FindFirstChild(GUI.CurrentPlayer["25"].Name)
+					if PlayerListTab.CurrentPlayer ~= nil then
+						local TargetPlayer = PlayerListTab.CurrentPlayer ~= nil and players:FindFirstChild(PlayerListTab.CurrentPlayer["25"].Name)
 						local Humanoid = TargetPlayer.Character:FindFirstChild("Humanoid")
 
 						PlayerListTab["9"].Text = string.format("[%s] - Settings", TargetPlayer.Name)
@@ -804,32 +729,180 @@ function Library:Window(options)
 						PlayerListTab["10"].Image = ""
 					end
 				end
-
-				function PlayerListTab:Activate()
-					if not PlayerListTab.Active then
-
-						if GUI.CurrentPlayer ~= nil then
-							GUI.CurrentPlayer:Deactivate()
-						end
-
-						PlayerListTab.Active = true
-						
-						Library:tween(PlayerListTab["26"], {TextColor3 = Color3.fromRGB(0, 255, 0)})
-
-						GUI.CurrentPlayer = PlayerListTab
-						
-						PlayerListTab:UpdateTexts()
-						print(GUI.CurrentPlayer)
-					end
-				end
 				
-				function PlayerListTab:Deactivate()
-					if PlayerListTab.Active then
-						PlayerListTab.Active = false
-						PlayerListTab.Hover = false
+				function PlayerListTab:AddPlayer(Player)
 
-						Library:tween(PlayerListTab["26"], {TextColor3 = Color3.fromRGB(214, 214, 214)})
+					local Item = {
+						Hover = false,
+						MouseDown = false,
+					}
+
+					if Player == players.LocalPlayer then
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame
+						Item["25"] = Instance.new("Frame", PlayerListTab["24"]);
+						Item["25"]["BorderSizePixel"] = 0;
+						Item["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["25"]["BackgroundTransparency"] = 1;
+						Item["25"]["Size"] = UDim2.new(1, 0, 0, 15);
+						Item["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["25"]["Name"] = Player.Name;
+						Item["25"]["LayoutOrder"] = 1;
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName
+						Item["26"] = Instance.new("TextLabel", Item["25"]);
+						Item["26"]["BorderSizePixel"] = 0;
+						Item["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["26"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["26"]["TextSize"] = 17;
+						Item["26"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
+						Item["26"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["26"]["Text"] = Player.Name;
+						Item["26"]["Name"] = [[PlayerName]];
+						Item["26"]["BackgroundTransparency"] = 1;
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName.UIPadding
+						Item["27"] = Instance.new("UIPadding", Item["26"]);
+						Item["27"]["PaddingLeft"] = UDim.new(0, 10);
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.Team
+						Item["28"] = Instance.new("TextLabel", Item["25"]);
+						Item["28"]["BorderSizePixel"] = 0;
+						Item["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["28"]["TextSize"] = 17;
+						Item["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["28"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["28"]["Text"] = Player.Team ~= nil and Player.Team or "None";
+						Item["28"]["Name"] = [[Team]];
+						Item["28"]["BackgroundTransparency"] = 1;
+						Item["28"]["Position"] = UDim2.new(0.33000001311302185, 0, 0, 0);
+						
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerItem.PlayerListSection.PlayerList.PlayerFrame.Flags
+						Item["29"] = Instance.new("TextLabel", Item["25"]);
+						Item["29"]["BorderSizePixel"] = 0;
+						Item["29"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["29"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["29"]["TextSize"] = 17;
+						Item["29"]["TextColor3"] = Color3.fromRGB(255, 0, 255);
+						Item["29"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["29"]["Text"] = [[Local Player]];
+						Item["29"]["Name"] = [[Flags]];
+						Item["29"]["BackgroundTransparency"] = 1;
+						Item["29"]["Position"] = UDim2.new(0.6600000262260437, 0, 0, 0);
+					else
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame
+						Item["25"] = Instance.new("Frame", PlayerListTab["24"]);
+						Item["25"]["BorderSizePixel"] = 0;
+						Item["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["25"]["BackgroundTransparency"] = 1;
+						Item["25"]["Size"] = UDim2.new(1, 0, 0, 15);
+						Item["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["25"]["Name"] = Player.Name;
+						Item["25"]["LayoutOrder"] = 2;
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName
+						Item["26"] = Instance.new("TextLabel", Item["25"]);
+						Item["26"]["BorderSizePixel"] = 0;
+						Item["26"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["26"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["26"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["26"]["TextSize"] = 17;
+						Item["26"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
+						Item["26"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["26"]["Text"] = Player.Name;
+						Item["26"]["Name"] = [[PlayerName]];
+						Item["26"]["BackgroundTransparency"] = 1;
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.PlayerName.UIPadding
+						Item["27"] = Instance.new("UIPadding", Item["26"]);
+						Item["27"]["PaddingLeft"] = UDim.new(0, 10);
+
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.PlayerFrame.Team
+						Item["28"] = Instance.new("TextLabel", Item["25"]);
+						Item["28"]["BorderSizePixel"] = 0;
+						Item["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["28"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["28"]["TextSize"] = 17;
+						Item["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["28"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["28"]["Text"] = Player.Team ~= nil and Player.Team or "None";
+						Item["28"]["Name"] = [[Team]];
+						Item["28"]["BackgroundTransparency"] = 1;
+						Item["28"]["Position"] = UDim2.new(0.33000001311302185, 0, 0, 0);
+						
+						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerItem.PlayerListSection.PlayerList.PlayerFrame.Flags
+						Item["29"] = Instance.new("TextLabel", Item["25"]);
+						Item["29"]["BorderSizePixel"] = 0;
+						Item["29"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["29"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						Item["29"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["29"]["TextSize"] = 17;
+						Item["29"]["TextColor3"] = Color3.fromRGB(214, 214, 214);
+						Item["29"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
+						Item["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["29"]["Text"] = [[None]];
+						Item["29"]["Name"] = [[Flags]];
+						Item["29"]["BackgroundTransparency"] = 1;
+						Item["29"]["Position"] = UDim2.new(0.6600000262260437, 0, 0, 0);
 					end
+					
+					function Item:Activate()
+						if not Item.Active then
+
+							if PlayerListTab.CurrentPlayer ~= nil then
+								PlayerListTab.CurrentPlayer:Deactivate()
+							end
+
+							Item.Active = true
+
+							Library:tween(Item["26"], {TextColor3 = Color3.fromRGB(0, 255, 0)})
+
+							PlayerListTab.CurrentPlayer = Item
+
+							PlayerListTab:UpdateTexts()
+						end
+					end
+
+					function Item:Deactivate()
+						if Item.Active then
+							Item.Active = false
+							Item.Hover = false
+
+							Library:tween(Item["26"], {TextColor3 = Color3.fromRGB(214, 214, 214)})
+						end
+					end
+
+					Item["25"].MouseEnter:Connect(function()
+						Item.Hover = true
+						if not Item.Active then
+							Library:tween(Item["26"], {TextColor3 = Color3.fromRGB(255, 255, 255)})
+						end
+					end)
+
+					Item["25"].MouseLeave:Connect(function()
+						Item.Hover = false
+
+						if not Item.Active then
+							Library:tween(Item["26"], {TextColor3 = Color3.fromRGB(214, 214, 214)})
+						end
+					end)
+
+					uis.InputBegan:Connect(function(input, gpe)
+						if gpe then return end
+
+						if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
+							Item:Activate()
+						end
+					end)
 				end
 			end
 
@@ -847,23 +920,6 @@ function Library:Window(options)
 					PlayerListTab:RemnovePlayer(Player)
 				end)
 				
-				PlayerListTab["25"].MouseEnter:Connect(function()
-					PlayerListTab.Hover = true
-				end)
-
-				PlayerListTab["25"].MouseLeave:Connect(function()
-					PlayerListTab.Hover = false
-				end)
-				
-				uis.InputBegan:Connect(function(input, gpe)
-					if gpe then return end
-
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						if PlayerListTab.Hover then
-							PlayerListTab:Activate()
-						end
-					end
-				end)
 				
 				PlayerListTab["2c"].MouseEnter:Connect(function()
 					PlayerListTab.test = true
@@ -1820,7 +1876,6 @@ function Library:Window(options)
 	return GUI
 end
 
-local Crosshair = loadstring(game:HttpGet("https://raw.githubusercontent.com/hotman521/dsadasdsa/main/dsadasdas.lua"))()
 local Main = Library:Window({Name = "LuckyHub"})
 
 local MainTab = Main:CreateTab({Name = "Main", Icon = "rbxassetid://16863175349"})
@@ -1828,32 +1883,14 @@ local UniversalTab = Main:CreateTab({Name = "Universal", Icon = "rbxassetid://16
 local VisualsTab = Main:CreateTab({Name = "Visuals", Icon = "rbxassetid://16863266011"})
 local VisualsTab = Main:CreateTab({Name = "Misc", Icon = "rbxassetid://16864702418"})
 local VisualsTab = Main:CreateTab({Name = "Skins", Icon = "rbxassetid://16866165737"})
-local PlayersTab = Main:CreateTab({Name = "Players", Icon = "rbxassetid://16863267075"})
+local PlayersTab = Main:CreateTab({Name = "Players", Icon = "rbxassetid://16863267075", PlayerList = true})
 local SettingsTab = Main:CreateTab({Name = "Settings", Icon = "rbxassetid://16863267906"})
 
-local Section = MainTab:Section({Side = "Left"})
-local Button = Section:Button({Callback = function() print("GOAT") end})
+local Section = MainTab:Section()
+local Button = Section:Button()
 Section:Label()
-Section:Toggle({Name = "Crosshair", Callback = function(State)
-    Crosshair.enabled = State
-end})
-Section:Slider({Name = "Walkspeed", Min = 0, Max = 100, Default = 16, Callback = function(v)
-		players.LocalPlayer.Character.Humanoid.WalkSpeed = v
-end})
-local Drop = Section:Dropdown({Content = {"goat", "Goat2"}})
-
-do -- Settings
-	local SettingsConfiguration = SettingsTab:Section({Name = "Configuration", Side = "Left"})
-	local SettingsUser = SettingsTab:Section({Name = "User", Side = "Right"})
-	--
-	do -- Configuration
-		SettingsConfiguration:Button({Name = "Save"})
-		SettingsConfiguration:Button({Name = "Load"})
-	end
-	--
-	do -- User
-		SettingsUser:Label({Message = string.format("Username: %s\nSubscription: Unlimited\nStatus: Not Blacklisted\nTotal Executions: N/A\nBuild Version: Developer", players.LocalPlayer.Name)})
-	end
-end
+Section:Toggle()
+Section:Slider()
+local Drop = Section:Dropdown({Content = {"Option 1", "Option 2"}})
 
 Library:Init()
