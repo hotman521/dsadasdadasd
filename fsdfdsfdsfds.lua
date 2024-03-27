@@ -439,7 +439,7 @@ function Library:Window(options)
 		GUI["13"]["BorderSizePixel"] = 0;
 		GUI["13"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["13"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-		GUI["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+		GUI["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 		GUI["13"]["TextSize"] = 14;
 		GUI["13"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
 		GUI["13"]["Size"] = UDim2.new(1, 0, 1, -3);
