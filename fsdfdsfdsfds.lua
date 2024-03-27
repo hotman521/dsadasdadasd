@@ -3704,6 +3704,8 @@ function Library:Notify(Content: string, Delay: number)
 	end
 end
 
+return Library;
+
 --[[
 local Main = Library:Window({Name = "Preview Menu", Side = "Center", KeybindList = true, Watermark = true, Indicators = true})
 
