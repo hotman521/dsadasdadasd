@@ -104,6 +104,7 @@ function Library:Window(options)
 	options = Library:Validate({
 		Name = "UI Library",
 		Side = "Left",
+		CloseBind = Enum.KeyCode.RightControl,
 		KeybindList = false,
 		Watermark = false,
 		Indicators = false,
@@ -439,7 +440,7 @@ function Library:Window(options)
 		GUI["13"]["BorderSizePixel"] = 0;
 		GUI["13"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["13"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-		GUI["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+		GUI["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 		GUI["13"]["TextSize"] = 14;
 		GUI["13"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
 		GUI["13"]["Size"] = UDim2.new(1, 0, 1, -3);
@@ -807,6 +808,14 @@ function Library:Window(options)
 	function GUI:IndicatorVisibility()
 		GUI["16"].Visible = not GUI["16"].Visible
 	end
+	
+	uis.InputBegan:Connect(function(input, gpe)
+		if gpe then return end
+		
+		if input.KeyCode == options.CloseBind then
+			GUI["2"].Visible = not GUI["2"].Visible
+		end
+	end)
 	
 	do -- Navigation
 		-- StarterGui.MyLibrary.MainBackground.Navigation
