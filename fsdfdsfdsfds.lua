@@ -3238,7 +3238,7 @@ function Library:Window(options)
 			
 			function Section:Dropdown(options)
 				options = Library:Validate({
-					Default = "None",
+					Default = nil,
 					Name = "Preview Dropdown",
 					Content = {},
 					Flag = Library.NewFlag(),
