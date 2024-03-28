@@ -3259,7 +3259,7 @@ function Library:Window(options)
 					options.Callback(options.Default)
 				end
 
-				if options.Default ~= "None" then
+				if options.Default then
 					options.Callback(options.Default)
 				end
 				
