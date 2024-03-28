@@ -487,6 +487,7 @@ function Library:Window(options)
 	end
 	
 	if options.Indicators then
+		local testcount = 0
 		do -- Render
 			-- StarterGui.MyLibrary.Indicators
 			GUI["16"] = Instance.new("Frame", GUI["1"]);
@@ -613,7 +614,12 @@ function Library:Window(options)
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
 
+				if testcount >= 1 then
+					return
+				end
+
 				do
+					testcount += 1
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
 					GUI["22"] = Instance.new("UIListLayout", GUI["1b"]);
 					GUI["22"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
@@ -746,15 +752,14 @@ function Library:Window(options)
 					GUI["25"].Text = math.floor(Target.Character:FindFirstChild("Humanoid").Health)
 					GUI["29"].Size = UDim2.new(Target.Character:FindFirstChild("Humanoid").Health / Target.Character:FindFirstChild("Humanoid").MaxHealth, 0, 1, 0)
 				end)
-			end
-		end
-		
-		function GUI:RemoveIndicators()
-			GUI["20"].Text = "nil"
-
-			for i, v in pairs(GUI["1b"]:GetChildren()) do
-				if v.Name ~= "TargetFrame" then
-					v:Destroy()
+			else
+				GUI["20"].Text = "nil"
+				testcount -= 1
+				
+				for i, v in pairs(GUI["1b"]:GetChildren()) do
+					if v.Name ~= "TargetFrame" then
+						v:Destroy()
+					end
 				end
 			end
 		end
