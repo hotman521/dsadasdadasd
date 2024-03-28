@@ -3175,7 +3175,7 @@ function Library:Window(options)
 				end
 				
 				local function get(value)
-					return math.round(value * 100) / 100
+					return math.round(value * 10000) / 10000
 				end
 				
 				local function set(value)
