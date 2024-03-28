@@ -404,7 +404,7 @@ function Library:Window(options)
 		GUI["f"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
 		GUI["f"]["Size"] = UDim2.new(0, 160, 0, 30);
 		GUI["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-		GUI["f"]["Position"] = UDim2.new(0, 100, 0, 9);
+		GUI["f"]["Position"] = UDim2.new(0, 100, 0, 7);
 		GUI["f"]["Name"] = [[Watermark]];
 
 		-- StarterGui.MyLibrary.Watermark.Bar
