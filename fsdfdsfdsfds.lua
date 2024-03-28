@@ -614,10 +614,6 @@ function Library:Window(options)
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
 
-				if testcount >= 1 then
-					return
-				end
-
 				do
 					testcount += 1
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
