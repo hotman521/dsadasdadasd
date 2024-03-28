@@ -3259,7 +3259,8 @@ function Library:Window(options)
 					options.Callback(options.Default)
 				end
 
-				if options.Default then
+				if options.Default ~= nil then
+					Library.Flags[options.Default] = options.Default
 					options.Callback(options.Default)
 				end
 				
