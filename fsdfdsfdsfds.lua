@@ -11,6 +11,7 @@ local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 
 local zindexcount = 999
+local zindexcount2 = 999
 
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
@@ -3238,7 +3239,7 @@ function Library:Window(options)
 			
 			function Section:Dropdown(options)
 				options = Library:Validate({
-					Default = nil,
+					Default = "None",
 					Name = "Preview Dropdown",
 					Content = {},
 					Flag = Library.NewFlag(),
@@ -3259,12 +3260,14 @@ function Library:Window(options)
 					options.Callback(options.Default)
 				end
 
-				if options.Default ~= nil then
-					Library.Flags[options.Default] = options.Default
+				if options.Default ~= "None" then
+					Library.Flags[options.Flag] = options.Default
 					options.Callback(options.Default)
 				end
 				
 				do -- Render
+					zindexcount2 -= 1
+	
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen
 					Dropdown["be"] = Instance.new("Frame", Section["f"]);
 					Dropdown["be"]["BorderSizePixel"] = 0;
@@ -3274,7 +3277,7 @@ function Library:Window(options)
 					Dropdown["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["be"]["Position"] = UDim2.new(0, 0, 0, 57);
 					Dropdown["be"]["Name"] = [[DropdownOpen]];
-					Dropdown["be"]["ZIndex"] = 10;
+					Dropdown["be"]["ZIndex"] = zindexcount2;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Text
 					Dropdown["bf"] = Instance.new("TextLabel", Dropdown["be"]);
@@ -3315,7 +3318,7 @@ function Library:Window(options)
 					Dropdown["c2"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
 					Dropdown["c2"]["Size"] = UDim2.new(1, 0, 1, 0);
 					Dropdown["c2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					Dropdown["c2"]["Text"] = options.Default ~= nil and options.Default or "None";
+					Dropdown["c2"]["Text"] = options.Default ~= "None" and options.Default or "None";
 					Dropdown["c2"]["Name"] = [[Option]];
 					Dropdown["c2"]["BackgroundTransparency"] = 1;
 					Dropdown["c2"]["ZIndex"] = 7;
