@@ -3304,6 +3304,7 @@ function Library:Window(options)
 					Dropdown["c2"]["Text"] = options.Default ~= nil and options.Default or "None";
 					Dropdown["c2"]["Name"] = [[Option]];
 					Dropdown["c2"]["BackgroundTransparency"] = 1;
+					Dropdown["c2"]["ZIndex"] = 7;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Option.UIPadding
 					Dropdown["c3"] = Instance.new("UIPadding", Dropdown["c2"]);
@@ -3369,7 +3370,7 @@ function Library:Window(options)
 							Item["c7"]["BackgroundTransparency"] = 0;
 							Item["c7"]["Size"] = UDim2.new(1, 0, 0, 18);
 							Item["c7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-							Item["c7"]["Name"] = [[Inactive]];
+							Item["c7"]["Name"] = [[Option]];
 							Item["c7"]["ZIndex"] = 8;
 							
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.Inactive.Text.UIPadding
