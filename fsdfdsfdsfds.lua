@@ -12,7 +12,6 @@ local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection
 
 local zindexcount = 999
 local zindexcount2 = 999
-local indicatordebounce = false
 
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
@@ -612,7 +611,6 @@ function Library:Window(options)
 		
 		function GUI:UpdateIndicator(Target)
 			if Target ~= nil then
-				if indicatordebounce == false then
 				GUI["20"].Text = Target.Name
 
 					do
@@ -748,18 +746,13 @@ function Library:Window(options)
 						GUI["25"].Text = math.floor(Target.Character:FindFirstChild("Humanoid").Health)
 						GUI["29"].Size = UDim2.new(Target.Character:FindFirstChild("Humanoid").Health / Target.Character:FindFirstChild("Humanoid").MaxHealth, 0, 1, 0)
 					end)
-				indicatordebounce = true
-				end
 			else
-				if indicatordebounce == true then
 					GUI["20"].Text = "nil"
-					indicatordebounce = false
 					for i, v in pairs(GUI["1b"]:GetChildren()) do
 						if v.Name ~= "TargetFrame" then
 							v:Destroy()
 						end
 					end
-				end
 			end
 		end
 		
