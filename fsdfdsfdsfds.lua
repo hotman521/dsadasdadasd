@@ -610,9 +610,10 @@ function Library:Window(options)
 		end
 		
 		function GUI:UpdateIndicator(Target)
+			local count = 0
+			
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
-				local count = 0
 				for i, v in pairs(GUI["1b"]:GetChildren()) do
 					if v.Name ~= "TargetFrame" then
 						count += 1
