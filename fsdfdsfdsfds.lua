@@ -3370,6 +3370,7 @@ function Library:Window(options)
 							Item["c7"]["Size"] = UDim2.new(1, 0, 0, 18);
 							Item["c7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							Item["c7"]["Name"] = [[Inactive]];
+							Item["c7"]["ZIndex"] = 8;
 							
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.Inactive.Text.UIPadding
 							Item["f3"] = Instance.new("UIPadding", Item["c7"]);
