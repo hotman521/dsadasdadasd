@@ -487,7 +487,6 @@ function Library:Window(options)
 	end
 	
 	if options.Indicators then
-		local testcount = 0
 		do -- Render
 			-- StarterGui.MyLibrary.Indicators
 			GUI["16"] = Instance.new("Frame", GUI["1"]);
@@ -615,7 +614,6 @@ function Library:Window(options)
 				GUI["20"].Text = Target.Name
 
 				do
-					testcount += 1
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
 					GUI["22"] = Instance.new("UIListLayout", GUI["1b"]);
 					GUI["22"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
