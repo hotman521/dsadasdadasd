@@ -3175,7 +3175,7 @@ function Library:Window(options)
 				end
 				
 				local function get(value)
-					return math.round(value * 100) / 100
+					return ("%.14g"):format(value)
 				end
 				
 				local function set(value)
