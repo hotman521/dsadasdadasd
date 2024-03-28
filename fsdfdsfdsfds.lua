@@ -611,149 +611,153 @@ function Library:Window(options)
 		end
 		
 		function GUI:UpdateIndicator(Target)
-			if Target ~= nil and indicatordebounce == false then
+			if Target ~= nil then
+				if indicatordebounce == false then
 				GUI["20"].Text = Target.Name
+
+					do
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
+						GUI["22"] = Instance.new("UIListLayout", GUI["1b"]);
+						GUI["22"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider
+						GUI["23"] = Instance.new("Frame", GUI["1b"]);
+						GUI["23"]["BorderSizePixel"] = 0;
+						GUI["23"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+						GUI["23"]["BackgroundTransparency"] = 1;
+						GUI["23"]["LayoutOrder"] = 1;
+						GUI["23"]["Size"] = UDim2.new(1, -8, 0, 25);
+						GUI["23"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["23"]["Position"] = UDim2.new(0, 0, 0, 25);
+						GUI["23"]["Name"] = [[ArmorSlider]];
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Text
+						GUI["24"] = Instance.new("TextLabel", GUI["23"]);
+						GUI["24"]["TextWrapped"] = true;
+						GUI["24"]["BorderSizePixel"] = 0;
+						GUI["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["24"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						GUI["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						GUI["24"]["TextSize"] = 14;
+						GUI["24"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["24"]["Size"] = UDim2.new(0.5, 0, 1, -10);
+						GUI["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["24"]["Text"] = [[Health]];
+						GUI["24"]["Name"] = [[Text]];
+						GUI["24"]["BackgroundTransparency"] = 1;
+						GUI["24"]["Position"] = UDim2.new(0, 0, 0, -1);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Value
+						GUI["25"] = Instance.new("TextLabel", GUI["23"]);
+						GUI["25"]["TextWrapped"] = true;
+						GUI["25"]["BorderSizePixel"] = 0;
+						GUI["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["25"]["TextXAlignment"] = Enum.TextXAlignment.Right;
+						GUI["25"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						GUI["25"]["TextSize"] = 12;
+						GUI["25"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["25"]["Size"] = UDim2.new(0.5, 0, 1, -5);
+						GUI["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["25"]["Text"] = [[100]];
+						GUI["25"]["Name"] = [[Value]];
+						GUI["25"]["BackgroundTransparency"] = 1;
+						GUI["25"]["Position"] = UDim2.new(0.5, 0, 0, -6);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Value.UIPadding
+						GUI["26"] = Instance.new("UIPadding", GUI["25"]);
+						GUI["26"]["PaddingTop"] = UDim.new(0, 8);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack
+						GUI["27"] = Instance.new("Frame", GUI["23"]);
+						GUI["27"]["BorderSizePixel"] = 0;
+						GUI["27"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+						GUI["27"]["AnchorPoint"] = Vector2.new(0, 1);
+						GUI["27"]["Size"] = UDim2.new(1, 0, 0, 8);
+						GUI["27"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["27"]["Position"] = UDim2.new(0, 0, 1, 0);
+						GUI["27"]["Name"] = [[SliderBack]];
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack.UIStroke
+						GUI["28"] = Instance.new("UIStroke", GUI["27"]);
+						GUI["28"]["Color"] = Color3.fromRGB(27, 27, 27);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack.Draggable
+						GUI["29"] = Instance.new("Frame", GUI["27"]);
+						GUI["29"]["BorderSizePixel"] = 0;
+						GUI["29"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 0);
+						GUI["29"]["Size"] = UDim2.new(1, 0, 1, 0);
+						GUI["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["29"]["Name"] = [[Draggable]];
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.UIPadding
+						GUI["2a"] = Instance.new("UIPadding", GUI["23"]);
+						GUI["2a"]["PaddingBottom"] = UDim.new(0, 4);
+						GUI["2a"]["PaddingLeft"] = UDim.new(0, 7);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame
+						GUI["33"] = Instance.new("Frame", GUI["1b"]);
+						GUI["33"]["BorderSizePixel"] = 0;
+						GUI["33"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["33"]["BackgroundTransparency"] = 1;
+						GUI["33"]["LayoutOrder"] = 3;
+						GUI["33"]["Size"] = UDim2.new(1, 0, 0, 20);
+						GUI["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["33"]["Name"] = [[TextFrame]];
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Text
+						GUI["34"] = Instance.new("TextLabel", GUI["33"]);
+						GUI["34"]["BorderSizePixel"] = 0;
+						GUI["34"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["34"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+						GUI["34"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						GUI["34"]["TextSize"] = 14;
+						GUI["34"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["34"]["Size"] = UDim2.new(0.5, 0, 1, 0);
+						GUI["34"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["34"]["Text"] = [[Knocked Out]];
+						GUI["34"]["Name"] = [[Text]];
+						GUI["34"]["BackgroundTransparency"] = 1;
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Text.UIPadding
+						GUI["35"] = Instance.new("UIPadding", GUI["34"]);
+						GUI["35"]["PaddingBottom"] = UDim.new(0, 2);
+						GUI["35"]["PaddingLeft"] = UDim.new(0, 7);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Value
+						GUI["36"] = Instance.new("TextLabel", GUI["33"]);
+						GUI["36"]["BorderSizePixel"] = 0;
+						GUI["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["36"]["TextXAlignment"] = Enum.TextXAlignment.Right;
+						GUI["36"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						GUI["36"]["TextSize"] = 14;
+						GUI["36"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+						GUI["36"]["Size"] = UDim2.new(0.5, 0, 1, 0);
+						GUI["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						GUI["36"]["Text"] = [[false]];
+						GUI["36"]["Name"] = [[Value]];
+						GUI["36"]["BackgroundTransparency"] = 1;
+						GUI["36"]["Position"] = UDim2.new(0.5, 0, 0, 0);
+	
+						-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Value.UIPadding
+						GUI["37"] = Instance.new("UIPadding", GUI["36"]);
+						GUI["37"]["PaddingRight"] = UDim.new(0, 7);
+						GUI["37"]["PaddingBottom"] = UDim.new(0, 2);
+					end
+					
+					Target.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Health"):Connect(function()
+						GUI["25"].Text = math.floor(Target.Character:FindFirstChild("Humanoid").Health)
+						GUI["29"].Size = UDim2.new(Target.Character:FindFirstChild("Humanoid").Health / Target.Character:FindFirstChild("Humanoid").MaxHealth, 0, 1, 0)
+					end)
 				indicatordebounce = true
-
-				do
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
-					GUI["22"] = Instance.new("UIListLayout", GUI["1b"]);
-					GUI["22"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider
-					GUI["23"] = Instance.new("Frame", GUI["1b"]);
-					GUI["23"]["BorderSizePixel"] = 0;
-					GUI["23"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
-					GUI["23"]["BackgroundTransparency"] = 1;
-					GUI["23"]["LayoutOrder"] = 1;
-					GUI["23"]["Size"] = UDim2.new(1, -8, 0, 25);
-					GUI["23"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["23"]["Position"] = UDim2.new(0, 0, 0, 25);
-					GUI["23"]["Name"] = [[ArmorSlider]];
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Text
-					GUI["24"] = Instance.new("TextLabel", GUI["23"]);
-					GUI["24"]["TextWrapped"] = true;
-					GUI["24"]["BorderSizePixel"] = 0;
-					GUI["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["24"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-					GUI["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					GUI["24"]["TextSize"] = 14;
-					GUI["24"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["24"]["Size"] = UDim2.new(0.5, 0, 1, -10);
-					GUI["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["24"]["Text"] = [[Health]];
-					GUI["24"]["Name"] = [[Text]];
-					GUI["24"]["BackgroundTransparency"] = 1;
-					GUI["24"]["Position"] = UDim2.new(0, 0, 0, -1);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Value
-					GUI["25"] = Instance.new("TextLabel", GUI["23"]);
-					GUI["25"]["TextWrapped"] = true;
-					GUI["25"]["BorderSizePixel"] = 0;
-					GUI["25"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["25"]["TextXAlignment"] = Enum.TextXAlignment.Right;
-					GUI["25"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					GUI["25"]["TextSize"] = 12;
-					GUI["25"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["25"]["Size"] = UDim2.new(0.5, 0, 1, -5);
-					GUI["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["25"]["Text"] = [[100]];
-					GUI["25"]["Name"] = [[Value]];
-					GUI["25"]["BackgroundTransparency"] = 1;
-					GUI["25"]["Position"] = UDim2.new(0.5, 0, 0, -6);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Value.UIPadding
-					GUI["26"] = Instance.new("UIPadding", GUI["25"]);
-					GUI["26"]["PaddingTop"] = UDim.new(0, 8);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack
-					GUI["27"] = Instance.new("Frame", GUI["23"]);
-					GUI["27"]["BorderSizePixel"] = 0;
-					GUI["27"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
-					GUI["27"]["AnchorPoint"] = Vector2.new(0, 1);
-					GUI["27"]["Size"] = UDim2.new(1, 0, 0, 8);
-					GUI["27"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["27"]["Position"] = UDim2.new(0, 0, 1, 0);
-					GUI["27"]["Name"] = [[SliderBack]];
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack.UIStroke
-					GUI["28"] = Instance.new("UIStroke", GUI["27"]);
-					GUI["28"]["Color"] = Color3.fromRGB(27, 27, 27);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack.Draggable
-					GUI["29"] = Instance.new("Frame", GUI["27"]);
-					GUI["29"]["BorderSizePixel"] = 0;
-					GUI["29"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 0);
-					GUI["29"]["Size"] = UDim2.new(1, 0, 1, 0);
-					GUI["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["29"]["Name"] = [[Draggable]];
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.UIPadding
-					GUI["2a"] = Instance.new("UIPadding", GUI["23"]);
-					GUI["2a"]["PaddingBottom"] = UDim.new(0, 4);
-					GUI["2a"]["PaddingLeft"] = UDim.new(0, 7);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame
-					GUI["33"] = Instance.new("Frame", GUI["1b"]);
-					GUI["33"]["BorderSizePixel"] = 0;
-					GUI["33"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["33"]["BackgroundTransparency"] = 1;
-					GUI["33"]["LayoutOrder"] = 3;
-					GUI["33"]["Size"] = UDim2.new(1, 0, 0, 20);
-					GUI["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["33"]["Name"] = [[TextFrame]];
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Text
-					GUI["34"] = Instance.new("TextLabel", GUI["33"]);
-					GUI["34"]["BorderSizePixel"] = 0;
-					GUI["34"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["34"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-					GUI["34"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					GUI["34"]["TextSize"] = 14;
-					GUI["34"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["34"]["Size"] = UDim2.new(0.5, 0, 1, 0);
-					GUI["34"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["34"]["Text"] = [[Knocked Out]];
-					GUI["34"]["Name"] = [[Text]];
-					GUI["34"]["BackgroundTransparency"] = 1;
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Text.UIPadding
-					GUI["35"] = Instance.new("UIPadding", GUI["34"]);
-					GUI["35"]["PaddingBottom"] = UDim.new(0, 2);
-					GUI["35"]["PaddingLeft"] = UDim.new(0, 7);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Value
-					GUI["36"] = Instance.new("TextLabel", GUI["33"]);
-					GUI["36"]["BorderSizePixel"] = 0;
-					GUI["36"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["36"]["TextXAlignment"] = Enum.TextXAlignment.Right;
-					GUI["36"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-					GUI["36"]["TextSize"] = 14;
-					GUI["36"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-					GUI["36"]["Size"] = UDim2.new(0.5, 0, 1, 0);
-					GUI["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-					GUI["36"]["Text"] = [[false]];
-					GUI["36"]["Name"] = [[Value]];
-					GUI["36"]["BackgroundTransparency"] = 1;
-					GUI["36"]["Position"] = UDim2.new(0.5, 0, 0, 0);
-
-					-- StarterGui.MyLibrary.Indicators.ContentContainer.TextFrame.Value.UIPadding
-					GUI["37"] = Instance.new("UIPadding", GUI["36"]);
-					GUI["37"]["PaddingRight"] = UDim.new(0, 7);
-					GUI["37"]["PaddingBottom"] = UDim.new(0, 2);
 				end
-				
-				Target.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Health"):Connect(function()
-					GUI["25"].Text = math.floor(Target.Character:FindFirstChild("Humanoid").Health)
-					GUI["29"].Size = UDim2.new(Target.Character:FindFirstChild("Humanoid").Health / Target.Character:FindFirstChild("Humanoid").MaxHealth, 0, 1, 0)
-				end)
 			else
-				GUI["20"].Text = "nil"
-				indicatordebounce = false
-				for i, v in pairs(GUI["1b"]:GetChildren()) do
-					if v.Name ~= "TargetFrame" then
-						v:Destroy()
+				if indicatordebounce == true then
+					GUI["20"].Text = "nil"
+					indicatordebounce = false
+					for i, v in pairs(GUI["1b"]:GetChildren()) do
+						if v.Name ~= "TargetFrame" then
+							v:Destroy()
+						end
 					end
 				end
 			end
