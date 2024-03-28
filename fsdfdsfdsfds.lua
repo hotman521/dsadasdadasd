@@ -612,6 +612,15 @@ function Library:Window(options)
 		function GUI:UpdateIndicator(Target)
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
+				local count = 0
+				for i, v in pairs(GUI["1b"]:GetChildren()) do
+					if v.Name ~= "TargetFrame" then
+						count += 1
+						if count > 1 then
+							print("test")
+						end
+					end
+				end
 
 				do
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
@@ -748,10 +757,10 @@ function Library:Window(options)
 				end)
 			else
 				GUI["20"].Text = "nil"
-				testcount -= 1
 				
 				for i, v in pairs(GUI["1b"]:GetChildren()) do
 					if v.Name ~= "TargetFrame" then
+						count -= 1
 						v:Destroy()
 					end
 				end
