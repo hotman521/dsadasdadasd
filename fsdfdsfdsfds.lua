@@ -10,6 +10,8 @@ local stats = game:GetService("Stats")
 local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 
+local zindexcount = 999
+
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
 	while not child do
@@ -2507,6 +2509,7 @@ function Library:Window(options)
 			local Section = {}
 
 			do -- Section
+				zindexcount -= 1
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.HomeSection.Left.Section
 				Section["9"] = Instance.new("Frame", Tab["7"]);
 				Section["9"]["BorderSizePixel"] = 0;
@@ -2515,6 +2518,7 @@ function Library:Window(options)
 				Section["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Section["9"]["Name"] = [[Section]];
 				Section["9"]["AutomaticSize"] = Enum.AutomaticSize.XY;
+				Section["9"]["ZIndex"] = zindexcount;
 				
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.HomeSection.Left.Section.UIStroke
 				Section["a"] = Instance.new("UIStroke", Section["9"]);
