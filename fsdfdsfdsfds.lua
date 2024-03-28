@@ -12,6 +12,7 @@ local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection
 
 local zindexcount = 999
 local zindexcount2 = 999
+local indicatorcount = 0
 
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
@@ -612,6 +613,11 @@ function Library:Window(options)
 		function GUI:UpdateIndicator(Target)
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
+				indicatorcount += 1
+
+				if indicatorcount >= 1 then
+					return
+				end
 
 				do
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
@@ -748,7 +754,7 @@ function Library:Window(options)
 				end)
 			else
 				GUI["20"].Text = "nil"
-				
+				indicatorcount = 0
 				for i, v in pairs(GUI["1b"]:GetChildren()) do
 					if v.Name ~= "TargetFrame" then
 						v:Destroy()
