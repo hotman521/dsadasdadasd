@@ -3036,6 +3036,10 @@ function Library:Window(options)
 						options.Callback(Toggle.State)
 					end
 				end
+
+				if options.Default == true then
+					Toggle:Toggle(true)
+				end
 				
 				do -- Logic
 					Toggle["36"].MouseEnter:Connect(function()
