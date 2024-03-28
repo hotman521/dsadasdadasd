@@ -3238,7 +3238,7 @@ function Library:Window(options)
 			
 			function Section:Dropdown(options)
 				options = Library:Validate({
-					Default = nil,
+					Default = "None",
 					Name = "Preview Dropdown",
 					Content = {},
 					Flag = Library.NewFlag(),
@@ -3256,6 +3256,10 @@ function Library:Window(options)
 				
 				if not options.Default then
 					Library.Flags[options.Default] = options.Default
+					options.Callback(options.Default)
+				end
+
+				if options.Default ~= "None" then
 					options.Callback(options.Default)
 				end
 				
