@@ -3009,7 +3009,7 @@ function Library:Window(options)
 					function Toggle:ColorPicker(options)
 						options = Library:Validate({
 							Name = "Preview Color Picker",
-							Default = Color3.fromHSV(1, 1, 1),
+							Default = Color3.fromRGB(255, 0, 0),
 							Flag = Library.NewFlag(),
 							Callback = function() end,
 						}, options or {})
@@ -3018,14 +3018,44 @@ function Library:Window(options)
 							Library.Flags[options.Default] = options.Default
 							options.Callback(options.Default)
 						end
+						
+						local function rgbToHsv(r, g, b)
+							r, g, b = r / 255, g / 255, b / 255
+							local max, min = math.max(r, g, b), math.min(r, g, b)
+							local h, s, v
+							v = max
+							local d = max - min
+							if max == 0 then
+								s = 0
+							else
+								s = d / max
+							end
+							if max == min then
+								h = 0 -- achromatic
+							else
+								if max == r then
+									h = (g - b) / d + (g < b and 6 or 0)
+								elseif max == g then
+									h = (b - r) / d + 2
+								elseif max == b then
+									h = (r - g) / d + 4
+								end
+								h = h / 6
+							end
+							return h, s, v
+						end
+						
+						local color = options.Default
+						local r, g, b = color.R * 255, color.G * 255, color.B * 255
+						local h, s, v = rgbToHsv(r, g, b)
 
 						local ColorPicker = {
 							Hover = false,
 							MouseDown = false,
 							MainFrameHover = false,
 							Color = options.Default,
-							Saturation = {1, 1},
-							Hue = 1,
+							Saturation = {s, v},
+							Hue = h,
 						}
 						
 						function ColorPicker:GetFlag()
@@ -3067,7 +3097,7 @@ function Library:Window(options)
 									ColorPicker["38"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
 									ColorPicker["38"]["Size"] = UDim2.new(0, 150, 0, 150);
 									ColorPicker["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-									ColorPicker["38"]["Position"] = UDim2.new(1, 0, 0, 0);
+									ColorPicker["38"]["Position"] = UDim2.new(1, -185, 0, 0);
 									ColorPicker["38"]["Name"] = [[MainFrame]];
 
 									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.UIStroke
