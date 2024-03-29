@@ -3078,7 +3078,7 @@ function Library:Window(options)
 									ColorPicker:AddFrame()
 								end
 
-								if not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
 									ColorPicker:RemoveFrame()
 								end
 							end)
@@ -3722,7 +3722,7 @@ function Library:Window(options)
 									ColorPicker:AddFrame()
 								end
 								
-								if ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
 									ColorPicker:RemoveFrame()
 								end
 							end)
