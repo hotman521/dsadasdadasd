@@ -3025,6 +3025,7 @@ function Library:Window(options)
 
 						if Toggle.State then
 							Library:tween(Toggle["38"], {BackgroundColor3 = Color3.fromRGB(0, 255, 0)})
+							GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
 						else
 							Library:tween(Toggle["38"], {BackgroundColor3 = Color3.fromRGB(13, 13, 13)})
 							GUI:RemoveKeybind(options.Name)
