@@ -3052,6 +3052,7 @@ function Library:Window(options)
 							ColorPicker["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							ColorPicker["36"]["Position"] = UDim2.new(1, -30, 0.5, 0);
 							ColorPicker["36"]["Name"] = [[Colorpicker]];
+							ColorPicker["36"]["ZIndex"] = 1000
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.UIStroke
 							ColorPicker["37"] = Instance.new("UIStroke", ColorPicker["36"]);
@@ -3075,6 +3076,7 @@ function Library:Window(options)
 									ColorPicker["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 									ColorPicker["38"]["Position"] = UDim2.new(1, -185, 0, 0);
 									ColorPicker["38"]["Name"] = [[MainFrame]];
+									ColorPicker["38"]["ZIndex"] = 10;
 
 									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.UIStroke
 									ColorPicker["39"] = Instance.new("UIStroke", ColorPicker["38"]);
