@@ -1456,10 +1456,9 @@ function Library:Window(options)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if PlayerListTab.CurrentPlayer ~= nil then
 						local PlayerToTeleportTo = PlayerListTab.CurrentPlayer ~= nil and players:FindFirstChild(PlayerListTab.CurrentPlayer["25"].Name)
-						local FormattedPosition = Vector3.new(math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.X), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Y), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Z))
 						
 						players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = PlayerToTeleportTo.Character:GetPivot()
-						Library:Notify(string.format("Successfully teleported to %s at (%s)", PlayerToTeleportTo.Name, tostring(FormattedPosition)))
+						Library:Notify(string.format("Successfully teleported to %s at (%s)", PlayerToTeleportTo.Name, tostring(string.format("%.0f, %.0f, %.0f", PlayerToTeleportTo.Character.HumanoidRootPart.Position.X, PlayerToTeleportTo.Character.HumanoidRootPart.Position.Y, PlayerToTeleportTo.Character.HumanoidRootPart.Position.Z))))
 					end
 				end
 			end)
