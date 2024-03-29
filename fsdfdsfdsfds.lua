@@ -12,6 +12,7 @@ local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection
 
 local zindexcount = 999
 local zindexcount2 = 999
+local zindexcount3 = 500
 
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
@@ -3224,7 +3225,7 @@ function Library:Window(options)
 					Toggle["35"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Toggle["35"]["Position"] = UDim2.new(0, 0, 0, 94);
 					Toggle["35"]["Name"] = [[Toggle]];
-					Toggle["35"]["ZIndex"] = 1000;
+					Toggle["35"]["ZIndex"] = 500;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Text
 					Toggle["36"] = Instance.new("TextLabel", Toggle["35"]);
