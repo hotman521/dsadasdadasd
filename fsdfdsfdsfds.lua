@@ -2872,7 +2872,7 @@ function Library:Window(options)
 							Keybind["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							Keybind["36"]["Position"] = UDim2.new(1, -30, 0, 0);
 							Keybind["36"]["Name"] = [[Keybind]];
-							Keybind["36"]["ZIndex"] = 2;
+							Keybind["36"]["ZIndex"] = zindexcount + 1;
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Keybind.UIPadding
 							Keybind["37"] = Instance.new("UIPadding", Keybind["36"]);
@@ -3052,7 +3052,6 @@ function Library:Window(options)
 							ColorPicker["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							ColorPicker["36"]["Position"] = UDim2.new(1, -30, 0.5, 0);
 							ColorPicker["36"]["Name"] = [[Colorpicker]];
-							ColorPicker["36"]["ZIndex"] = zindexcount + 1;
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.UIStroke
 							ColorPicker["37"] = Instance.new("UIStroke", ColorPicker["36"]);
