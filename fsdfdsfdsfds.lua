@@ -3013,7 +3013,332 @@ function Library:Window(options)
 					end
 
 					function Toggle:ColorPicker(options)
+						options = Library:Validate({
+							Default = Color3.fromHSV(1, 1, 1),
+							Flag = Library.NewFlag(),
+							Callback = function() end,
+						}, options or {})
 						
+						if not options.Default then
+							Library.Flags[options.Default] = options.Default
+							options.Callback(options.Default)
+						end
+
+						local ColorPicker = {
+							Hover = false,
+							MouseDown = false,
+							MainFrameHover = false,
+							Color = options.Default,
+							Saturation = {1, 1},
+							Hue = 1,
+						}
+						
+						function ColorPicker:GetFlag()
+							return options.Flag
+						end
+						
+						do -- Render
+							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker
+							ColorPicker["36"] = Instance.new("Frame", Toggle["35"]);
+							ColorPicker["36"]["BorderSizePixel"] = 0;
+							ColorPicker["36"]["BackgroundColor3"] = ColorPicker.Color;
+							ColorPicker["36"]["AnchorPoint"] = Vector2.new(0, 0.5);
+							ColorPicker["36"]["Size"] = UDim2.new(0, 30, 0, 13);
+							ColorPicker["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							ColorPicker["36"]["Position"] = UDim2.new(1, -30, 0.5, 0);
+							ColorPicker["36"]["Name"] = [[Colorpicker]];
+
+							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.UIStroke
+							ColorPicker["37"] = Instance.new("UIStroke", ColorPicker["36"]);
+							ColorPicker["37"]["Color"] = Color3.fromRGB(28, 28, 28);
+							ColorPicker["37"]["Name"] = "UISTROKE";
+						end
+						
+						do -- Methods
+							function ColorPicker:AddFrame()
+								local Dragging = {
+									GUI = nil,
+									True = false,
+								}
+								
+								do -- Render
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame
+									ColorPicker["38"] = Instance.new("Frame", ColorPicker["36"]);
+									ColorPicker["38"]["BorderSizePixel"] = 0;
+									ColorPicker["38"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									ColorPicker["38"]["Size"] = UDim2.new(0, 150, 0, 150);
+									ColorPicker["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["38"]["Position"] = UDim2.new(1, -185, 0, 0);
+									ColorPicker["38"]["Name"] = [[MainFrame]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.UIStroke
+									ColorPicker["39"] = Instance.new("UIStroke", ColorPicker["38"]);
+									ColorPicker["39"]["Color"] = Color3.fromRGB(28, 28, 28);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Title
+									ColorPicker["3a"] = Instance.new("TextLabel", ColorPicker["38"]);
+									ColorPicker["3a"]["BorderSizePixel"] = 0;
+									ColorPicker["3a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["3a"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+									ColorPicker["3a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									ColorPicker["3a"]["TextSize"] = 14;
+									ColorPicker["3a"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									ColorPicker["3a"]["Size"] = UDim2.new(1, 0, 0, 20);
+									ColorPicker["3a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["3a"]["Text"] = [[Preview Color Picker]];
+									ColorPicker["3a"]["Name"] = [[Title]];
+									ColorPicker["3a"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Title.UIPadding
+									ColorPicker["3b"] = Instance.new("UIPadding", ColorPicker["3a"]);
+									ColorPicker["3b"]["PaddingLeft"] = UDim.new(0, 5);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame
+									ColorPicker["3c"] = Instance.new("Frame", ColorPicker["38"]);
+									ColorPicker["3c"]["BorderSizePixel"] = 0;
+									ColorPicker["3c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["3c"]["BackgroundTransparency"] = 1;
+									ColorPicker["3c"]["Size"] = UDim2.new(0, 125, 0, 100);
+									ColorPicker["3c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["3c"]["Position"] = UDim2.new(0, 5, 0, 20);
+									ColorPicker["3c"]["Name"] = [[ColorFrame]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame.UIStroke
+									ColorPicker["3d"] = Instance.new("UIStroke", ColorPicker["3c"]);
+									ColorPicker["3d"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame.Square
+									ColorPicker["3e"] = Instance.new("Frame", ColorPicker["3c"]);
+									ColorPicker["3e"]["ZIndex"] = 7;
+									ColorPicker["3e"]["BorderSizePixel"] = 0;
+									ColorPicker["3e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["3e"]["Size"] = UDim2.new(0, 3, 0, 3);
+									ColorPicker["3e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["3e"]["Position"] = UDim2.new(1, -3, 0, 0);
+									ColorPicker["3e"]["Name"] = [[Square]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame.Square.UIStroke
+									ColorPicker["3f"] = Instance.new("UIStroke", ColorPicker["3e"]);
+									ColorPicker["3f"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame.Image
+									ColorPicker["40"] = Instance.new("ImageLabel", ColorPicker["3c"]);
+									ColorPicker["40"]["BorderSizePixel"] = 0;
+									ColorPicker["40"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["40"]["Image"] = [[rbxassetid://8180999986]];
+									ColorPicker["40"]["Size"] = UDim2.new(1, 0, 1, 0);
+									ColorPicker["40"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["40"]["Name"] = [[Image]];
+									ColorPicker["40"]["Rotation"] = 180;
+									ColorPicker["40"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.ColorFrame.Image.UIGradient
+									ColorPicker["41"] = Instance.new("UIGradient", ColorPicker["40"]);
+									ColorPicker["41"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(255, 0, 5)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HexBox
+									ColorPicker["42"] = Instance.new("Frame", ColorPicker["38"]);
+									ColorPicker["42"]["BorderSizePixel"] = 0;
+									ColorPicker["42"]["BackgroundColor3"] = Color3.fromRGB(17, 17, 17);
+									ColorPicker["42"]["Size"] = UDim2.new(0, 140, 0, 20);
+									ColorPicker["42"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["42"]["Position"] = UDim2.new(0, 5, 1, -25);
+									ColorPicker["42"]["Name"] = [[HexBox]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HexBox.UIStroke
+									ColorPicker["43"] = Instance.new("UIStroke", ColorPicker["42"]);
+									ColorPicker["43"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HexBox.HexCode
+									ColorPicker["44"] = Instance.new("TextLabel", ColorPicker["42"]);
+									ColorPicker["44"]["BorderSizePixel"] = 0;
+									ColorPicker["44"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["44"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									ColorPicker["44"]["TextSize"] = 15;
+									ColorPicker["44"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									ColorPicker["44"]["Size"] = UDim2.new(1, 0, 1, 0);
+									ColorPicker["44"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["44"]["Text"] = [[#ff0000]];
+									ColorPicker["44"]["Name"] = [[HexCode]];
+									ColorPicker["44"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HueFrame
+									ColorPicker["45"] = Instance.new("Frame", ColorPicker["38"]);
+									ColorPicker["45"]["BorderSizePixel"] = 0;
+									ColorPicker["45"]["BackgroundColor3"] = Color3.fromRGB(17, 17, 17);
+									ColorPicker["45"]["Size"] = UDim2.new(0, 10, 0, 100);
+									ColorPicker["45"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["45"]["Position"] = UDim2.new(1, -15, 0, 20);
+									ColorPicker["45"]["Name"] = [[HueFrame]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HueFrame.UIStroke
+									ColorPicker["46"] = Instance.new("UIStroke", ColorPicker["45"]);
+									ColorPicker["46"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HueFrame.Bar
+									ColorPicker["47"] = Instance.new("Frame", ColorPicker["45"]);
+									ColorPicker["47"]["ZIndex"] = 2;
+									ColorPicker["47"]["BorderSizePixel"] = 0;
+									ColorPicker["47"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["47"]["Size"] = UDim2.new(1, 2, 0, 2);
+									ColorPicker["47"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["47"]["Position"] = UDim2.new(0, -1, 0, 0);
+									ColorPicker["47"]["Name"] = [[Bar]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HueFrame.Bar.UIStroke
+									ColorPicker["48"] = Instance.new("UIStroke", ColorPicker["47"]);
+
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.HueFrame.Image
+									ColorPicker["49"] = Instance.new("ImageLabel", ColorPicker["45"]);
+									ColorPicker["49"]["BorderSizePixel"] = 0;
+									ColorPicker["49"]["ScaleType"] = Enum.ScaleType.Crop;
+									ColorPicker["49"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									ColorPicker["49"]["Image"] = [[rbxassetid://8180989234]];
+									ColorPicker["49"]["Size"] = UDim2.new(1, 0, 1, 0);
+									ColorPicker["49"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									ColorPicker["49"]["Name"] = [[Image]];
+								end
+								
+								do
+									local function UpdateSaturation(PercentageX: number, PercentageY: number)
+										local PercentageX = typeof(PercentageX == "number") and math.clamp(PercentageX, 0, 1) or 0
+										local PercentageY = typeof(PercentageY == "number") and math.clamp(PercentageY, 0, 1) or 0
+										ColorPicker.Saturation[1] = PercentageX
+										ColorPicker.Saturation[2] = 1 - PercentageY
+										ColorPicker:Update()
+									end
+								end
+								
+								do -- Methods
+									local function UpdateColor()
+										ColorPicker.Color = Color3.fromHSV(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
+
+										ColorPicker["44"].Text = "#" .. string.upper(ColorPicker.Color:ToHex()) .. string.upper(string.format("%X", 255))
+										ColorPicker["36"].BackgroundColor3 = ColorPicker.Color
+										ColorPicker["41"].Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromHSV(ColorPicker.Hue, 1, 1)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
+
+										ColorPicker["3e"].Position = UDim2.fromScale(math.clamp(ColorPicker.Saturation[1], 0, 0.95), math.clamp(1 - ColorPicker.Saturation[2], 0, 0.95))
+										ColorPicker["47"].Position = UDim2.fromScale(0, math.clamp(ColorPicker.Hue, 0, 0.98))
+
+										options.Callback(ColorPicker.Color)
+										Library.Flags[ColorPicker:GetFlag()] = ColorPicker.Color
+									end
+
+									function ColorPicker:Update()
+										UpdateColor()
+									end
+
+									function ColorPicker:GetValue(): Color3
+										return ColorPicker.Color
+									end
+									
+									function ColorPicker:UpdateHue(Percentage: number)
+										local Percentage = typeof(Percentage == "number") and math.clamp(Percentage, 0, 1) or 0
+										ColorPicker.Hue = Percentage
+										ColorPicker:Update()
+									end
+									
+									function ColorPicker:UpdateSaturation(PercentageX: number, PercentageY: number)
+										local PercentageX = typeof(PercentageX == "number") and math.clamp(PercentageX, 0, 1) or 0
+										local PercentageY = typeof(PercentageY == "number") and math.clamp(PercentageY, 0, 1) or 0
+										ColorPicker.Saturation[1] = PercentageX
+										ColorPicker.Saturation[2] = 1 - PercentageY
+										ColorPicker:Update()
+									end
+								end
+								
+								do -- Logic
+									ColorPicker["38"].MouseEnter:Connect(function()
+										ColorPicker.MainFrameHover = true
+									end)
+
+									ColorPicker["38"].MouseLeave:Connect(function()
+										ColorPicker.MainFrameHover = false
+									end)
+									
+									ColorPicker["3c"].InputBegan:Connect(function(Input: InputObject, Process: boolean)
+										if (not Dragging.Gui and not Dragging.True) and (Input.UserInputType == Enum.UserInputType.MouseButton1) then
+											Dragging = {Gui = ColorPicker["3c"], True = true}
+											local InputPosition = Vector2.new(Input.Position.X, Input.Position.Y)
+											local Percentage = (InputPosition - ColorPicker["3c"].AbsolutePosition) / ColorPicker["3c"].AbsoluteSize
+											ColorPicker:UpdateSaturation(Percentage.X, Percentage.Y)
+										end
+									end)
+									
+									ColorPicker["45"].InputBegan:Connect(function(Input: InputObject, Process: boolean)
+										if (not Dragging.Gui and not Dragging.True) and (Input.UserInputType == Enum.UserInputType.MouseButton1) then
+											Dragging = {Gui = ColorPicker["45"], True = true}
+											local InputPosition = Vector2.new(Input.Position.X, Input.Position.Y)
+											local Percentage = (InputPosition - ColorPicker["45"].AbsolutePosition) / ColorPicker["45"].AbsoluteSize
+											ColorPicker:UpdateHue(Percentage.Y)
+										end
+									end)
+									
+									uis.InputChanged:Connect(function(Input: InputObject, Process: boolean)
+										if (Dragging.Gui ~= ColorPicker["3c"] and Dragging.Gui ~= ColorPicker["45"]) then return end
+										if not (uis:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)) then
+											Dragging = {Gui = nil, True = false}
+											return
+										end
+										
+										local InputPosition = Vector2.new(Input.Position.X, Input.Position.Y)
+										if (Input.UserInputType == Enum.UserInputType.MouseMovement) then
+											if Dragging.Gui == ColorPicker["3c"] then
+												local Percentage = (InputPosition - ColorPicker["3c"].AbsolutePosition) / ColorPicker["3c"].AbsoluteSize
+												ColorPicker:UpdateSaturation(Percentage.X, Percentage.Y)
+											end
+											if Dragging.Gui == ColorPicker["45"] then
+												local Percentage = (InputPosition - ColorPicker["45"].AbsolutePosition) / ColorPicker["45"].AbsoluteSize
+												ColorPicker:UpdateHue(Percentage.Y)
+											end
+										end
+									end)
+								end
+								
+								ColorPicker:Update()
+							end
+							
+							function ColorPicker:RemoveFrame()
+								for i, v in pairs(ColorPicker["36"]:GetDescendants()) do
+									if v.Name ~= "UISTROKE" then
+										v:Destroy()
+									end
+								end
+							end
+						end
+						
+						do -- Logic
+							ColorPicker["36"].MouseEnter:Connect(function()
+								ColorPicker.Hover = true
+
+								Library:tween(ColorPicker["37"], {Color = Color3.fromRGB(55, 55, 55)})
+							end)
+
+							ColorPicker["36"].MouseLeave:Connect(function()
+								ColorPicker.Hover = false
+
+								Library:tween(ColorPicker["37"], {Color = Color3.fromRGB(28, 28, 28)})
+							end)
+
+							uis.InputBegan:Connect(function(input, gpe)
+								if gpe then return end
+
+								if input.UserInputType == Enum.UserInputType.MouseButton1 and ColorPicker.Hover then
+									ColorPicker:AddFrame()
+								end
+								
+								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+									ColorPicker:RemoveFrame()
+								end
+							end)
+						end
+						
+						
+						options.Callback(ColorPicker.Color)
+						Library.Flags[options.Flag] = ColorPicker.Color
+						
+						return ColorPicker
 					end
 					
 					function Toggle:Toggle(b)
