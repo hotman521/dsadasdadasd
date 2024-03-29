@@ -3014,6 +3014,7 @@ function Library:Window(options)
 
 					function Toggle:ColorPicker(options)
 						options = Library:Validate({
+							Name = "Preview Color Picker",
 							Default = Color3.fromHSV(1, 1, 1),
 							Flag = Library.NewFlag(),
 							Callback = function() end,
@@ -3035,6 +3036,10 @@ function Library:Window(options)
 						
 						function ColorPicker:GetFlag()
 							return options.Flag
+						end
+						
+						function ColorPicker:GetTitle()
+							return options.Name
 						end
 						
 						do -- Render
@@ -3085,7 +3090,7 @@ function Library:Window(options)
 									ColorPicker["3a"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
 									ColorPicker["3a"]["Size"] = UDim2.new(1, 0, 0, 20);
 									ColorPicker["3a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-									ColorPicker["3a"]["Text"] = [[Preview Color Picker]];
+									ColorPicker["3a"]["Text"] = ColorPicker:GetTitle();
 									ColorPicker["3a"]["Name"] = [[Title]];
 									ColorPicker["3a"]["BackgroundTransparency"] = 1;
 
