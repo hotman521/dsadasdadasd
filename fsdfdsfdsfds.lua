@@ -1436,12 +1436,14 @@ function Library:Window(options)
 				PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			end
 			
-			PlayerListTab["37"].InputBegan:Connect(function(input)
+			PlayerListTab["34"].InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if PlayerListTab.CurrentPlayer ~= nil then
+						local PlayerToSpectate = PlayerListTab.CurrentPlayer ~= nil and players:FindFirstChild(PlayerListTab.CurrentPlayer["25"].Name)
+							
 						if PlayerListTab.Spectating == false then
 							PlayerListTab.Spectating = true
-							workspace.CurrentCamera.CameraSubject = PlayerListTab.CurrentPlayer.Character
+							workspace.CurrentCamera.CameraSubject = PlayerToSpectate.Character
 						else
 							PlayerListTab.Spectating = false
 							workspace.CurrentCamera.CameraSubject = players.LocalPlayer.Character
@@ -1450,10 +1452,10 @@ function Library:Window(options)
 				end
 			end)
 			
-			PlayerListTab["34"].InputBegan:Connect(function(input)
+			PlayerListTab["37"].InputBegan:Connect(function(input)
 				if input.UserInputType == Enum.UserInputType.MouseButton1 then
 					if PlayerListTab.CurrentPlayer ~= nil then
-						local PlayerToTeleportTo = players:FindFirstChild(PlayerListTab.CurrentPlayer)
+						local PlayerToTeleportTo = PlayerListTab.CurrentPlayer ~= nil and players:FindFirstChild(PlayerListTab.CurrentPlayer["25"].Name)
 						local FormattedPosition = Vector3.new(math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.X), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Y), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Z))
 						
 						players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = PlayerToTeleportTo.Character:GetPivot()
