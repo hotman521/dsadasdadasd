@@ -1069,6 +1069,7 @@ function Library:Window(options)
 				test = false,
 				test2 = false,
 				CurrentPlayer = nil,
+				Spectating = false,
 			}
 			
 			do -- Render
@@ -1275,6 +1276,73 @@ function Library:Window(options)
 				PlayerListTab["1c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				PlayerListTab["1c"]["Position"] = UDim2.new(1, -10, 0, 0);
 				PlayerListTab["1c"]["Name"] = [[DropdownHolder]];
+				
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.SpectateButton
+				PlayerListTab["34"] = Instance.new("Frame", PlayerListTab["1c"]);
+				PlayerListTab["34"]["BorderSizePixel"] = 0;
+				PlayerListTab["34"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+				PlayerListTab["34"]["Size"] = UDim2.new(0.5, -10, 0, 18);
+				PlayerListTab["34"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				PlayerListTab["34"]["Position"] = UDim2.new(0, 0, 1, -15);
+				PlayerListTab["34"]["Name"] = [[SpectateButton]];
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.SpectateButton.Text
+				PlayerListTab["35"] = Instance.new("TextLabel", PlayerListTab["34"]);
+				PlayerListTab["35"]["TextWrapped"] = true;
+				PlayerListTab["35"]["BorderSizePixel"] = 0;
+				PlayerListTab["35"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				PlayerListTab["35"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				PlayerListTab["35"]["TextSize"] = 14;
+				PlayerListTab["35"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
+				PlayerListTab["35"]["Size"] = UDim2.new(1, 0, 1, -4);
+				PlayerListTab["35"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				PlayerListTab["35"]["Text"] = [[Spectate]];
+				PlayerListTab["35"]["Name"] = [[Text]];
+				PlayerListTab["35"]["BackgroundTransparency"] = 1;
+				PlayerListTab["35"]["Position"] = UDim2.new(0, 0, 0, 2);
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.SpectateButton.UIStroke
+				PlayerListTab["36"] = Instance.new("UIStroke", PlayerListTab["34"]);
+				PlayerListTab["36"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.GotoButton
+				PlayerListTab["37"] = Instance.new("Frame", PlayerListTab["1c"]);
+				PlayerListTab["37"]["BorderSizePixel"] = 0;
+				PlayerListTab["37"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+				PlayerListTab["37"]["Size"] = UDim2.new(0.5, -10, 0, 18);
+				PlayerListTab["37"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				PlayerListTab["37"]["Position"] = UDim2.new(0.5, 0, 1, -15);
+				PlayerListTab["37"]["Name"] = [[GotoButton]];
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.GotoButton.Text
+				PlayerListTab["38"] = Instance.new("TextLabel", PlayerListTab["37"]);
+				PlayerListTab["38"]["TextWrapped"] = true;
+				PlayerListTab["38"]["BorderSizePixel"] = 0;
+				PlayerListTab["38"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				PlayerListTab["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				PlayerListTab["38"]["TextSize"] = 14;
+				PlayerListTab["38"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
+				PlayerListTab["38"]["Size"] = UDim2.new(1, 0, 1, -4);
+				PlayerListTab["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				PlayerListTab["38"]["Text"] = [[Goto]];
+				PlayerListTab["38"]["Name"] = [[Text]];
+				PlayerListTab["38"]["BackgroundTransparency"] = 1;
+				PlayerListTab["38"]["Position"] = UDim2.new(0, 0, 0, 2);
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.GotoButton.UIStroke
+				PlayerListTab["39"] = Instance.new("UIStroke", PlayerListTab["37"]);
+				PlayerListTab["39"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.UIListLayout
+				PlayerListTab["3a"] = Instance.new("UIListLayout", PlayerListTab["33"]);
+				PlayerListTab["3a"]["VerticalAlignment"] = Enum.VerticalAlignment.Bottom;
+				PlayerListTab["3a"]["FillDirection"] = Enum.FillDirection.Horizontal;
+				PlayerListTab["3a"]["Padding"] = UDim.new(0, 10);
+				PlayerListTab["3a"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSettings.ContentContainer.DropdownHolder.UIPadding
+				PlayerListTab["3b"] = Instance.new("UIPadding", PlayerListTab["33"]);
+				PlayerListTab["3b"]["PaddingLeft"] = UDim.new(0, 6);
 
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.UIListLayout
 				PlayerListTab["1d"] = Instance.new("UIListLayout", PlayerListTab["5"]);
@@ -1367,6 +1435,32 @@ function Library:Window(options)
 				PlayerListTab["2f"]["Padding"] = UDim.new(0, 2);
 				PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			end
+			
+			PlayerListTab["37"].InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if PlayerListTab.CurrentPlayer ~= nil then
+						if PlayerListTab.Spectating == false then
+							PlayerListTab.Spectating = true
+							workspace.CurrentCamera.CameraSubject = PlayerListTab.CurrentPlayer.Character
+						else
+							PlayerListTab.Spectating = false
+							workspace.CurrentCamera.CameraSubject = players.LocalPlayer.Character
+						end
+					end
+				end
+			end)
+			
+			PlayerListTab["34"].InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					if PlayerListTab.CurrentPlayer ~= nil then
+						local PlayerToTeleportTo = players:FindFirstChild(PlayerListTab.CurrentPlayer)
+						local FormattedPosition = Vector3.new(math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.X), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Y), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Z))
+						
+						players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = PlayerToTeleportTo.Character:GetPivot()
+						Library:Notify(string.format("Successfully teleported to %s at (%s)", PlayerToTeleportTo.Name, FormattedPosition))
+					end
+				end
+			end)
 			
 			do -- Methods
 				function PlayerListTab:RemnovePlayer(Player)
