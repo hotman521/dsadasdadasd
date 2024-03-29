@@ -1459,7 +1459,7 @@ function Library:Window(options)
 						local FormattedPosition = Vector3.new(math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.X), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Y), math.floor(PlayerToTeleportTo.Character.HumanoidRootPart.Position.Z))
 						
 						players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = PlayerToTeleportTo.Character:GetPivot()
-						Library:Notify(string.format("Successfully teleported to %s at (%s)", PlayerToTeleportTo.Name, FormattedPosition))
+						Library:Notify(string.format("Successfully teleported to %s at (%s)", PlayerToTeleportTo.Name, tostring(FormattedPosition)))
 					end
 				end
 			end)
