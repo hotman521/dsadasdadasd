@@ -2860,7 +2860,7 @@ function Library:Window(options)
 							Hover = false,
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
-							State = false,
+							State = true,
 						}
 						
 						do -- Render
