@@ -4161,7 +4161,7 @@ function Library:Window(options)
 					Dropdown["c5"]["Position"] = UDim2.new(0, 0, 1, 0);
 					Dropdown["c5"]["AutomaticSize"] = Enum.AutomaticSize.Y;
 					Dropdown["c5"]["Name"] = [[Background]];
-					Dropdown["c5"]["ZIndex"] = 5;
+					Dropdown["c5"]["ZIndex"] = 100;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.UIListLayout
 					Dropdown["c6"] = Instance.new("UIListLayout", Dropdown["c5"]);
