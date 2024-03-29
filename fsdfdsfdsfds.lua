@@ -3353,11 +3353,11 @@ function Library:Window(options)
 							uis.InputBegan:Connect(function(input, gpe)
 								if gpe then return end
 
-								if input.UserInputType == Enum.UserInputType.MouseButton1 and ColorPicker.Hover then
+								if ColorPicker.Hover and input.UserInputType == Enum.UserInputType.MouseButton1 then
 									ColorPicker:AddFrame()
 								end
 								
-								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
 									ColorPicker:RemoveFrame()
 								end
 							end)
