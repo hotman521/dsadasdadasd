@@ -2770,6 +2770,7 @@ function Library:Window(options)
 					Toggle["35"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Toggle["35"]["Position"] = UDim2.new(0, 0, 0, 94);
 					Toggle["35"]["Name"] = [[Toggle]];
+					Toggle["35"]["ZIndex"] = 1000;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Text
 					Toggle["36"] = Instance.new("TextLabel", Toggle["35"]);
@@ -2872,7 +2873,6 @@ function Library:Window(options)
 							Keybind["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							Keybind["36"]["Position"] = UDim2.new(1, -30, 0, 0);
 							Keybind["36"]["Name"] = [[Keybind]];
-							Keybind["36"]["ZIndex"] = zindexcount + 1;
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Keybind.UIPadding
 							Keybind["37"] = Instance.new("UIPadding", Keybind["36"]);
