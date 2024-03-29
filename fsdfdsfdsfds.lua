@@ -2713,12 +2713,6 @@ function Library:Window(options)
 				end
 				
 				do -- Methods
-					function Label:ColorPicker(options)
-
-					end
-				end
-				
-				do -- Methods
 					function Label:SetText(text)
 						options.Message = text
 						Label:_Update()
@@ -3073,7 +3067,7 @@ function Library:Window(options)
 									ColorPicker["38"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
 									ColorPicker["38"]["Size"] = UDim2.new(0, 150, 0, 150);
 									ColorPicker["38"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-									ColorPicker["38"]["Position"] = UDim2.new(1, -185, 0, 0);
+									ColorPicker["38"]["Position"] = UDim2.new(1, 0, 0, 0);
 									ColorPicker["38"]["Name"] = [[MainFrame]];
 
 									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.UIStroke
