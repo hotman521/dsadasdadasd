@@ -3458,7 +3458,7 @@ function Library:Window(options)
 
 									Library.Flags[Toggle:GetFlag()] = Keybind.State
 									Toggle:GetCallback(Keybind.State)
-								elseif options.Mode == "Off Hold"
+								elseif options.Mode == "Off Hold" then
 									if not Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
 									else
