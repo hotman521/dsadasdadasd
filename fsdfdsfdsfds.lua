@@ -4088,7 +4088,7 @@ function Library:Window(options)
 					Dropdown["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["be"]["Position"] = UDim2.new(0, 0, 0, 57);
 					Dropdown["be"]["Name"] = [[DropdownOpen]];
-					Dropdown["be"]["ZIndex"] = zindexcount2;
+					Dropdown["be"]["ZIndex"] = zindexcount2 + 100;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Text
 					Dropdown["bf"] = Instance.new("TextLabel", Dropdown["be"]);
