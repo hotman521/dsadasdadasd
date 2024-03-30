@@ -808,7 +808,7 @@ function Library:Window(options)
 	function GUI:IndicatorVisibility()
 		GUI["16"].Visible = not GUI["16"].Visible
 	end
-	
+
 	function GUI:FadeOut()
 		for _, UI in pairs(GUI["1"]:GetDescendants()) do
 			if UI:IsA("Frame") then
@@ -822,36 +822,12 @@ function Library:Window(options)
 			end
 		end
 	end
-
-	function GUI:FadeIn()
-		for _, UI in pairs(GUI["1"]:GetDescendants()) do
-			if UI:IsA("Frame") then
-				Library:tween(UI, {BackgroundTransparency = 0})
-			elseif UI:IsA("TextLabel") then
-				Library:tween(UI, {TextTransparency = 0})
-			elseif UI:IsA("UIStroke") then
-				Library:tween(UI, {Transparency = 0})
-			elseif UI:IsA("ImageLabel") then
-				Library:tween(UI, {ImageTransparency = 0})
-			end
-		end
-	end
-	
-	function GUI:ToggleUI()
-		GUI.Faded = not GUI.Faded
-		
-		if GUI.Faded then
-			GUI:FadeOut()
-		else
-			GUI:FadeIn()
-		end
-	end
 	
 	uis.InputBegan:Connect(function(input, gpe)
 		if gpe then return end
 		
 		if input.KeyCode == options.CloseBind then
-			GUI:ToggleUI()
+			GUI["2"].Visible = not GUI["2"].Visible
 		end
 	end)
 	
