@@ -1599,7 +1599,7 @@ function Library:Window(options)
 						Item["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 						Item["28"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
 						Item["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-						Item["28"]["Text"] = Player.Team ~= nil and Player.Team or "Neutral";
+						Item["28"]["Text"] = Player.Team and tostring(Player.Team) or "Neutral";
 						Item["28"]["Name"] = [[Team]];
 						Item["28"]["BackgroundTransparency"] = 1;
 						Item["28"]["Position"] = UDim2.new(0.33000001311302185, 0, 0, 0);
