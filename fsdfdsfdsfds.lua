@@ -3306,6 +3306,7 @@ function Library:Window(options)
 						options = Library:Validate({
 							Default = Enum.KeyCode.W,
 							Mode = "Toggle",
+							Flag = Library.NewFlag(),
 						}, options or {})
 						
 						Toggle.Keybind = true
