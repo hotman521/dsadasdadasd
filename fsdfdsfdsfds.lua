@@ -3356,6 +3356,10 @@ function Library:Window(options)
 						function Keybind:Active()
 							return Keybind.State
 						end
+
+						function Keybind:Set(State)
+							Keybind.State = State
+						end
 						
 						local function set(key)
 							if typeof(key) == "string" then
