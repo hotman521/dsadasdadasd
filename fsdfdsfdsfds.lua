@@ -1520,7 +1520,7 @@ function Library:Window(options)
 						Item["26"]["TextColor3"] = Color3.fromRGB(216, 216, 216);
 						Item["26"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
 						Item["26"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-						Item["26"]["Text"] = Player.Name;
+						Item["26"]["Text"] = tostring(Player.Name);
 						Item["26"]["Name"] = [[PlayerName]];
 						Item["26"]["BackgroundTransparency"] = 1;
 
