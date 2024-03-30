@@ -12,6 +12,7 @@ local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection
 
 local zindexcount = 999
 local zindexcount2 = 999
+
 local function wait_for_child(parent, child)
 	local child = parent:WaitForChild(child);
 	while not child do
@@ -808,11 +809,49 @@ function Library:Window(options)
 		GUI["16"].Visible = not GUI["16"].Visible
 	end
 	
+	function GUI:FadeOut()
+		for _, UI in pairs(GUI["1"]:GetDescendants()) do
+			if UI:IsA("Frame") then
+				Library:tween(UI, {BackgroundTransparency = 1})
+			elseif UI:IsA("TextLabel") then
+				Library:tween(UI, {TextTransparency = 1})
+			elseif UI:IsA("UIStroke") then
+				Library:tween(UI, {Transparency = 1})
+			elseif UI:IsA("ImageLabel") then
+				Library:tween(UI, {ImageTransparency = 1})
+			end
+		end
+	end
+
+	function GUI:FadeIn()
+		for _, UI in pairs(GUI["1"]:GetDescendants()) do
+			if UI:IsA("Frame") then
+				Library:tween(UI, {BackgroundTransparency = 0})
+			elseif UI:IsA("TextLabel") then
+				Library:tween(UI, {TextTransparency = 0})
+			elseif UI:IsA("UIStroke") then
+				Library:tween(UI, {Transparency = 0})
+			elseif UI:IsA("ImageLabel") then
+				Library:tween(UI, {ImageTransparency = 0})
+			end
+		end
+	end
+	
+	function GUI:ToggleUI()
+		GUI.Faded = not GUI.Faded
+		
+		if GUI.Faded then
+			GUI:FadeOut()
+		else
+			GUI:FadeIn()
+		end
+	end
+	
 	uis.InputBegan:Connect(function(input, gpe)
 		if gpe then return end
 		
 		if input.KeyCode == options.CloseBind then
-			GUI["2"].Visible = not GUI["2"].Visible
+			GUI:ToggleUI()
 		end
 	end)
 	
@@ -866,7 +905,7 @@ function Library:Window(options)
 			if gpe then return end
 
 			if input.UserInputType == Enum.UserInputType.MouseButton1 and GUI.Hover then
-				GUI["1"]:Destroy()
+				GUI:FadeOut()
 			end
 		end)
 	end
