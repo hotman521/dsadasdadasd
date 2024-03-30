@@ -3352,6 +3352,10 @@ function Library:Window(options)
 						function Toggle:GetKeybind()
 							return Keybind.Keybind
 						end
+
+						function Keybind:Active()
+							return Keybind.State
+						end
 						
 						local function set(key)
 							if typeof(key) == "string" then
@@ -3447,23 +3451,12 @@ function Library:Window(options)
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
-									
-									Library.Flags[Toggle:GetFlag()] = Keybind.State
-									Toggle:GetCallback(Keybind.State)
-								elseif options.Mode == "Off Hold" then
+								else
 									if not Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
-									
-									Library.Flags[Toggle:GetFlag()] = not Keybind.State
-									Toggle:GetCallback(not Keybind.State)
-								elseif options.Mode == "Always" then
-									GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
-				
-									Library.Flags[Toggle:GetFlag()] = true
-									Toggle:GetCallback(true)
 								end
 							end
 						end
