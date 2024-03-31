@@ -118,6 +118,8 @@ function Library:Window(options)
 		Hover = false,
 	}
 
+	if coreGui:FindFirstChild("MyLibrary"} then return end
+	
 	do -- Main Frame
 		GUI["1"] = Instance.new("ScreenGui", runService:IsStudio() and players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
 		GUI["1"]["Name"] = [[MyLibrary]];
