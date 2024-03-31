@@ -117,8 +117,6 @@ function Library:Window(options)
 		CurrentTab = nil,
 		Hover = false,
 	}
-
-	if coreGui:FindFirstChild("MyLibrary"} then return end
 	
 	do -- Main Frame
 		GUI["1"] = Instance.new("ScreenGui", runService:IsStudio() and players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
