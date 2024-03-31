@@ -4537,7 +4537,7 @@ function Library:Notify(Content: string, Delay: number)
 			local Index = 1
 			for _, v in pairs(Notifications) do
 				local self = v.self
-				tweenService:Create(self, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Position = UDim2.new(self.Position.X.Scale, self.Position.X.Offset, self.Position.Y.Scale, self.Position.Y.Offset - 30)}):Play()
+				tweenService:Create(self, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Position = UDim2.new(0, 10, 0, self.Position.Y.Offset - 30)}):Play()
 				Index += 1
 			end
 		end
