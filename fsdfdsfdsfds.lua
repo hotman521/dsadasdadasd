@@ -809,6 +809,10 @@ function Library:Window(options)
 		GUI["16"].Visible = not GUI["16"].Visible
 	end
 
+	function GUI:MenuVisibility()
+		GUI["2"].Visible = not GUI["2"].Visible
+	end
+
 	function GUI:FadeOut()
 		for _, UI in pairs(GUI["1"]:GetDescendants()) do
 			if UI:IsA("Frame") then
@@ -822,14 +826,6 @@ function Library:Window(options)
 			end
 		end
 	end
-	
-	uis.InputBegan:Connect(function(input, gpe)
-		if gpe then return end
-		
-		if input.KeyCode == options.CloseBind then
-			GUI["2"].Visible = not GUI["2"].Visible
-		end
-	end)
 	
 	do -- Navigation
 		-- StarterGui.MyLibrary.MainBackground.Navigation
