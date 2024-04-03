@@ -813,6 +813,14 @@ function Library:Window(options)
 		GUI["2"].Visible = bool
 	end
 
+	uis.InputBegan:Connect(function(input, gpe)
+		if gpe then return end
+
+		if input.UserInputType == Enum.UserInputType[options.CloseBind] then
+			GUI["2"].Visible = not GUI["2"].Visible
+		end
+	end)
+
 	function GUI:FadeOut()
 		for _, UI in pairs(GUI["1"]:GetDescendants()) do
 			if UI:IsA("Frame") then
