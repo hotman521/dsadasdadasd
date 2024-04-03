@@ -797,20 +797,20 @@ function Library:Window(options)
 		end
 	end
 	
-	function GUI:KeybindListVisibility()
-		GUI["1c"].Visible = not GUI["1c"].Visible
+	function GUI:KeybindListVisibility(bool)
+		GUI["1c"].Visible = bool
 	end
 
-	function GUI:WatermarkVisibility()
-		GUI["f"].Visible = not GUI["f"].Visible
+	function GUI:WatermarkVisibility(bool)
+		GUI["f"].Visible = bool
 	end
 	
-	function GUI:IndicatorVisibility()
-		GUI["16"].Visible = not GUI["16"].Visible
+	function GUI:IndicatorVisibility(bool)
+		GUI["16"].Visible = bool
 	end
 
-	function GUI:MenuVisibility()
-		GUI["2"].Visible = not GUI["2"].Visible
+	function GUI:MenuVisibility(bool)
+		GUI["2"].Visible = bool
 	end
 
 	function GUI:FadeOut()
