@@ -130,7 +130,7 @@ function Library:Window(options)
 		GUI["2"]["BorderSizePixel"] = 0;
 		GUI["2"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
 		GUI["2"]["AnchorPoint"] = Vector2.new(0, 0);
-		GUI["2"]["Size"] = UDim2.new(0, 850, 0, 683);
+		GUI["2"]["Size"] = UDim2.new(0, 850, 0, 680);
 		GUI["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["2"]["Position"] = UDim2.fromOffset((viewport.X / 2) - (GUI["2"].Size.X.Offset / 2), (viewport.Y / 2) - (GUI["2"].Size.Y.Offset / 2));
 		GUI["2"]["Name"] = [[MainBackground]];
