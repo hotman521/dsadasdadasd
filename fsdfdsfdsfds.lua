@@ -2879,6 +2879,28 @@ function Library:Window(options)
 							return h, s, v
 						end
 
+						function HSVtoRGB(h, s, v)
+						    local r, g, b
+						
+						    local i = math.floor(h * 6)
+						    local f = h * 6 - i
+						    local p = v * (1 - s)
+						    local q = v * (1 - f * s)
+						    local t = v * (1 - (1 - f) * s)
+						
+						    i = i % 6
+						
+						    if i == 0 then r, g, b = v, t, p
+						    elseif i == 1 then r, g, b = q, v, p
+						    elseif i == 2 then r, g, b = p, v, t
+						    elseif i == 3 then r, g, b = p, q, v
+						    elseif i == 4 then r, g, b = t, p, v
+						    elseif i == 5 then r, g, b = v, p, q
+						    end
+						
+						    return Color3.new(r, g, b)
+						end
+
 						local color = options.Default
 						local r, g, b = color.R * 255, color.G * 255, color.B * 255
 						local h, s, v = rgbToHsv(r, g, b)
@@ -3077,7 +3099,12 @@ function Library:Window(options)
 									local function UpdateColor()
 										ColorPicker.Color = Color3.fromHSV(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
 
-										ColorPicker["44"].Text = string.format("%s %s %s", r, g, b)
+										local RGBColor = HSVtoRGB(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
+										local red = math.floor(RGBColor.r * 255)
+										local green = math.floor(RGBColor.g * 255)
+										local blue = math.floor(RGBColor.b * 255)
+
+										ColorPicker["44"].Text = string.format("%s %s %s", red, green, blue)
 										ColorPicker["36"].BackgroundColor3 = ColorPicker.Color
 										ColorPicker["41"].Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromHSV(ColorPicker.Hue, 1, 1)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
@@ -3531,6 +3558,28 @@ function Library:Window(options)
 							end
 							return h, s, v
 						end
+
+						function HSVtoRGB(h, s, v)
+						    local r, g, b
+						
+						    local i = math.floor(h * 6)
+						    local f = h * 6 - i
+						    local p = v * (1 - s)
+						    local q = v * (1 - f * s)
+						    local t = v * (1 - (1 - f) * s)
+						
+						    i = i % 6
+						
+						    if i == 0 then r, g, b = v, t, p
+						    elseif i == 1 then r, g, b = q, v, p
+						    elseif i == 2 then r, g, b = p, v, t
+						    elseif i == 3 then r, g, b = p, q, v
+						    elseif i == 4 then r, g, b = t, p, v
+						    elseif i == 5 then r, g, b = v, p, q
+						    end
+						
+						    return Color3.new(r, g, b)
+						end
 						
 						local color = options.Default
 						local r, g, b = color.R * 255, color.G * 255, color.B * 255
@@ -3729,8 +3778,13 @@ function Library:Window(options)
 								do -- Methods
 									local function UpdateColor()
 										ColorPicker.Color = Color3.fromHSV(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
+	
+										local RGBColor = HSVtoRGB(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
+										local red = math.floor(RGBColor.r * 255)
+										local green = math.floor(RGBColor.g * 255)
+										local blue = math.floor(RGBColor.b * 255)
 
-										ColorPicker["44"].Text = string.format("%s %s %s", r, g, b)
+										ColorPicker["44"].Text = string.format("%s %s %s", red, green, blue)
 										ColorPicker["36"].BackgroundColor3 = ColorPicker.Color
 										ColorPicker["41"].Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromHSV(ColorPicker.Hue, 1, 1)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
