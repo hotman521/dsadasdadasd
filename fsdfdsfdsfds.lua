@@ -4191,7 +4191,12 @@ function Library:Window(options)
 					TextBox["80"]["Visible"] = false;
 					TextBox["80"]["Name"] = [[Indicators]];
 				end
-				
+
+				if options.Default then
+					Library.Flags[options.Flag] = TextBox["7e"].Text
+					options.Callback(TextBox["7e"].Text)
+				end
+
 				do -- Logic
 					TextBox["7c"].MouseEnter:Connect(function()
 						TextBox.Hover = true
