@@ -3077,7 +3077,7 @@ function Library:Window(options)
 									local function UpdateColor()
 										ColorPicker.Color = Color3.fromHSV(ColorPicker.Hue, ColorPicker.Saturation[1], ColorPicker.Saturation[2])
 
-										ColorPicker["44"].Text = "#" .. string.upper(ColorPicker.Color:ToHex()) .. string.upper(string.format("%X", 255))
+										ColorPicker["44"].Text = string.format("%s %s %s", r, g, b)
 										ColorPicker["36"].BackgroundColor3 = ColorPicker.Color
 										ColorPicker["41"].Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromHSV(ColorPicker.Hue, 1, 1)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(255, 255, 255))};
 
