@@ -4128,7 +4128,100 @@ function Library:Window(options)
 				
 				return Slider
 			end
-			
+
+			function Section:TextBox(options)
+				options = Library:Validate({
+					Default = "",
+					PlaceHolder = "Preview TextBox",
+					Max = 32,
+					ClearOnFocus = false,
+					Flag = Library.NewFlag(),
+					Callback = function() end
+				}, options or {})
+
+				local TextBox = {
+					Hover = false,
+				}
+
+				if not options.Default then
+					Library.Flags[options.Default] = options.Default
+					options.Callback(options.Default)
+				end
+				
+				do -- Render
+					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.TextBox
+					TextBox["7c"] = Instance.new("Frame", Section["f"]);
+					TextBox["7c"]["BorderSizePixel"] = 0;
+					TextBox["7c"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+					TextBox["7c"]["Size"] = UDim2.new(1, -10, 0, 18);
+					TextBox["7c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					TextBox["7c"]["Position"] = UDim2.new(0, 5, 0, 0);
+					TextBox["7c"]["Name"] = [[TextBox]];
+
+					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.TextBox.UIStroke
+					TextBox["7d"] = Instance.new("UIStroke", TextBox["7c"]);
+					TextBox["7d"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.TextBox.TextBox
+					TextBox["7e"] = Instance.new("TextBox", TextBox["7c"]);
+					TextBox["7e"]["PlaceholderColor3"] = Color3.fromRGB(141, 141, 141);
+					TextBox["7e"]["BorderSizePixel"] = 0;
+					TextBox["7e"]["TextSize"] = 14;
+					TextBox["7e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					TextBox["7e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+					TextBox["7e"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					TextBox["7e"]["BackgroundTransparency"] = 1;
+					TextBox["7e"]["PlaceholderText"] = options.PlaceHolder;
+					TextBox["7e"]["Size"] = UDim2.new(1, 0, 1, 0);
+					TextBox["7e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					TextBox["7e"]["Text"] = options.Default;
+					TextBox["7e"]["ClearTextOnFocus"] = options.ClearOnFocus;
+
+					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.TextBox.TextBox.UIPadding
+					TextBox["7f"] = Instance.new("UIPadding", TextBox["7e"]);
+					TextBox["7f"]["PaddingBottom"] = UDim.new(0, 2);
+
+					-- StarterGui.MyLibrary.Indicators
+					TextBox["80"] = Instance.new("Frame", TextBox["1"]);
+					TextBox["80"]["BorderSizePixel"] = 0;
+					TextBox["80"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
+					TextBox["80"]["Size"] = UDim2.new(0, 240, 0, 30);
+					TextBox["80"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					TextBox["80"]["Position"] = UDim2.new(0, 10, 0.3720000088214874, 0);
+					TextBox["80"]["Visible"] = false;
+					TextBox["80"]["Name"] = [[Indicators]];
+				end
+				
+				do -- Logic
+					TextBox["7c"].MouseEnter:Connect(function()
+						TextBox.Hover = true
+
+						Library:tween(TextBox["7d"], {Color = Color3.fromRGB(50, 50, 50)})
+						Library:tween(TextBox["7c"], {BackgroundColor3 = Color3.fromRGB(17, 17, 17)})
+					end)
+
+					TextBox["7c"].MouseLeave:Connect(function()
+						TextBox.Hover = false
+
+						Library:tween(TextBox["7d"], {Color = Color3.fromRGB(27, 27, 27)})
+						Library:tween(TextBox["7c"], {BackgroundColor3 = Color3.fromRGB(13, 13, 13)})
+					end)
+					
+					TextBox["7e"].Changed:Connect(function()
+						TextBox["7e"].Text = TextBox["7e"].Text:sub(1, options.Max)
+					end)
+					
+					TextBox["7e"].FocusLost:Connect(function(enterpressed)
+						if enterpressed then
+							Library.Flags[options.Flag] = TextBox["7e"].Text
+							options.Callback(TextBox["7e"].Text)
+						end
+					end)
+				end
+
+				return TextBox
+			end
+
 			function Section:Dropdown(options)
 				options = Library:Validate({
 					Default = "None",
