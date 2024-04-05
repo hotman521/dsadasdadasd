@@ -608,6 +608,9 @@ function Library:Window(options)
 			GUI["21"]["PaddingRight"] = UDim.new(0, 7);
 			GUI["21"]["PaddingBottom"] = UDim.new(0, 2);
 		end
+
+		local AntiConnection
+		local HealthConnection
 		
 		function GUI:UpdateIndicator(Target)
 			if Target ~= nil then
@@ -663,7 +666,7 @@ function Library:Window(options)
 	
 						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.Value.UIPadding
 						GUI["26"] = Instance.new("UIPadding", GUI["25"]);
-						GUI["26"]["PaddingTop"] = UDim.new(0, 8);
+						GUI["26"]["PaddingTop"] = UDim.new(0, 12);
 	
 						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack
 						GUI["27"] = Instance.new("Frame", GUI["23"]);
@@ -712,7 +715,7 @@ function Library:Window(options)
 						GUI["34"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 						GUI["34"]["Size"] = UDim2.new(0.5, 0, 1, 0);
 						GUI["34"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-						GUI["34"]["Text"] = [[Knocked Out]];
+						GUI["34"]["Text"] = [[Anti Aiming]];
 						GUI["34"]["Name"] = [[Text]];
 						GUI["34"]["BackgroundTransparency"] = 1;
 	
@@ -741,13 +744,39 @@ function Library:Window(options)
 						GUI["37"]["PaddingRight"] = UDim.new(0, 7);
 						GUI["37"]["PaddingBottom"] = UDim.new(0, 2);
 					end
+
+					local function IsUsingAntiAim(Player)
+					        if (Player.Character.HumanoidRootPart.Velocity.Y < -5 and Player.Character.Humanoid:GetState() ~= Enum.HumanoidStateType.Freefall) or Player.Character.HumanoidRootPart.Velocity.Y < -50 then
+					            return true
+					        elseif Player and (Player.Character.HumanoidRootPart.Velocity.X > 35 or Player.Character.HumanoidRootPart.Velocity.X < -35) then
+					            return true
+					        elseif Player and Player.Character.HumanoidRootPart.Velocity.Y > 60 then
+					            return true
+					        elseif Player and (Player.Character.HumanoidRootPart.Velocity.Z > 35 or Player.Character.HumanoidRootPart.Velocity.Z < -35) then
+					            return true
+					        else
+					            return false
+						end
+				    	end
 					
-					Target.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Health"):Connect(function()
+					HealthConnection = Target.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Health"):Connect(function()
 						GUI["25"].Text = math.floor(Target.Character:FindFirstChild("Humanoid").Health)
 						GUI["29"].Size = UDim2.new(Target.Character:FindFirstChild("Humanoid").Health / Target.Character:FindFirstChild("Humanoid").MaxHealth, 0, 1, 0)
 					end)
+
+					AntiConnection = runService.PreRender:Connect(function()
+						if IsUsingAntiAim(Target) then
+							GUI["36"].Text = "true"
+						else
+							GUI["36"].Text = "false"
+						end
+					end)
 			else
 					GUI["20"].Text = "nil"
+
+					if HealthConnection then HealthConnection:Disconnect() end
+					if AntiConnection then AntiConnection:Disconnect() end
+				
 					for i, v in pairs(GUI["1b"]:GetChildren()) do
 						if v.Name ~= "TargetFrame" then
 							v:Destroy()
