@@ -657,7 +657,7 @@ function Library:Window(options)
 						GUI["25"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 						GUI["25"]["TextSize"] = 12;
 						GUI["25"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-						GUI["25"]["Size"] = UDim2.new(0.5, 0, 1, -2);
+						GUI["25"]["Size"] = UDim2.new(0.5, 0, 1, -8);
 						GUI["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						GUI["25"]["Text"] = [[100]];
 						GUI["25"]["Name"] = [[Value]];
