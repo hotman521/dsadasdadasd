@@ -233,6 +233,10 @@ function Library:Window(options)
 		GUI["6"]["Position"] = UDim2.new(1, 0, 0.06700000166893005, 0);
 		GUI["6"]["Name"] = [[ContentContainer]];
 	end
+
+	function GUI:UpdateTitle(Text)
+		GUI["59"].Text = Text
+	end
 	
 	if options.KeybindList then
 		-- StarterGui.MyLibrary.GUI
