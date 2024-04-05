@@ -478,7 +478,7 @@ function Library:Window(options)
 				--
 				task.spawn(function()
 					if (tick() - Tick) > 0.15 then
-						GUI:UpdateWatermark(string.format("font color='rgb(0,255,0)'>Build:</font> Developer | font color='rgb(0,255,0)'>Ping:</font> %s | font color='rgb(0,255,0)'>FPS:</font> %s", tostring(Ping), tostring(FPS)))
+						GUI:UpdateWatermark(string.format("<font color='rgb(0,255,0)'>Build:</font> Developer | <font color='rgb(0,255,0)'>Ping:</font> %s | <font color='rgb(0,255,0)'>FPS:</font> %s", tostring(Ping), tostring(FPS)))
 						--
 						Tick = tick()
 					end
