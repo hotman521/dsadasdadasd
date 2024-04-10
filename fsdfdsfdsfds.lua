@@ -2610,23 +2610,6 @@ function Library:Window(options)
 			
 			repeat task.wait() until players.LocalPlayer.PlayerGui;
 
-			main_gui = wait_for_child(players.LocalPlayer.PlayerGui, 'MainScreenGui');
-
-			weapon_skins_gui = wait_for_child(main_gui, 'WeaponSkinsGUI');
-
-			gui_body_wrapper = wait_for_child(weapon_skins_gui, 'Body');
-			body_wrapper = wait_for_child(gui_body_wrapper, 'Wrapper');
-
-			skin_view = wait_for_child(body_wrapper, 'SkinView');
-			skin_view_frame = wait_for_child(skin_view, 'Frame');
-
-			guns = wait_for_child(skin_view_frame, 'Guns').Contents;
-			entries = wait_for_child(skin_view_frame, 'Skins').Contents.Entries;
-
-			print('Waiting for guns to load...');
-
-			wait_for_child(guns, '[Revolver]');
-
 			print('Guns successfully loaded.');
 			
 			local regex = '%[(.-)%]';
