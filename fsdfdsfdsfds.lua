@@ -475,19 +475,21 @@ function Library:Window(options)
 		local temp = tick()
 		local Tick = tick()
 		--
-		RunService.PreRender:Connect(function()
-			local FPS = math.floor(1 / math.abs(temp - tick()))
-			temp = tick()
-			local Ping = stats.Network:FindFirstChild("ServerStatsItem") and tostring(math.round(stats.Network.ServerStatsItem["Data Ping"]:GetValue())) or "N/A"
-			--
-			task.spawn(function()
-				if (tick() - Tick) > 0.15 then
-					GUI:UpdateWatermark(string.format("Build: Buyer | Ping: %s | FPS: %s", tostring(Ping), tostring(FPS)))
-					--
-					Tick = tick()
-				end
+		if not runService:IsStudio() then
+			runService.PreRender:Connect(function()
+				local FPS = math.floor(1 / math.abs(temp - tick()))
+				temp = tick()
+				local Ping = stats.Network:FindFirstChild("ServerStatsItem") and tostring(math.round(stats.Network.ServerStatsItem["Data Ping"]:GetValue())) or "N/A"
+				--
+				task.spawn(function()
+					if (tick() - Tick) > 0.15 then
+						GUI:UpdateWatermark(string.format("Build: Buyer | Ping: %s | FPS: %s", tostring(Ping), tostring(FPS)))
+						--
+						Tick = tick()
+					end
+				end)
 			end)
-		end)
+		end
 	end
 	
 	if options.Indicators then
