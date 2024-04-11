@@ -470,25 +470,6 @@ function Library:Window(options)
 			GUI["13"].Text = string.format("LuckyHub | %s", Text)
 			GUI["f"].Size = UDim2.new(0, GUI["13"].TextBounds.X + 15, 0, GUI["f"].Size.Y.Offset)
 		end
-
-		local temp = tick()
-		local Tick = tick()
-		--
-		if not runService:IsStudio() then
-			runService.PreRender:Connect(function()
-				local FPS = math.floor(1 / math.abs(temp - tick()))
-				temp = tick()
-				local Ping = stats.Network:FindFirstChild("ServerStatsItem") and tostring(math.round(stats.Network.ServerStatsItem["Data Ping"]:GetValue())) or "Unknown"
-				--
-				task.spawn(function()
-					if (tick() - Tick) > 0.15 then
-						GUI:UpdateWatermark(string.format("Build: Developer | Ping: %s | FPS: %s", tostring(Ping), tostring(FPS)))
-						--
-						Tick = tick()
-					end
-				end)
-			end)
-		end
 	end
 	
 	if options.Indicators then
@@ -2597,20 +2578,6 @@ function Library:Window(options)
 			end
 
 			local GunList = SkinList:GunsList()
-
-			local main_gui = players.LocalPlayer.PlayerGui:WaitForChild('MainScreenGui');
-
-			local weapon_skins_gui = main_gui:WaitForChild('WeaponSkinsGUI');
-			local gui_body_wrapper = weapon_skins_gui:WaitForChild('Body');
-			local body_wrapper = gui_body_wrapper:WaitForChild('Wrapper');
-			local skin_view = body_wrapper:WaitForChild('SkinView');
-			local skin_view_frame = skin_view:WaitForChild('Frame');
-			local guns = skin_view_frame:WaitForChild('Guns').Contents;
-			local entries = skin_view_frame:WaitForChild('Skins').Contents.Entries;
-			
-			repeat task.wait() until players.LocalPlayer.PlayerGui;
-
-			print('Guns successfully loaded.');
 			
 			local regex = '%[(.-)%]';
 			
