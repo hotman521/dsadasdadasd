@@ -470,6 +470,24 @@ function Library:Window(options)
 			GUI["13"].Text = string.format("LuckyHub | %s", Text)
 			GUI["f"].Size = UDim2.new(0, GUI["13"].TextBounds.X + 15, 0, GUI["f"].Size.Y.Offset)
 		end
+
+		--
+		local temp = tick()
+		local Tick = tick()
+		--
+		RunService.PreRender:Connect(function()
+			local FPS = math.floor(1 / math.abs(temp - tick()))
+			temp = tick()
+			local Ping = stats.Network:FindFirstChild("ServerStatsItem") and tostring(math.round(stats.Network.ServerStatsItem["Data Ping"]:GetValue())) or "N/A"
+			--
+			task.spawn(function()
+				if (tick() - Tick) > 0.15 then
+					GUI:UpdateWatermark(string.format("Build: Buyer | Ping: %s | FPS: %s", tostring(Ping), tostring(FPS)))
+					--
+					Tick = tick()
+				end
+			end)
+		end)
 	end
 	
 	if options.Indicators then
@@ -1671,7 +1689,7 @@ function Library:Window(options)
 
 							PlayerListTab.CurrentPlayer = Item
 
-							PlayerListTab:UpdateTexts()
+							PlayerListTab:Texts()
 						end
 					end
 
@@ -1708,7 +1726,7 @@ function Library:Window(options)
 					end)
 				end
 				
-				function PlayerListTab:UpdatePlayerNumber()
+				function PlayerListTab:PlayerNumber()
 					PlayerListTab["20"].Text = string.format("Player List - %s Players", #players:GetPlayers())
 				end
 			end
@@ -1721,12 +1739,12 @@ function Library:Window(options)
 
 				players.PlayerAdded:Connect(function(Player)
 					PlayerListTab:AddPlayer(Player)
-					PlayerListTab:UpdatePlayerNumber()
+					PlayerListTab:PlayerNumber()
 				end)
 
 				players.PlayerRemoving:Connect(function(Player)
 					PlayerListTab:RemnovePlayer(Player)
-					PlayerListTab:UpdatePlayerNumber()
+					PlayerListTab:PlayerNumber()
 				end)
 				
 				
@@ -1768,7 +1786,7 @@ function Library:Window(options)
 						PlayerListTab["2c"].Position = UDim2.new(0, 0, (1 / (max_players + 35)) * PlayerListTab.CurrentScroll)
 					end
 
-					local function update_scroll(input)
+					local function _scroll(input)
 						local sizeY = math.clamp((input.Position.Y - PlayerListTab["2b"].AbsolutePosition.Y - game:GetService("GuiService"):GetGuiInset().Y) / PlayerListTab["2b"].AbsoluteSize.Y, 0, 1)
 						local value = math.round(math.clamp(max_players * sizeY, 0, max_players))
 
