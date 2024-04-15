@@ -99,6 +99,7 @@ function Library:Window(options)
 	options = Library:Validate({
 		Name = "UI Library",
 		Side = "Left",
+		Icon = "rbxassetid://16863027979",
 		Theme = Color3.fromRGB(0, 255, 0),
 		Size = UDim2.new(0, 850, 0, 677),
 		CloseBind = Enum.KeyCode.RightControl,
@@ -214,7 +215,7 @@ function Library:Window(options)
 		GUI["5b"]["BorderSizePixel"] = 0;
 		GUI["5b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 		GUI["5b"]["ImageColor3"] = GUI.Theme;
-		GUI["5b"]["Image"] = [[rbxassetid://16863027979]];
+		GUI["5b"]["Image"] = options.Icon;
 		GUI["5b"]["Size"] = UDim2.new(0, 20, 0, 20);
 		GUI["5b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["5b"]["Name"] = [[Icon]];
