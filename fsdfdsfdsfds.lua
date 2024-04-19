@@ -4547,7 +4547,7 @@ function Library:Window(options)
 
 		local function update(input)
 			local delta = input.Position - dragStart
-			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			Library:tween(gui, {Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)})
 		end
 
 		GUI["57"].InputBegan:Connect(function(input)
