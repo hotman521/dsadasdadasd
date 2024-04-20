@@ -866,6 +866,8 @@ function Library:Window(options)
 				Library:tween(UI, {Transparency = 1})
 			elseif UI:IsA("ImageLabel") then
 				Library:tween(UI, {ImageTransparency = 1})
+			elseif UI:IsA("TextBox") then
+				Library:tween(UI, {TextTransparency = 1})
 			end
 		end
 	end
