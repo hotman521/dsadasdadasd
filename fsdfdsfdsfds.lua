@@ -4140,6 +4140,7 @@ function Library:Window(options)
 					Default = "",
 					PlaceHolder = "Preview TextBox",
 					Max = 32,
+					NumbersOnly = false,
 					ClearOnFocus = false,
 					Flag = Library.NewFlag(),
 					Callback = function() end
@@ -4220,6 +4221,10 @@ function Library:Window(options)
 					
 					TextBox["7e"].Changed:Connect(function()
 						TextBox["7e"].Text = TextBox["7e"].Text:sub(1, options.Max)
+						--
+						if options.NumbersOnly then
+						    TextBox["7e"].Text = TextBox["7e"].Text:gsub('[^%d%.]+', '')
+						end
 					end)
 					
 					TextBox["7e"].FocusLost:Connect(function(enterpressed)
