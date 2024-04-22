@@ -1693,7 +1693,7 @@ function Library:Window(options)
 
 							PlayerListTab.CurrentPlayer = Item
 
-							PlayerListTab:Texts()
+							PlayerListTab:UpdateTexts()
 						end
 					end
 
