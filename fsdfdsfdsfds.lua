@@ -471,6 +471,10 @@ function Library:Window(options)
 			GUI["f"].Size = UDim2.new(0, GUI["13"].TextBounds.X + 15, 0, GUI["f"].Size.Y.Offset)
 		end
 
+		function GUI:UpdateTextPosition(Pos)
+			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
+		end
+
 		--
 		local temp = tick()
 		local Tick = tick()
