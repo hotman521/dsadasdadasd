@@ -237,6 +237,16 @@ function Library:Window(options)
 	function GUI:UpdateTitle(Text)
 		GUI["59"].Text = Text
 	end
+
+	function GUI:UpdateTextPosition(Pos)
+		if Pos == "Right" then
+			GUI["5a"]["PaddingLeft"] = UDim.new(0, 0)
+			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
+		else
+			GUI["5a"]["PaddingLeft"] = UDim.new(0, 27)
+			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
+		end
+	end
 	
 	if options.KeybindList then
 		-- StarterGui.MyLibrary.GUI
@@ -469,10 +479,6 @@ function Library:Window(options)
 		function GUI:UpdateWatermark(Text)
 			GUI["13"].Text = string.format("LuckyHub | %s", Text)
 			GUI["f"].Size = UDim2.new(0, GUI["13"].TextBounds.X + 15, 0, GUI["f"].Size.Y.Offset)
-		end
-
-		function GUI:UpdateTextPosition(Pos)
-			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
 		end
 
 		--
