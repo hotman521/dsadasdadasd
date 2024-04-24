@@ -1021,20 +1021,20 @@ function Library:Window(options)
 		end
 	end
 	
-	function GUI:KeybindListVisibility()
-		GUI["1c"].Visible = not GUI["1c"].Visible
+	function GUI:KeybindListVisibility(State)
+		GUI["1c"].Visible = State
 	end
 
-	function GUI:WatermarkVisibility()
-		GUI["f"].Visible = not GUI["f"].Visible
+	function GUI:WatermarkVisibility(State)
+		GUI["f"].Visible = State
 	end
 	
-	function GUI:IndicatorVisibility()
-		GUI["16"].Visible = not GUI["16"].Visible
+	function GUI:IndicatorVisibility(State)
+		GUI["16"].Visible = State
 	end
 	
-	function GUI:VelocityStatsVisibility()
-		GUI["l2"].Visible = not GUI["l2"].Visible
+	function GUI:VelocityStatsVisibility(State)
+		GUI["l2"].Visible = State
 	end
 
 	uis.InputBegan:Connect(function(input, gpe)
