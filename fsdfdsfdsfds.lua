@@ -15,6 +15,7 @@ local zindexcount2 = 999
 
 local Library = {
 	Flags = {},
+	Theme = Color3.fromRGB(0, 255, 0),
 	UnnamedFlags = 0,
 }
 
@@ -115,9 +116,7 @@ function Library:Window(options)
 		Hover = false,
 	}
 
-	function Library:GetTheme()
-		return GUI.Theme
-	end
+	Library.Theme = GUI.Theme
 	
 	do -- Main Frame
 		GUI["1"] = Instance.new("ScreenGui", runService:IsStudio() and players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
@@ -215,7 +214,7 @@ function Library:Window(options)
 		GUI["5b"]["ZIndex"] = 2;
 		GUI["5b"]["BorderSizePixel"] = 0;
 		GUI["5b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-		GUI["5b"]["ImageColor3"] = GUI.Theme;
+		GUI["5b"]["ImageColor3"] = Library.Theme;
 		GUI["5b"]["Image"] = options.Icon;
 		GUI["5b"]["Size"] = UDim2.new(0, 20, 0, 20);
 		GUI["5b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -262,7 +261,7 @@ function Library:Window(options)
 		-- StarterGui.MyLibrary.GUI.Bar
 		GUI["1d"] = Instance.new("Frame", GUI["1c"]);
 		GUI["1d"]["BorderSizePixel"] = 0;
-		GUI["1d"]["BackgroundColor3"] = GUI.Theme;
+		GUI["1d"]["BackgroundColor3"] = Library.Theme;
 		GUI["1d"]["Size"] = UDim2.new(1, 0, 0, 3);
 		GUI["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["1d"]["Name"] = [[Bar]];
@@ -425,7 +424,7 @@ function Library:Window(options)
 		-- StarterGui.MyLibrary.Watermark.Bar
 		GUI["10"] = Instance.new("Frame", GUI["f"]);
 		GUI["10"]["BorderSizePixel"] = 0;
-		GUI["10"]["BackgroundColor3"] = GUI.Theme;
+		GUI["10"]["BackgroundColor3"] = Library.Theme;
 		GUI["10"]["Size"] = UDim2.new(1, 0, 0, 3);
 		GUI["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["10"]["Name"] = [[Bar]];
@@ -517,7 +516,7 @@ function Library:Window(options)
 			-- StarterGui.MyLibrary.Indicators.Bar
 			GUI["17"] = Instance.new("Frame", GUI["16"]);
 			GUI["17"]["BorderSizePixel"] = 0;
-			GUI["17"]["BackgroundColor3"] = GUI.Theme;
+			GUI["17"]["BackgroundColor3"] = Library.Theme;
 			GUI["17"]["Size"] = UDim2.new(1, 0, 0, 3);
 			GUI["17"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 			GUI["17"]["Name"] = [[Bar]];
@@ -702,7 +701,7 @@ function Library:Window(options)
 						-- StarterGui.MyLibrary.Indicators.ContentContainer.ArmorSlider.SliderBack.Draggable
 						GUI["29"] = Instance.new("Frame", GUI["27"]);
 						GUI["29"]["BorderSizePixel"] = 0;
-						GUI["29"]["BackgroundColor3"] = GUI.Theme;
+						GUI["29"]["BackgroundColor3"] = Library.Theme;
 						GUI["29"]["Size"] = UDim2.new(1, 0, 1, 0);
 						GUI["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						GUI["29"]["Name"] = [[Draggable]];
@@ -1174,7 +1173,7 @@ function Library:Window(options)
 				Tab["4d"] = Instance.new("Frame", Tab["4e"]);
 				Tab["4d"]["BorderSizePixel"] = 0;
 				Tab["4d"]["BackgroundTransparency"] = 1;
-				Tab["4d"]["BackgroundColor3"] = GUI.Theme;
+				Tab["4d"]["BackgroundColor3"] = Library.Theme;
 				Tab["4d"]["Size"] = UDim2.new(0, 2, 1, 0);
 				Tab["4d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Tab["4d"]["Name"] = [[Bar]];
@@ -1662,7 +1661,7 @@ function Library:Window(options)
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.ScrollBarBack.ScrollBar
 				PlayerListTab["2c"] = Instance.new("Frame", PlayerListTab["2b"]);
 				PlayerListTab["2c"]["BorderSizePixel"] = 0;
-				PlayerListTab["2c"]["BackgroundColor3"] = GUI.Theme;
+				PlayerListTab["2c"]["BackgroundColor3"] = Library.Theme;
 				PlayerListTab["2c"]["Size"] = UDim2.new(1, 0, 0.6000000238418579, 0);
 				PlayerListTab["2c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				PlayerListTab["2c"]["Name"] = [[ScrollBar]];
@@ -1880,7 +1879,7 @@ function Library:Window(options)
 
 							Item.Active = true
 
-							Library:tween(Item["26"], {TextColor3 = GUI.Theme})
+							Library:tween(Item["26"], {TextColor3 = Library.Theme})
 
 							PlayerListTab.CurrentPlayer = Item
 
@@ -2153,7 +2152,7 @@ function Library:Window(options)
 						-- StarterGui.MyLibrary.MainBackground.ContentContainer.SkinsTab.SkinListSection.ScrollBarBack.ScrollBar
 						GunListTab["32"] = Instance.new("Frame", GunListTab["31"]);
 						GunListTab["32"]["BorderSizePixel"] = 0;
-						GunListTab["32"]["BackgroundColor3"] = GUI.Theme;
+						GunListTab["32"]["BackgroundColor3"] = Library.Theme;
 						GunListTab["32"]["Size"] = UDim2.new(1, 0, 0.5, 0);
 						GunListTab["32"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						GunListTab["32"]["Name"] = [[ScrollBar]];
@@ -2530,7 +2529,7 @@ function Library:Window(options)
 						-- StarterGui.MyLibrary.MainBackground.ContentContainer.SkinsTab.SkinListSection.ScrollBarBack.ScrollBar
 						SkinListTab["32"] = Instance.new("Frame", SkinListTab["31"]);
 						SkinListTab["32"]["BorderSizePixel"] = 0;
-						SkinListTab["32"]["BackgroundColor3"] = GUI.Theme;
+						SkinListTab["32"]["BackgroundColor3"] = Library.Theme;
 						SkinListTab["32"]["Size"] = UDim2.new(1, 0, 0.5, 0);
 						SkinListTab["32"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						SkinListTab["32"]["Name"] = [[ScrollBar]];
@@ -4118,7 +4117,7 @@ function Library:Window(options)
 						end
 
 						if Toggle.State then
-							Library:tween(Toggle["38"], {BackgroundColor3 = GUI.Theme})
+							Library:tween(Toggle["38"], {BackgroundColor3 = Library.Theme})
 						else
 							Library:tween(Toggle["38"], {BackgroundColor3 = Color3.fromRGB(13, 13, 13)})
 							GUI:RemoveKeybind(options.Name)
@@ -4260,7 +4259,7 @@ function Library:Window(options)
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Slider.SliderBack.Draggable
 					Slider["1d"] = Instance.new("Frame", Slider["1b"]);
 					Slider["1d"]["BorderSizePixel"] = 0;
-					Slider["1d"]["BackgroundColor3"] = GUI.Theme;
+					Slider["1d"]["BackgroundColor3"] = Library.Theme;
 					Slider["1d"]["Size"] = UDim2.new(0.5, 0, 1, 0);
 					Slider["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Slider["1d"]["Name"] = [[Draggable]];
@@ -4525,7 +4524,7 @@ function Library:Window(options)
 					Dropdown["c4"] = Instance.new("ImageLabel", Dropdown["c0"]);
 					Dropdown["c4"]["BorderSizePixel"] = 0;
 					Dropdown["c4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					Dropdown["c4"]["ImageColor3"] = GUI.Theme;
+					Dropdown["c4"]["ImageColor3"] = Library.Theme;
 					Dropdown["c4"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 					Dropdown["c4"]["Image"] = [[rbxassetid://16863837958]];
 					Dropdown["c4"]["Size"] = UDim2.new(0, 8, 0, 8);
@@ -4613,7 +4612,7 @@ function Library:Window(options)
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.Inactive.Frame
 							Item["ca"] = Instance.new("Frame", Item["c7"]);
 							Item["ca"]["BorderSizePixel"] = 0;
-							Item["ca"]["BackgroundColor3"] = GUI.Theme;
+							Item["ca"]["BackgroundColor3"] = Library.Theme;
 							Item["ca"]["BackgroundTransparency"] = 1;
 							Item["ca"]["Size"] = UDim2.new(0, 1, 1, -6);
 							Item["ca"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -4833,7 +4832,7 @@ function Library:Notify(Content: string, Delay: number)
 		-- StarterGui.Notification.MainFrame.LeftBar
 		Notification["5"] = Instance.new("Frame", Notification["2"]);
 		Notification["5"]["BorderSizePixel"] = 0;
-		Notification["5"]["BackgroundColor3"] = Library:GetTheme();
+		Notification["5"]["BackgroundColor3"] = Library.Theme;
 		Notification["5"]["Size"] = UDim2.new(0, 1, 1, -6);
 		Notification["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		Notification["5"]["Position"] = UDim2.new(0, 2, 0, 3);
@@ -4842,7 +4841,7 @@ function Library:Notify(Content: string, Delay: number)
 		-- StarterGui.Notification.MainFrame.TimerBar
 		Notification["6"] = Instance.new("Frame", Notification["2"]);
 		Notification["6"]["BorderSizePixel"] = 0;
-		Notification["6"]["BackgroundColor3"] = Library:GetTheme();
+		Notification["6"]["BackgroundColor3"] = Library.Theme;
 		Notification["6"]["AnchorPoint"] = Vector2.new(0, 1);
 		Notification["6"]["Size"] = UDim2.new(1, -4, 0, 1);
 		Notification["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
