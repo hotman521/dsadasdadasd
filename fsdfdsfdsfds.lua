@@ -1004,7 +1004,7 @@ function Library:Window(options)
 		end
 		
 		function GUI:UpdateVelocityStats()
-			if players.LocalPlayer.Character and players.LocalPlayer.Character.HumanoidRootPart then
+			if players.LocalPlayer and players.LocalPlayer.Character and players.LocalPlayer.Character.HumanoidRootPart then
 				GUI["lb"].Text = string.format("Velocity | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.Z))
 				GUI["lf"].Text = string.format("Position | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.Z))
 				GUI["l12"].Text = string.format("Rotation | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.Z))
@@ -1014,7 +1014,9 @@ function Library:Window(options)
 		if not runService:IsStudio() then
 			runService.PostSimulation:Connect(function()
 				task.spawn(function()
-					GUI:UpdateVelocityStats()
+					if players.LocalPlayer.Character.HumanoidRootPart then
+						GUI:UpdateVelocityStats()
+					end
 				end)
 			end)
 		end
