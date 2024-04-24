@@ -240,10 +240,10 @@ function Library:Window(options)
 
 	function GUI:UpdateTextPosition(Pos)
 		if Pos == "Right" then
-			GUI["5a"]["PaddingLeft"] = UDim.new(0, 0)
+			GUI["5a"]["PaddingRight"] = UDim.new(0, 24)
 			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
 		else
-			GUI["5a"]["PaddingLeft"] = UDim.new(0, 27)
+			GUI["5a"]["PaddingRight"] = UDim.new(0, 0)
 			GUI["59"]["TextXAlignment"] = Enum.TextXAlignment[Pos]
 		end
 	end
