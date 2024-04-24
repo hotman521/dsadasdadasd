@@ -1747,6 +1747,8 @@ function Library:Window(options)
 
 			-- Logic
 			do
+				PlayerListTab:PlayerNumber()
+				--
 				for _, Player in pairs(players:GetPlayers()) do
 					PlayerListTab:AddPlayer(Player)
 				end
