@@ -106,6 +106,7 @@ function Library:Window(options)
 		KeybindList = false,
 		Watermark = false,
 		Indicators = false,
+		VelocityStats = false,
 	}, options or {})
 
 	local GUI = {
@@ -842,20 +843,197 @@ function Library:Window(options)
 		end
 	end
 	
-	function GUI:KeybindListVisibility(bool)
-		GUI["1c"].Visible = bool
-	end
+	if options.VelocityStats then
+		do -- Render
+			-- StarterGui.MyLibrary.VelocityStats
+			GUI["l2"] = Instance.new("Frame", GUI["1"]);
+			GUI["l2"]["BorderSizePixel"] = 0;
+			GUI["l2"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
+			GUI["l2"]["Size"] = UDim2.new(0, 208, 0, 30);
+			GUI["l2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l2"]["Position"] = UDim2.fromOffset(viewport.X - GUI["l2"].Size.X.Offset - 12, (viewport.Y / 2) - (GUI["l2"].Size.Y.Offset / 2));
+			GUI["l2"]["Name"] = [[VelocityStats]];
 
-	function GUI:WatermarkVisibility(bool)
-		GUI["f"].Visible = bool
+			-- StarterGui.MyLibrary.VelocityStats.Bar
+			GUI["l3"] = Instance.new("Frame", GUI["l2"]);
+			GUI["l3"]["BorderSizePixel"] = 0;
+			GUI["l3"]["BackgroundColor3"] = Color3.fromRGB(0, 255, 0);
+			GUI["l3"]["Size"] = UDim2.new(1, 0, 0, 3);
+			GUI["l3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l3"]["Name"] = [[Bar]];
+
+			-- StarterGui.MyLibrary.VelocityStats.DropShadowHolder
+			GUI["l4"] = Instance.new("Frame", GUI["l2"]);
+			GUI["l4"]["ZIndex"] = 0;
+			GUI["l4"]["BorderSizePixel"] = 0;
+			GUI["l4"]["BackgroundTransparency"] = 1;
+			GUI["l4"]["Size"] = UDim2.new(1, 0, 1, 0);
+			GUI["l4"]["Name"] = [[DropShadowHolder]];
+
+			-- StarterGui.MyLibrary.VelocityStats.DropShadowHolder.DropShadow
+			GUI["l5"] = Instance.new("ImageLabel", GUI["l4"]);
+			GUI["l5"]["ZIndex"] = 0;
+			GUI["l5"]["BorderSizePixel"] = 0;
+			GUI["l5"]["SliceCenter"] = Rect.new(49, 49, 450, 450);
+			GUI["l5"]["ScaleType"] = Enum.ScaleType.Slice;
+			GUI["l5"]["ImageColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l5"]["ImageTransparency"] = 0.5;
+			GUI["l5"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+			GUI["l5"]["Image"] = [[rbxassetid://6014261993]];
+			GUI["l5"]["Size"] = UDim2.new(1, 30, 1, 30);
+			GUI["l5"]["Name"] = [[DropShadow]];
+			GUI["l5"]["BackgroundTransparency"] = 1;
+			GUI["l5"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+
+			-- StarterGui.MyLibrary.VelocityStats.Text
+			GUI["l6"] = Instance.new("TextLabel", GUI["l2"]);
+			GUI["l6"]["BorderSizePixel"] = 0;
+			GUI["l6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["l6"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+			GUI["l6"]["TextSize"] = 14;
+			GUI["l6"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+			GUI["l6"]["Size"] = UDim2.new(1, 0, 1, -3);
+			GUI["l6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l6"]["Text"] = [[Velocity Stats]];
+			GUI["l6"]["Name"] = [[Text]];
+			GUI["l6"]["BackgroundTransparency"] = 1;
+			GUI["l6"]["Position"] = UDim2.new(0, 0, 0, 3);
+
+			-- StarterGui.MyLibrary.VelocityStats.UIStroke
+			GUI["l7"] = Instance.new("UIStroke", GUI["l2"]);
+			GUI["l7"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer
+			GUI["l8"] = Instance.new("Frame", GUI["l2"]);
+			GUI["l8"]["BorderSizePixel"] = 0;
+			GUI["l8"]["BackgroundColor3"] = Color3.fromRGB(21, 21, 21);
+			GUI["l8"]["Size"] = UDim2.new(1, 0, 0, 0);
+			GUI["l8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l8"]["Position"] = UDim2.new(0, 0, 1, 0);
+			GUI["l8"]["AutomaticSize"] = Enum.AutomaticSize.Y;
+			GUI["l8"]["Name"] = [[ContentContainer]];
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.UIListLayout
+			GUI["l9"] = Instance.new("UIListLayout", GUI["l8"]);
+			GUI["l9"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.VelocityStats
+			GUI["la"] = Instance.new("Frame", GUI["l8"]);
+			GUI["la"]["BorderSizePixel"] = 0;
+			GUI["la"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["la"]["BackgroundTransparency"] = 1;
+			GUI["la"]["Size"] = UDim2.new(1, 0, 0, 20);
+			GUI["la"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["la"]["Name"] = [[VelocityStats]];
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.VelocityStats.Keybind
+			GUI["lb"] = Instance.new("TextLabel", GUI["la"]);
+			GUI["lb"]["BorderSizePixel"] = 0;
+			GUI["lb"]["RichText"] = true;
+			GUI["lb"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["lb"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+			GUI["lb"]["TextSize"] = 14;
+			GUI["lb"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["lb"]["Size"] = UDim2.new(1, 0, 1, 0);
+			GUI["lb"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["lb"]["Text"] = [[Velocity | 0, 0, 0]];
+			GUI["lb"]["Name"] = [[Keybind]];
+			GUI["lb"]["BackgroundTransparency"] = 1;
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.VelocityStats.Keybind.UIPadding
+			GUI["lc"] = Instance.new("UIPadding", GUI["lb"]);
+			GUI["lc"]["PaddingBottom"] = UDim.new(0, 2);
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.UIStroke
+			GUI["ld"] = Instance.new("UIStroke", GUI["l8"]);
+			GUI["ld"]["Color"] = Color3.fromRGB(21, 21, 21);
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.PositionStats
+			GUI["le"] = Instance.new("Frame", GUI["l8"]);
+			GUI["le"]["BorderSizePixel"] = 0;
+			GUI["le"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["le"]["BackgroundTransparency"] = 1;
+			GUI["le"]["Size"] = UDim2.new(1, 0, 0, 20);
+			GUI["le"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["le"]["Name"] = [[PositionStats]];
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.PositionStats.Keybind
+			GUI["lf"] = Instance.new("TextLabel", GUI["le"]);
+			GUI["lf"]["BorderSizePixel"] = 0;
+			GUI["lf"]["RichText"] = true;
+			GUI["lf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["lf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+			GUI["lf"]["TextSize"] = 14;
+			GUI["lf"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["lf"]["Size"] = UDim2.new(1, 0, 1, 0);
+			GUI["lf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["lf"]["Text"] = [[Position | 0, 0, 0]];
+			GUI["lf"]["Name"] = [[Keybind]];
+			GUI["lf"]["BackgroundTransparency"] = 1;
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.PositionStats.Keybind.UIPadding
+			GUI["l10"] = Instance.new("UIPadding", GUI["lf"]);
+			GUI["l10"]["PaddingBottom"] = UDim.new(0, 2);
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.RotationStats
+			GUI["l11"] = Instance.new("Frame", GUI["l8"]);
+			GUI["l11"]["BorderSizePixel"] = 0;
+			GUI["l11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["l11"]["BackgroundTransparency"] = 1;
+			GUI["l11"]["Size"] = UDim2.new(1, 0, 0, 20);
+			GUI["l11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l11"]["Name"] = [[RotationStats]];
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.RotationStats.Keybind
+			GUI["l12"] = Instance.new("TextLabel", GUI["l11"]);
+			GUI["l12"]["BorderSizePixel"] = 0;
+			GUI["l12"]["RichText"] = true;
+			GUI["l12"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["l12"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+			GUI["l12"]["TextSize"] = 14;
+			GUI["l12"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+			GUI["l12"]["Size"] = UDim2.new(1, 0, 1, 0);
+			GUI["l12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+			GUI["l12"]["Text"] = [[Rotation | 0, 0, 0]];
+			GUI["l12"]["Name"] = [[Keybind]];
+			GUI["l12"]["BackgroundTransparency"] = 1;
+
+			-- StarterGui.MyLibrary.VelocityStats.ContentContainer.RotationStats.Keybind.UIPadding
+			GUI["l13"] = Instance.new("UIPadding", GUI["l12"]);
+			GUI["l13"]["PaddingBottom"] = UDim.new(0, 2);
+		end
+		
+		function GUI:UpdateVelocityStats()
+			if players.LocalPlayer.Character and players.LocalPlayer.Character.HumanoidRootPart then
+				GUI["lb"].Text = string.format("Velocity | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Velocity.Z))
+				GUI["lf"].Text = string.format("Position | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Position.Z))
+				GUI["l12"].Text = string.format("Rotation | %s, %s, %s", math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.X), math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.Y), math.round(players.LocalPlayer.Character.HumanoidRootPart.Rotation.Z))
+			end
+		end
+		--
+		if not runService:IsStudio() then
+			runService.PostSimulation:Connect(function()
+				task.spawn(function()
+					GUI:UpdateVelocityStats()
+				end)
+			end)
+		end
 	end
 	
-	function GUI:IndicatorVisibility(bool)
-		GUI["16"].Visible = bool
+	function GUI:KeybindListVisibility()
+		GUI["1c"].Visible = not GUI["1c"].Visible
 	end
 
-	function GUI:MenuVisibility(bool)
-		GUI["2"].Visible = bool
+	function GUI:WatermarkVisibility()
+		GUI["f"].Visible = not GUI["f"].Visible
+	end
+	
+	function GUI:IndicatorVisibility()
+		GUI["16"].Visible = not GUI["16"].Visible
+	end
+	
+	function GUI:VelocityStatsVisibility()
+		GUI["l2"].Visible = not GUI["l2"].Visible
 	end
 
 	uis.InputBegan:Connect(function(input, gpe)
@@ -917,6 +1095,7 @@ function Library:Window(options)
 			GUI["2"]["Position"] = UDim2.fromOffset((viewport2.X / 2) - (GUI["2"].Size.X.Offset / 2), (viewport2.Y / 2) - (GUI["2"].Size.Y.Offset / 2));
 			GUI["16"]["Position"] = UDim2.fromOffset(10, (viewport2.Y / 2) - (GUI["16"].Size.Y.Offset / 2) - 135);
 			GUI["1c"]["Position"] = UDim2.fromOffset(10, (viewport2.Y / 2) - (GUI["1c"].Size.Y.Offset / 2));
+			GUI["l2"]["Position"] = UDim2.fromOffset(viewport.X - GUI["l2"].Size.X.Offset - 12, (viewport.Y / 2) - (GUI["l2"].Size.Y.Offset / 2));
 		end)
 
 		GUI["58"].MouseEnter:Connect(function()
