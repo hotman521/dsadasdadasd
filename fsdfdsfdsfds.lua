@@ -4415,7 +4415,7 @@ function Library:Window(options)
 						TextBox["7e"].Text = TextBox["7e"].Text:sub(1, options.Max)
 						--
 						if options.NumbersOnly then
-						    TextBox["7e"].Text = TextBox["7e"].Text:gsub('[^%d%.]+', '')
+						    TextBox["7e"].Text = TextBox["7e"].Text:gsub('[^%d%.%-]+', '')
 						end
 					end)
 					
