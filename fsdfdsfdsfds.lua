@@ -1921,7 +1921,11 @@ function Library:Window(options)
 				end
 				
 				function PlayerListTab:PlayerNumber()
-					PlayerListTab["20"].Text = string.format("Player List - %s Players", #players:GetPlayers())
+					if #players:GetPlayers() == 1 then
+						PlayerListTab["20"].Text = string.format("Player List - %s Player", #players:GetPlayers())
+					else
+						PlayerListTab["20"].Text = string.format("Player List - %s Players", #players:GetPlayers())
+					end
 				end
 			end
 
