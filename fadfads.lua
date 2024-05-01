@@ -1076,7 +1076,7 @@ function Library:Window(options)
 		if input.UserInputType == Enum.UserInputType.MouseMovement and isDragging then
 			local currentMousePosition = userInputService:GetMouseLocation()
 			local delta = currentMousePosition - originalMousePosition
-			local newSize = UDim2.new(0, math.max(originalSize.X.Offset + delta.X, minSize.X.Offset), 0, math.max(originalSize.Y.Offset + delta.Y, minSize.Y.Offset))
+			local newSize = UDim2.new(0, math.clamp(originalSize.X.Offset + delta.X, minSize.X.Offset, maxSize.X.Offset), 0, math.clamp(originalSize.Y.Offset + delta.Y, minSize.Y.Offset, maxSize.Y.Offset))
 			mainFrame.Size = newSize
 			cornerFrame.Position = UDim2.new(0, mainFrame.AbsoluteSize.X - cornerFrame.Size.X.Offset, 0, mainFrame.AbsoluteSize.Y - cornerFrame.Size.Y.Offset)
 		end
@@ -3850,7 +3850,7 @@ function Library:Window(options)
 						uis.InputEnded:Connect(function(input, gpe)
 							if gpe then return end
 							
-							if options.Mode == "Hold" or options.Mode == "Off Hold" then
+							if options.Mode == "On Hold" or options.Mode == "Off Hold" then
 								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
 									Keybind:Toggle()
 								end
