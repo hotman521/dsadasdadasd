@@ -1045,6 +1045,50 @@ function Library:Window(options)
 		end
 	end)
 
+	-- StarterGui.MyLibrary.MainBackground.ResizableCorner
+	GUI["2mm"] = Instance.new("ImageButton", GUI["2"]);
+	GUI["2mm"]["BorderSizePixel"] = 0;
+	GUI["2mm"]["BackgroundTransparency"] = 1;
+	GUI["2mm"]["ImageTransparency"] = 1;
+	GUI["2mm"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	GUI["2mm"]["Image"] = [[rbxasset://textures/ui/GuiImagePlaceholder.png]];
+	GUI["2mm"]["Size"] = UDim2.new(0, 20, 0, 20);
+	GUI["2mm"]["Name"] = [[ResizableCorner]];
+	GUI["2mm"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	GUI["2mm"]["Position"] = UDim2.new(0.975, 0, 0.966, 0);
+	
+	local cornerFrame = GUI["2mm"]
+	local mainFrame = GUI["2"]
+
+	local userInputService = game:GetService("UserInputService")
+	local isDragging = false
+	local originalSize = mainFrame.Size
+	local originalMousePosition = Vector2.new()
+	local minSize = UDim2.new(0, 650, 0, 477)
+	local maxSize = UDim2.new(0, 950, 0, 777)
+
+	cornerFrame.MouseButton1Down:Connect(function()
+		isDragging = true
+		originalMousePosition = userInputService:GetMouseLocation()
+	end)
+
+	userInputService.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement and isDragging then
+			local currentMousePosition = userInputService:GetMouseLocation()
+			local delta = currentMousePosition - originalMousePosition
+			local newSize = UDim2.new(0, math.clamp(originalSize.X.Offset + delta.X, minSize.X.Offset, maxSize.X.Offset), 0, math.clamp(originalSize.Y.Offset + delta.Y, minSize.Y.Offset, maxSize.Y.Offset))
+			mainFrame.Size = newSize
+			cornerFrame.Position = UDim2.new(0, mainFrame.AbsoluteSize.X - cornerFrame.Size.X.Offset, 0, mainFrame.AbsoluteSize.Y - cornerFrame.Size.Y.Offset)
+		end
+	end)
+
+	userInputService.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			isDragging = false
+			originalSize = mainFrame.Size
+		end
+	end)
+
 	function GUI:FadeOut()
 		for _, UI in pairs(GUI["1"]:GetDescendants()) do
 			if UI:IsA("Frame") then
@@ -1072,11 +1116,15 @@ function Library:Window(options)
 		GUI["46"]["Name"] = [[Navigation]];
 
 		-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder
-		GUI["47"] = Instance.new("Frame", GUI["46"]);
+		GUI["47"] = Instance.new("ScrollingFrame", GUI["46"]);
+		GUI["47"]["Active"] = true;
 		GUI["47"]["BorderSizePixel"] = 0;
+		GUI["47"]["ScrollBarImageTransparency"] = 1;
 		GUI["47"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["47"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 		GUI["47"]["BackgroundTransparency"] = 1;
 		GUI["47"]["Size"] = UDim2.new(1, 0, 1, 0);
+		GUI["47"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["47"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["47"]["Name"] = [[ButtonHolder]];
 
@@ -1098,6 +1146,22 @@ function Library:Window(options)
 			GUI["1c"]["Position"] = UDim2.fromOffset(10, (viewport2.Y / 2) - (GUI["1c"].Size.Y.Offset / 2));
 			GUI["l2"]["Position"] = UDim2.fromOffset(viewport.X - GUI["l2"].Size.X.Offset - 12, (viewport.Y / 2) - (GUI["l2"].Size.Y.Offset / 2));
 		end)
+		
+		local scrollingFrame = GUI["47"]
+		local uilistlayout = GUI["49"]
+
+		local function resizeScrollingFrame()
+			local totalHeight = 0
+			for _, child in ipairs(scrollingFrame:GetChildren()) do
+				if child:IsA("Frame") then
+					totalHeight = totalHeight + child.AbsoluteSize.Y + uilistlayout.Padding.Offset
+				end
+			end
+			scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		end
+
+		uilistlayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(resizeScrollingFrame)
+		resizeScrollingFrame()
 
 		GUI["58"].MouseEnter:Connect(function()
 			GUI.Hover = true
@@ -1140,6 +1204,18 @@ function Library:Window(options)
 				Tab["4e"]["Size"] = UDim2.new(1, 0, 0, 80);
 				Tab["4e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Tab["4e"]["Name"] = [[Inactive]];
+
+				-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+				Tab["bf"] = Instance.new("TextButton", Tab["4e"]);
+				Tab["bf"]["BorderSizePixel"] = 0;
+				Tab["bf"]["TextTransparency"] = 1;
+				Tab["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				Tab["bf"]["TextSize"] = 14;
+				Tab["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+				Tab["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+				Tab["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+				Tab["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Tab["bf"]["BackgroundTransparency"] = 1;
 
 				-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.Main
 				Tab["4f"] = Instance.new("TextLabel", Tab["4e"]);
@@ -1188,17 +1264,23 @@ function Library:Window(options)
 				Tab["7"]["Position"] = UDim2.new(0, 6, 0, -14);
 				Tab["7"]["Name"] = [[Tab]];
 				Tab["7"]["Visible"] = false;
+				Tab["7"]["ClipsDescendants"] = true;
 			end
 
 			if options.PlayerList == false or options.SkinList == false then
-				do -- Columns
+			do -- Columns
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left
-				Tab["8"] = Instance.new("Frame", Tab["7"]);
+				Tab["8"] = Instance.new("ScrollingFrame", Tab["7"]);
+				Tab["8"]["Active"] = true;
 				Tab["8"]["BorderSizePixel"] = 0;
+				Tab["8"]["ScrollBarImageTransparency"] = 1;
+				Tab["8"]["ScrollBarThickness"] = 12;
+				Tab["8"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 255, 0);
 				Tab["8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Tab["8"]["BackgroundTransparency"] = 1;
 				Tab["8"]["Size"] = UDim2.new(0.495, 0, 1, 0);
 				Tab["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Tab["8"]["ScrollBarThickness"] = 2;
 				Tab["8"]["Name"] = [[Left]];
 
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.UIListLayout
@@ -1214,12 +1296,16 @@ function Library:Window(options)
 				Tab["a"]["PaddingLeft"] = UDim.new(0, 1);
 
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right
-				Tab["41"] = Instance.new("Frame", Tab["7"]);
+				Tab["41"] = Instance.new("ScrollingFrame", Tab["7"]);
+				Tab["41"]["Active"] = true;
 				Tab["41"]["BorderSizePixel"] = 0;
+				Tab["41"]["ScrollBarImageTransparency"] = 1;
+				Tab["41"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 255, 0);
 				Tab["41"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				Tab["41"]["BackgroundTransparency"] = 1;
 				Tab["41"]["Size"] = UDim2.new(0.495, 0, 1, 0);
 				Tab["41"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+				Tab["41"]["ScrollBarThickness"] = 2;
 				Tab["41"]["Position"] = UDim2.new(0.505, 0, 0, 0);
 				Tab["41"]["Name"] = [[Right]];
 
@@ -1234,7 +1320,45 @@ function Library:Window(options)
 				Tab["43"]["PaddingRight"] = UDim.new(0, 1);
 				Tab["43"]["PaddingBottom"] = UDim.new(0, 1);
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
+			end
+
+			local frameToTrack = GUI["2"]
+			local scrollingFrame = Tab["8"]
+			local scrollingFrame2 = Tab["41"]
+
+			local function updateScrollingFrameSize()
+				local totalHeight = 0
+				for _, item in ipairs(scrollingFrame:GetChildren()) do
+					if item:IsA("Frame") then
+						totalHeight = totalHeight + item.AbsoluteSize.Y + 10
+					end
 				end
+				scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+
+				local totalHeight2 = 0
+				for _, item in ipairs(scrollingFrame2:GetChildren()) do
+					if item:IsA("Frame") then
+						totalHeight2 = totalHeight2 + item.AbsoluteSize.Y + 10
+					end
+				end
+				scrollingFrame2.CanvasSize = UDim2.new(0, 0, 0, totalHeight2)
+
+				scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
+				scrollingFrame2.ScrollBarImageTransparency = scrollingFrame2.CanvasSize.Y.Offset <= scrollingFrame2.AbsoluteSize.Y and 1 or 0
+			end
+
+			frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateScrollingFrameSize)
+
+			scrollingFrame.ChildAdded:Connect(updateScrollingFrameSize)
+			scrollingFrame.ChildRemoved:Connect(updateScrollingFrameSize)
+
+			scrollingFrame2.ChildAdded:Connect(updateScrollingFrameSize)
+			scrollingFrame2.ChildRemoved:Connect(updateScrollingFrameSize)
+
+			updateScrollingFrameSize()
+
+
+
 			end
 			-- Methods
 			function Tab:Activate()
@@ -1288,14 +1412,10 @@ function Library:Window(options)
 						Library:tween(Tab["4f"], {TextColor3 = Color3.fromRGB(124, 124, 124)})
 					end
 				end)
-
-				uis.InputBegan:Connect(function(input, gpe)
-					if gpe then return end
-
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						if Tab.Hover then
-							Tab:Activate()
-						end
+				
+				Tab["bf"].MouseButton1Click:Connect(function()
+					if Tab.Hover then
+						Tab:Activate()
 					end
 				end)
 
@@ -1326,6 +1446,7 @@ function Library:Window(options)
 				PlayerListTab["5"]["Size"] = UDim2.new(1, -2, 1, 2);
 				PlayerListTab["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				PlayerListTab["5"]["Position"] = UDim2.new(0, 1, 0, -14);
+				PlayerListTab["5"]["ClipsDescendants"] = true;
 				PlayerListTab["5"]["Name"] = [[PlayerTab]];
 				
 				PlayerListTab["5a"] = Instance.new("UIPadding", PlayerListTab["5"]);
@@ -2060,6 +2181,7 @@ function Library:Window(options)
 						GunListTab["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						GunListTab["1d"]["Position"] = UDim2.new(0, 1, 0, -14);
 						GunListTab["1d"]["Name"] = [[GunsTab]];
+						GunListTab["1d"]["ClipsDescendants"] = true;
 						GunListTab["1d"]["ZIndex"] = 2;
 
 						GunListTab["1i"] = Instance.new("UIPadding", GunListTab["1d"]);
@@ -2437,6 +2559,7 @@ function Library:Window(options)
 						SkinListTab["1d"]["Size"] = UDim2.new(1, -2, 1, 14);
 						SkinListTab["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						SkinListTab["1d"]["Position"] = UDim2.new(0, 1, 0, -14);
+						SkinListTab["1d"]["ClipsDescendants"] = true;
 						SkinListTab["1d"]["Name"] = [[SkinsTab]];
 
 						SkinListTab["1i"] = Instance.new("UIPadding", SkinListTab["1d"]);
@@ -2827,10 +2950,10 @@ function Library:Window(options)
 				Section["9"] = Instance.new("Frame", Tab["7"]);
 				Section["9"]["BorderSizePixel"] = 0;
 				Section["9"]["BackgroundColor3"] = Color3.fromRGB(20, 20, 20);
-				Section["9"]["Size"] = UDim2.new(1, 0, 0, 30);
+				Section["9"]["Size"] = UDim2.new(1, -7, 0, 30);
 				Section["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Section["9"]["Name"] = [[Section]];
-				Section["9"]["AutomaticSize"] = Enum.AutomaticSize.XY;
+				Section["9"]["AutomaticSize"] = Enum.AutomaticSize.Y;
 				Section["9"]["ZIndex"] = zindexcount;
 				
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.HomeSection.Left.Section.UIStroke
@@ -2910,6 +3033,19 @@ function Library:Window(options)
 					Button["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Button["12"]["Position"] = UDim2.new(0, 5, 0, 0);
 					Button["12"]["Name"] = [[Button]];
+					
+					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+					Button["bfj"] = Instance.new("TextButton", Button["12"]);
+					Button["bfj"]["BorderSizePixel"] = 0;
+					Button["bfj"]["TextTransparency"] = 1;
+					Button["bfj"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Button["bfj"]["TextSize"] = 14;
+					Button["bfj"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Button["bfj"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+					Button["bfj"]["Size"] = UDim2.new(1, 0, 1, 0);
+					Button["bfj"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					Button["bfj"]["BackgroundTransparency"] = 1;
+					Button["bfj"]["Name"] = "BUTTON";
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Button.Text
 					Button["13"] = Instance.new("TextLabel", Button["12"]);
@@ -2959,32 +3095,25 @@ function Library:Window(options)
 						end
 					end)
 					
-					
-					uis.InputBegan:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Button.Hover then
+					Button["bfj"].MouseButton1Down:Connect(function()
+						if Button.Hover then
 							Button.MouseDown = true
 							Library:tween(Button["14"], {Color = Color3.fromRGB(80, 80, 80)})
 							Library:tween(Button["12"], {BackgroundColor3 = Color3.fromRGB(50, 50, 50)})
-							
+
 							options.Callback()
 						end
 					end)
+					
+					Button["bfj"].MouseButton1Up:Connect(function()
+						Button.MouseDown = false
 
-					uis.InputEnded:Connect(function(input, gpe)
-						if gpe then return end
-						
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							Button.MouseDown = false
-							
-							if Button.Hover then
-								Library:tween(Button["14"], {Color = Color3.fromRGB(50, 50, 50)})
-								Library:tween(Button["12"], {BackgroundColor3 = Color3.fromRGB(17, 17, 17)})
-							else
-								Library:tween(Button["14"], {Color = Color3.fromRGB(27, 27, 27)})
-								Library:tween(Button["12"], {BackgroundColor3 = Color3.fromRGB(13, 13, 13)})
-							end
+						if Button.Hover then
+							Library:tween(Button["14"], {Color = Color3.fromRGB(50, 50, 50)})
+							Library:tween(Button["12"], {BackgroundColor3 = Color3.fromRGB(17, 17, 17)})
+						else
+							Library:tween(Button["14"], {Color = Color3.fromRGB(27, 27, 27)})
+							Library:tween(Button["12"], {BackgroundColor3 = Color3.fromRGB(13, 13, 13)})
 						end
 					end)
 				end
@@ -3134,6 +3263,19 @@ function Library:Window(options)
 							ColorPicker["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							ColorPicker["36"]["Position"] = UDim2.new(1, -30, 0.5, 0);
 							ColorPicker["36"]["Name"] = [[Colorpicker]];
+
+							-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+							ColorPicker["bfj"] = Instance.new("TextButton", ColorPicker["36"]);
+							ColorPicker["bfj"]["BorderSizePixel"] = 0;
+							ColorPicker["bfj"]["TextTransparency"] = 1;
+							ColorPicker["bfj"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							ColorPicker["bfj"]["TextSize"] = 14;
+							ColorPicker["bfj"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+							ColorPicker["bfj"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+							ColorPicker["bfj"]["Size"] = UDim2.new(1, 0, 1, 0);
+							ColorPicker["bfj"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							ColorPicker["bfj"]["BackgroundTransparency"] = 1;
+							ColorPicker["bfj"]["Name"] = "BUTTON";
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.UIStroke
 							ColorPicker["37"] = Instance.new("UIStroke", ColorPicker["36"]);
@@ -3393,7 +3535,7 @@ function Library:Window(options)
 
 							function ColorPicker:RemoveFrame()
 								for i, v in pairs(ColorPicker["36"]:GetDescendants()) do
-									if v.Name ~= "UISTROKE" then
+									if v.Name ~= "UISTROKE" and v.Name ~= "BUTTON" then
 										v:Destroy()
 									end
 								end
@@ -3413,16 +3555,18 @@ function Library:Window(options)
 								Library:tween(ColorPicker["37"], {Color = Color3.fromRGB(28, 28, 28)})
 							end)
 
-							uis.InputBegan:Connect(function(input, gpe)
-								if gpe then return end
+							local function ColorToggle()
+								ColorPicker.Toggle = not ColorPicker.Toggle
 
-								if input.UserInputType == Enum.UserInputType.MouseButton1 and ColorPicker.Hover then
+								if ColorPicker.Toggle then
 									ColorPicker:AddFrame()
-								end
-
-								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+								else
 									ColorPicker:RemoveFrame()
 								end
+							end
+
+							ColorPicker["bfj"].MouseButton1Click:Connect(function()
+								ColorToggle()
 							end)
 						end
 
@@ -3472,6 +3616,18 @@ function Library:Window(options)
 					Toggle["35"]["Position"] = UDim2.new(0, 0, 0, 94);
 					Toggle["35"]["Name"] = [[Toggle]];
 					Toggle["35"]["ZIndex"] = 1000;
+
+					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+					Toggle["bf"] = Instance.new("TextButton", Toggle["35"]);
+					Toggle["bf"]["BorderSizePixel"] = 0;
+					Toggle["bf"]["TextTransparency"] = 1;
+					Toggle["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Toggle["bf"]["TextSize"] = 14;
+					Toggle["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Toggle["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+					Toggle["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+					Toggle["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					Toggle["bf"]["BackgroundTransparency"] = 1;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Text
 					Toggle["36"] = Instance.new("TextLabel", Toggle["35"]);
@@ -3563,7 +3719,8 @@ function Library:Window(options)
 							Hover = false,
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
-							State = true,
+							RegKeybind = nil,
+							State = false,
 						}
 						
 						do -- Render
@@ -3575,6 +3732,18 @@ function Library:Window(options)
 							Keybind["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							Keybind["36"]["Position"] = UDim2.new(1, -30, 0, 0);
 							Keybind["36"]["Name"] = [[Keybind]];
+
+							-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+							Keybind["bf"] = Instance.new("TextButton", Keybind["36"]);
+							Keybind["bf"]["BorderSizePixel"] = 0;
+							Keybind["bf"]["TextTransparency"] = 1;
+							Keybind["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["bf"]["TextSize"] = 14;
+							Keybind["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+							Keybind["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+							Keybind["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+							Keybind["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							Keybind["bf"]["BackgroundTransparency"] = 1;
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Keybind.UIPadding
 							Keybind["37"] = Instance.new("UIPadding", Keybind["36"]);
@@ -3610,6 +3779,7 @@ function Library:Window(options)
 						end
 						
 						local function set(key)
+							Keybind.RegKeybind = key
 							if typeof(key) == "string" then
 								if key:find("KEY") then
 									key = Enum.KeyCode[key:gsub("KEY_", "")]
@@ -3651,17 +3821,15 @@ function Library:Window(options)
 						
 						local binding
 
-						uis.InputBegan:Connect(function(input, gpe)
-							if gpe then return end
-							
-							if Keybind.Hover and input.UserInputType == Enum.UserInputType.MouseButton1 then
-								
+						Keybind["bf"].MouseButton1Click:Connect(function()
+							if Keybind.Hover then
+
 								if binding then
 									binding:Disconnect()
 								end
-								
+
 								Keybind["38"].Text = "..."
-								
+
 								binding = uis.InputBegan:Connect(function(input)
 									set(input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode or input.UserInputType)
 									binding:Disconnect()
@@ -3682,7 +3850,7 @@ function Library:Window(options)
 						uis.InputEnded:Connect(function(input, gpe)
 							if gpe then return end
 							
-							if options.Mode == "Hold" or options.Mode == "Off Hold" then
+							if options.Mode == "On Hold" or options.Mode == "Off Hold" then
 								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
 									Keybind:Toggle()
 								end
@@ -3814,6 +3982,19 @@ function Library:Window(options)
 							ColorPicker["36"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							ColorPicker["36"]["Position"] = UDim2.new(1, -30, 0.5, 0);
 							ColorPicker["36"]["Name"] = [[Colorpicker]];
+
+							-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+							ColorPicker["bfj"] = Instance.new("TextButton", ColorPicker["36"]);
+							ColorPicker["bfj"]["BorderSizePixel"] = 0;
+							ColorPicker["bfj"]["TextTransparency"] = 1;
+							ColorPicker["bfj"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							ColorPicker["bfj"]["TextSize"] = 14;
+							ColorPicker["bfj"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+							ColorPicker["bfj"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+							ColorPicker["bfj"]["Size"] = UDim2.new(1, 0, 1, 0);
+							ColorPicker["bfj"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							ColorPicker["bfj"]["BackgroundTransparency"] = 1;
+							ColorPicker["bfj"]["Name"] = "BUTTON";
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.UIStroke
 							ColorPicker["37"] = Instance.new("UIStroke", ColorPicker["36"]);
@@ -4073,7 +4254,7 @@ function Library:Window(options)
 							
 							function ColorPicker:RemoveFrame()
 								for i, v in pairs(ColorPicker["36"]:GetDescendants()) do
-									if v.Name ~= "UISTROKE" then
+									if v.Name ~= "UISTROKE" and v.Name ~= "BUTTON" then
 										v:Destroy()
 									end
 								end
@@ -4093,16 +4274,18 @@ function Library:Window(options)
 								Library:tween(ColorPicker["37"], {Color = Color3.fromRGB(28, 28, 28)})
 							end)
 
-							uis.InputBegan:Connect(function(input, gpe)
-								if gpe then return end
-
-								if ColorPicker.Hover and input.UserInputType == Enum.UserInputType.MouseButton1 then
-									ColorPicker:AddFrame()
-								end
+							local function ColorToggle()
+								ColorPicker.Toggle = not ColorPicker.Toggle
 								
-								if not ColorPicker.Hover and not ColorPicker.MainFrameHover and input.UserInputType == Enum.UserInputType.MouseButton1 then
+								if ColorPicker.Toggle then
+									ColorPicker:AddFrame()
+								else
 									ColorPicker:RemoveFrame()
 								end
+							end
+							
+							ColorPicker["bfj"].MouseButton1Click:Connect(function()
+								ColorToggle()
 							end)
 						end
 						
@@ -4152,27 +4335,21 @@ function Library:Window(options)
 					end)
 
 
-					uis.InputBegan:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Toggle.Hover then
+					Toggle["bf"].MouseButton1Down:Connect(function()
+						if Toggle.Hover then
 							Toggle.MouseDown = true
 							Library:tween(Toggle["39"], {Color = Color3.fromRGB(80, 80, 80)})
 							Toggle:Toggle()
 						end
 					end)
 
-					uis.InputEnded:Connect(function(input, gpe)
-						if gpe then return end
+					Toggle["bf"].MouseButton1Up:Connect(function()
+						Toggle.MouseDown = false
 
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							Toggle.MouseDown = false
-
-							if Toggle.Hover then
-								Library:tween(Toggle["39"], {Color = Color3.fromRGB(55, 55, 55)})
-							else
-								Library:tween(Toggle["39"], {Color = Color3.fromRGB(27, 27, 27)})
-							end
+						if Toggle.Hover then
+							Library:tween(Toggle["39"], {Color = Color3.fromRGB(55, 55, 55)})
+						else
+							Library:tween(Toggle["39"], {Color = Color3.fromRGB(27, 27, 27)})
 						end
 					end)
 				end
@@ -4267,6 +4444,18 @@ function Library:Window(options)
 					Slider["1d"]["Size"] = UDim2.new(0.5, 0, 1, 0);
 					Slider["1d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Slider["1d"]["Name"] = [[Draggable]];
+
+					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+					Slider["bf"] = Instance.new("TextButton", Slider["1b"]);
+					Slider["bf"]["BorderSizePixel"] = 0;
+					Slider["bf"]["TextTransparency"] = 1;
+					Slider["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Slider["bf"]["TextSize"] = 14;
+					Slider["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Slider["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+					Slider["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+					Slider["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					Slider["bf"]["BackgroundTransparency"] = 1;
 				end
 				
 				local function get(value)
@@ -4304,19 +4493,15 @@ function Library:Window(options)
 						Slider.Hover = false
 					end)
 
-					uis.InputBegan:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Slider.Hover then
+					Slider["bf"].MouseButton1Down:Connect(function()
+						if Slider.Hover then
 							Slider.MouseDown = true
 							slide{Position = uis:GetMouseLocation()}
 						end
 					end)
 					
-					uis.InputChanged:Connect(function(input)
-						if Slider.MouseDown and input.UserInputType == Enum.UserInputType.MouseMovement then
-							slide(input)
-						end
+					Slider["bf"].MouseButton1Up:Connect(function()
+						Slider.MouseDown = false
 					end)
 
 					uis.InputEnded:Connect(function(input, gpe)
@@ -4501,6 +4686,18 @@ function Library:Window(options)
 					Dropdown["c0"]["Position"] = UDim2.new(0, 0, 0, 22);
 					Dropdown["c0"]["Name"] = [[Options]];
 
+					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+					Dropdown["bf"] = Instance.new("TextButton", Dropdown["c0"]);
+					Dropdown["bf"]["BorderSizePixel"] = 0;
+					Dropdown["bf"]["TextTransparency"] = 1;
+					Dropdown["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Dropdown["bf"]["TextSize"] = 14;
+					Dropdown["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+					Dropdown["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+					Dropdown["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+					Dropdown["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+					Dropdown["bf"]["BackgroundTransparency"] = 1;
+
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.UIStroke
 					Dropdown["c1"] = Instance.new("UIStroke", Dropdown["c0"]);
 					Dropdown["c1"]["Color"] = Color3.fromRGB(27, 27, 27);
@@ -4586,6 +4783,18 @@ function Library:Window(options)
 							Item["c7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 							Item["c7"]["Name"] = [[Option]];
 							Item["c7"]["ZIndex"] = 8;
+
+							-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+							Item["bf"] = Instance.new("TextButton", Item["c7"]);
+							Item["bf"]["BorderSizePixel"] = 0;
+							Item["bf"]["TextTransparency"] = 1;
+							Item["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Item["bf"]["TextSize"] = 14;
+							Item["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+							Item["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+							Item["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
+							Item["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							Item["bf"]["BackgroundTransparency"] = 1;
 							
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.Inactive.Text.UIPadding
 							Item["f3"] = Instance.new("UIPadding", Item["c7"]);
@@ -4633,16 +4842,11 @@ function Library:Window(options)
 							Item["c7"].MouseLeave:Connect(function()
 								Item.Hover = false
 
-								if not Item.MouseDown then
-									Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(150, 150, 150)})
-								end
+								Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(150, 150, 150)})
 							end)
 
-
-							uis.InputBegan:Connect(function(input, gpe)
-								if gpe then return end
-
-								if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
+							Item["bf"].MouseButton1Down:Connect(function()
+								if Item.Hover then
 									Item.MouseDown = true
 									Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(255, 255, 255)})
 
@@ -4653,18 +4857,10 @@ function Library:Window(options)
 								end
 							end)
 
-							uis.InputEnded:Connect(function(input, gpe)
-								if gpe then return end
+							Item["bf"].MouseButton1Up:Connect(function()
+								Item.MouseDown = false
 
-								if input.UserInputType == Enum.UserInputType.MouseButton1 then
-									Item.MouseDown = false
-
-									if Item.Hover then
-										Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(214, 214, 214)})
-									else
-										Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(150, 150, 150)})
-									end
-								end
+								Library:tween(Item["c8"], {TextColor3 = Color3.fromRGB(150, 150, 150)})
 							end)
 						end
 					end
@@ -4700,28 +4896,21 @@ function Library:Window(options)
 						end
 					end)
 
-
-					uis.InputBegan:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Dropdown.Hover then
+					Dropdown["bf"].MouseButton1Down:Connect(function()
+						if Dropdown.Hover then
 							Dropdown.MouseDown = true
 							Library:tween(Dropdown["c1"], {Color = Color3.fromRGB(80, 80, 80)})
 							Dropdown:Toggle()
 						end
 					end)
 
-					uis.InputEnded:Connect(function(input, gpe)
-						if gpe then return end
+					Dropdown["bf"].MouseButton1Up:Connect(function()
+						Dropdown.MouseDown = false
 
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							Dropdown.MouseDown = false
-
-							if Dropdown.Hover then
-								Library:tween(Dropdown["c1"], {Color = Color3.fromRGB(55, 55, 55)})
-							else
-								Library:tween(Dropdown["c1"], {Color = Color3.fromRGB(27, 27, 27)})
-							end
+						if Dropdown.Hover then
+							Library:tween(Dropdown["c1"], {Color = Color3.fromRGB(55, 55, 55)})
+						else
+							Library:tween(Dropdown["c1"], {Color = Color3.fromRGB(27, 27, 27)})
 						end
 					end)
 				end
