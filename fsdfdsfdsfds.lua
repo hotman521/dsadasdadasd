@@ -1876,6 +1876,19 @@ function Library:Window(options)
 						Item["25"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 						Item["25"]["Name"] = Player.Name;
 						Item["25"]["LayoutOrder"] = 1;
+						
+						-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+						Item["bfj"] = Instance.new("TextButton", Item["25"]);
+						Item["bfj"]["BorderSizePixel"] = 0;
+						Item["bfj"]["TextTransparency"] = 1;
+						Item["bfj"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+						Item["bfj"]["TextSize"] = 14;
+						Item["bfj"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+						Item["bfj"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["bfj"]["Size"] = UDim2.new(1, 0, 1, 0);
+						Item["bfj"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+						Item["bfj"]["BackgroundTransparency"] = 1;
+						Item["bfj"]["Name"] = "BUTTON";
 
 						-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList.Holder.PlayerFrame.PlayerName
 						Item["26"] = Instance.new("TextLabel", Item["25"]);
@@ -2031,11 +2044,9 @@ function Library:Window(options)
 							Library:tween(Item["26"], {TextColor3 = Color3.fromRGB(214, 214, 214)})
 						end
 					end)
-
-					uis.InputBegan:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 and Item.Hover then
+					
+					Item["bfj"].MouseButton1Click:Connect(function()
+						if Item.Hover then
 							Item:Activate()
 						end
 					end)
