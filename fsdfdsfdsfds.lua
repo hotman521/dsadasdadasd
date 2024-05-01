@@ -4527,12 +4527,10 @@ function Library:Window(options)
 					Slider["bf"].MouseButton1Up:Connect(function()
 						Slider.MouseDown = false
 					end)
-
-					uis.InputEnded:Connect(function(input, gpe)
-						if gpe then return end
-
-						if input.UserInputType == Enum.UserInputType.MouseButton1 then
-							Slider.MouseDown = false
+					
+					uis.InputChanged:Connect(function(input)
+						if Slider.MouseDown and input.UserInputType == Enum.UserInputType.MouseMovement then
+							slide(input)
 						end
 					end)
 				end
