@@ -326,7 +326,9 @@ function Library:Window(options)
 		GUI["c6"] = Instance.new("UIListLayout", GUI["hh"]);
 		GUI["c6"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 		
-		function GUI:AddKeybind(Toggle, Key)
+		function GUI:AddKeybind(Toggle, Key, Mode)
+			if GUI["hh"]:FindFirstChild(tostring(Toggle)) and tostring(Mode) == "Always" then return end
+
 			do -- Render
 				-- StarterGui.MyLibrary.GUI.ContentContainer.KeybindFrame
 				GUI["kk"] = Instance.new("Frame", GUI["hh"]);
@@ -3745,6 +3747,8 @@ function Library:Window(options)
 							Keybind = options.Default ~= nil and options.Default or "None",
 							RegKeybind = nil,
 							State = false,
+							Toggle = false,
+							Mode = options.Mode,
 						}
 						
 						do -- Render
@@ -3758,16 +3762,16 @@ function Library:Window(options)
 							Keybind["36"]["Name"] = [[Keybind]];
 
 							-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
-							Keybind["bf"] = Instance.new("TextButton", Keybind["36"]);
-							Keybind["bf"]["BorderSizePixel"] = 0;
-							Keybind["bf"]["TextTransparency"] = 1;
-							Keybind["bf"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-							Keybind["bf"]["TextSize"] = 14;
-							Keybind["bf"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-							Keybind["bf"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-							Keybind["bf"]["Size"] = UDim2.new(1, 0, 1, 0);
-							Keybind["bf"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-							Keybind["bf"]["BackgroundTransparency"] = 1;
+							Keybind["bfz"] = Instance.new("TextButton", Keybind["36"]);
+							Keybind["bfz"]["BorderSizePixel"] = 0;
+							Keybind["bfz"]["TextTransparency"] = 1;
+							Keybind["bfz"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+							Keybind["bfz"]["TextSize"] = 14;
+							Keybind["bfz"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+							Keybind["bfz"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+							Keybind["bfz"]["Size"] = UDim2.new(1, 0, 1, 0);
+							Keybind["bfz"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+							Keybind["bfz"]["BackgroundTransparency"] = 1;
 
 							-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Keybind.UIPadding
 							Keybind["37"] = Instance.new("UIPadding", Keybind["36"]);
@@ -3789,6 +3793,220 @@ function Library:Window(options)
 							Keybind["39"] = Instance.new("UIStroke", Keybind["36"]);
 							Keybind["39"]["Color"] = Color3.fromRGB(27, 27, 27);
 						end
+						
+						do -- Methods
+							function Toggle:RemoveFrame()
+								for i, v in pairs(Keybind["36"]:GetDescendants()) do
+									if v.Name == "MainModeChanger" then
+										v:Destroy()
+									end
+								end
+							end
+							
+							function Toggle:AddFrame()
+								do -- Render
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame
+									Keybind["57"] = Instance.new("Frame", Keybind["36"]);
+									Keybind["57"]["BorderSizePixel"] = 0;
+									Keybind["57"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									Keybind["57"]["Size"] = UDim2.new(0, 45, 0, 45);
+									Keybind["57"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["57"]["Position"] = UDim2.new(0, -45, 0, 0);
+									Keybind["57"]["AutomaticSize"] = Enum.AutomaticSize.Y;
+									Keybind["57"]["Name"] = [[MainModeChanger]];
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Always
+									Keybind["58"] = Instance.new("Frame", Keybind["57"]);
+									Keybind["58"]["BorderSizePixel"] = 0;
+									Keybind["58"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									Keybind["58"]["Size"] = UDim2.new(1, 0, 0, 15);
+									Keybind["58"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["58"]["Name"] = [[Always]];
+
+									-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+									Keybind["bf1"] = Instance.new("TextButton", Keybind["58"]);
+									Keybind["bf1"]["BorderSizePixel"] = 0;
+									Keybind["bf1"]["TextTransparency"] = 1;
+									Keybind["bf1"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["bf1"]["TextSize"] = 14;
+									Keybind["bf1"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["bf1"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf1"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["bf1"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf1"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Always.UIStroke
+									Keybind["59"] = Instance.new("UIStroke", Keybind["58"]);
+									Keybind["59"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Always.Text
+									Keybind["5a"] = Instance.new("TextLabel", Keybind["58"]);
+									Keybind["5a"]["BorderSizePixel"] = 0;
+									Keybind["5a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["5a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["5a"]["TextSize"] = 12;
+									Keybind["5a"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									Keybind["5a"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["5a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["5a"]["Text"] = [[Always]];
+									Keybind["5a"]["Name"] = [[Text]];
+									Keybind["5a"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.UIListLayout
+									Keybind["5b"] = Instance.new("UIListLayout", Keybind["57"]);
+									Keybind["5b"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Toggle
+									Keybind["5c"] = Instance.new("Frame", Keybind["57"]);
+									Keybind["5c"]["BorderSizePixel"] = 0;
+									Keybind["5c"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									Keybind["5c"]["Size"] = UDim2.new(1, 0, 0, 15);
+									Keybind["5c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["5c"]["Name"] = [[Toggle]];
+
+									-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+									Keybind["bf2"] = Instance.new("TextButton", Keybind["5c"]);
+									Keybind["bf2"]["BorderSizePixel"] = 0;
+									Keybind["bf2"]["TextTransparency"] = 1;
+									Keybind["bf2"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["bf2"]["TextSize"] = 14;
+									Keybind["bf2"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["bf2"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf2"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["bf2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf2"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Toggle.UIStroke
+									Keybind["5d"] = Instance.new("UIStroke", Keybind["5c"]);
+									Keybind["5d"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.Toggle.Text
+									Keybind["5e"] = Instance.new("TextLabel", Keybind["5c"]);
+									Keybind["5e"]["BorderSizePixel"] = 0;
+									Keybind["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["5e"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["5e"]["TextSize"] = 12;
+									Keybind["5e"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									Keybind["5e"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["5e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["5e"]["Text"] = [[Toggle]];
+									Keybind["5e"]["Name"] = [[Text]];
+									Keybind["5e"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OnHold
+									Keybind["5f"] = Instance.new("Frame", Keybind["57"]);
+									Keybind["5f"]["BorderSizePixel"] = 0;
+									Keybind["5f"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									Keybind["5f"]["Size"] = UDim2.new(1, 0, 0, 15);
+									Keybind["5f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["5f"]["Name"] = [[OnHold]];
+
+									-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+									Keybind["bf3"] = Instance.new("TextButton", Keybind["5f"]);
+									Keybind["bf3"]["BorderSizePixel"] = 0;
+									Keybind["bf3"]["TextTransparency"] = 1;
+									Keybind["bf3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["bf3"]["TextSize"] = 14;
+									Keybind["bf3"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["bf3"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf3"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["bf3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf3"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OnHold.UIStroke
+									Keybind["60"] = Instance.new("UIStroke", Keybind["5f"]);
+									Keybind["60"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OnHold.Text
+									Keybind["61"] = Instance.new("TextLabel", Keybind["5f"]);
+									Keybind["61"]["BorderSizePixel"] = 0;
+									Keybind["61"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["61"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["61"]["TextSize"] = 12;
+									Keybind["61"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									Keybind["61"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["61"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["61"]["Text"] = [[On Hold]];
+									Keybind["61"]["Name"] = [[Text]];
+									Keybind["61"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OffHold
+									Keybind["62"] = Instance.new("Frame", Keybind["57"]);
+									Keybind["62"]["BorderSizePixel"] = 0;
+									Keybind["62"]["BackgroundColor3"] = Color3.fromRGB(14, 14, 14);
+									Keybind["62"]["Size"] = UDim2.new(1, 0, 0, 15);
+									Keybind["62"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["62"]["Name"] = [[OffHold]];
+
+									-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
+									Keybind["bf4"] = Instance.new("TextButton", Keybind["62"]);
+									Keybind["bf4"]["BorderSizePixel"] = 0;
+									Keybind["bf4"]["TextTransparency"] = 1;
+									Keybind["bf4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["bf4"]["TextSize"] = 14;
+									Keybind["bf4"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["bf4"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf4"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["bf4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["bf4"]["BackgroundTransparency"] = 1;
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OffHold.UIStroke
+									Keybind["63"] = Instance.new("UIStroke", Keybind["62"]);
+									Keybind["63"]["Color"] = Color3.fromRGB(27, 27, 27);
+
+									-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Toggle.Colorpicker.MainFrame.OffHold.Text
+									Keybind["64"] = Instance.new("TextLabel", Keybind["62"]);
+									Keybind["64"]["BorderSizePixel"] = 0;
+									Keybind["64"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+									Keybind["64"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+									Keybind["64"]["TextSize"] = 12;
+									Keybind["64"]["TextColor3"] = Color3.fromRGB(215, 215, 215);
+									Keybind["64"]["Size"] = UDim2.new(1, 0, 1, 0);
+									Keybind["64"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+									Keybind["64"]["Text"] = [[Off Hold]];
+									Keybind["64"]["Name"] = [[Text]];
+									Keybind["64"]["BackgroundTransparency"] = 1;
+								end
+
+								Keybind["57"].Position = UDim2.new(0, -Keybind["57"].AbsoluteSize.X, 0, Keybind["36"].AbsoluteSize.Y - 13)
+
+								Keybind["bf1"].MouseButton1Click:Connect(function()
+									Keybind.Mode = "Always"
+									Toggle:RemoveFrame()
+								end)
+
+								Keybind["bf2"].MouseButton1Click:Connect(function()
+									Keybind.Mode = "Toggle"
+									Toggle:RemoveFrame()
+								end)
+
+								Keybind["bf3"].MouseButton1Click:Connect(function()
+									Keybind.Mode = "On Hold"
+									Toggle:RemoveFrame()
+								end)
+
+								Keybind["bf4"].MouseButton1Click:Connect(function()
+									Keybind.Mode = "Off Hold"
+									Toggle:RemoveFrame()
+								end)
+							end
+						end
+						
+						local function KeybindToggle()
+							Toggle.Toggle = not Toggle.Toggle
+
+							if Toggle.Toggle then
+								Toggle:AddFrame()
+							else
+								Toggle:RemoveFrame()
+							end
+						end
+
+						Keybind["bfz"].MouseButton2Click:Connect(function()
+							if Keybind.Hover then
+								KeybindToggle()
+							end
+						end)
 						
 						function Toggle:GetKeybind()
 							return Keybind.Keybind
@@ -3845,7 +4063,7 @@ function Library:Window(options)
 						
 						local binding
 
-						Keybind["bf"].MouseButton1Click:Connect(function()
+						Keybind["bfz"].MouseButton1Click:Connect(function()
 							if Keybind.Hover then
 
 								if binding then
@@ -3867,14 +4085,18 @@ function Library:Window(options)
 							if gpe then return end
 							
 							if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
-								Keybind:Toggle()
+								if Keybind.Mode == "Always" then
+									Keybind:Toggle(true)
+								else
+									Keybind:Toggle()
+								end
 							end
 						end)
 						
 						uis.InputEnded:Connect(function(input, gpe)
 							if gpe then return end
 							
-							if options.Mode == "On Hold" or options.Mode == "Off Hold" then
+							if Keybind.Mode == "On Hold" or Keybind.Mode == "Off Hold" then
 								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
 									Keybind:Toggle()
 								end
@@ -3882,32 +4104,30 @@ function Library:Window(options)
 						end)
 						
 						function Keybind:Toggle(b)
-							if Toggle:GetState() then
-								if b == nil then
-									Keybind.State = not Keybind.State
+							if b == nil then
+								Keybind.State = not Keybind.State
+							else
+								Keybind.State = b
+							end
+							
+							if Keybind.Mode ~= "Off Hold" then
+								if Keybind.State then
+									GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 								else
-									Keybind.State = b
+									GUI:RemoveKeybind(Toggle:GetName())
 								end
-								
-								if options.Mode ~= "Off Hold" then
-									if Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
-									end
 
-									Library.Flags[Toggle:GetFlag()] = Keybind.State
-									Toggle:GetCallback(Keybind.State)
+								Library.Flags[Toggle:GetFlag()] = Keybind.State
+								Toggle:GetCallback(Keybind.State)
+							else
+								if not Keybind.State then
+									GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 								else
-									if not Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind())
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
-									end
-
-									Library.Flags[Toggle:GetFlag()] = not Keybind.State
-									Toggle:GetCallback(not Keybind.State)
+									GUI:RemoveKeybind(Toggle:GetName())
 								end
+
+								Library.Flags[Toggle:GetFlag()] = not Keybind.State
+								Toggle:GetCallback(not Keybind.State)
 							end
 						end
 						
