@@ -4545,6 +4545,7 @@ function Library:Window(options)
 					Max = 32,
 					NumbersOnly = false,
 					ClearOnFocus = false,
+					EnteredPressedOnly = false,
 					Flag = Library.NewFlag(),
 					Callback = function() end
 				}, options or {})
@@ -4631,7 +4632,7 @@ function Library:Window(options)
 					end)
 					
 					TextBox["7e"].FocusLost:Connect(function(enterpressed)
-						if enterpressed then
+						if enterpressed and Library.Flags["EnteredPressedOnly"] then
 							Library.Flags[options.Flag] = TextBox["7e"].Text
 							options.Callback(TextBox["7e"].Text)
 						end
