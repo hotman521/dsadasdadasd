@@ -349,7 +349,7 @@ function Library:Window(options)
 				GUI["ll"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 				GUI["ll"]["Size"] = UDim2.new(1, 0, 1, 0);
 				GUI["ll"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-				GUI["ll"]["Text"] = Key ~= "None" and string.format("[%s] %s", tostring(Key), tostring(Toggle)) or string.format("%s", tostring(Toggle));
+				GUI["ll"]["Text"] = Key ~= "None" and string.format("[%s] %s [%s]", tostring(Key), tostring(Toggle), tostring(Mode)) or string.format("%s", tostring(Toggle));
 				GUI["ll"]["Name"] = [[Keybind]];
 				GUI["ll"]["BackgroundTransparency"] = 1;
 
@@ -362,6 +362,9 @@ function Library:Window(options)
 				GUI["zz"] = Instance.new("UIStroke", GUI["1c"]);
 				GUI["zz"]["Color"] = Color3.fromRGB(21, 21, 21);
 			end
+
+			GUI["hh"].Size = UDim2.new(0, GUI["ll"].TextBounds.X + 13, 0, GUI["hh"].Size.Y)
+			GUI["1c"].Size = UDim2.new(0, GUI["ll"].TextBounds.X + 13, 0, 30)
 		end
 
 		function GUI:RemoveKeybind(Toggle)
