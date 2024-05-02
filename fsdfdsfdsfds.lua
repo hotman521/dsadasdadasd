@@ -4007,6 +4007,14 @@ function Library:Window(options)
 								KeybindToggle()
 							end
 						end)
+
+						function Toggle:SetMode(Mode)
+							Keybind.Mode = Mode
+						end
+
+						function Toggle:GetMode()
+							return Keybind.Mode
+						end
 						
 						function Toggle:GetKeybind()
 							return Keybind.Keybind
