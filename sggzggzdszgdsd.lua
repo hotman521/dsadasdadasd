@@ -3837,7 +3837,7 @@ function Library:Window(options)
 				do -- Methods
 					function Toggle:Keybind(options)
 						options = Library:Validate({
-							Default = "W",
+							Default = Enum.KeyCode.W,
 							Mode = "Toggle",
 							HideFromList = false,
 							Flag = Library.NewFlag(),
@@ -4223,20 +4223,24 @@ function Library:Window(options)
 							end
 							
 							if Keybind.Mode ~= "Off Hold" then
+								if not options.HideFromList then
 									if Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
+								end
 
 								Library.Flags[Toggle:GetFlag()] = Keybind.State
 								Toggle:GetCallback(Keybind.State)
 							else
+								if not options.HideFromList then
 									if not Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
+								end
 
 								Library.Flags[Toggle:GetFlag()] = not Keybind.State
 								Toggle:GetCallback(not Keybind.State)
