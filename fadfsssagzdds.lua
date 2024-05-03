@@ -127,10 +127,6 @@ function Library:Window(options)
 		Hover = false,
 	}
 
-	function GUI:UpdateCloseBind(Bind)
-		options.CloseBind = Bind
-	end
-
 	Library.Theme = GUI.Theme
 	
 	do -- Main Frame
@@ -1099,13 +1095,9 @@ function Library:Window(options)
 		GUI["l2"].Visible = State
 	end
 
-	uis.InputBegan:Connect(function(input, gpe)
-		if gpe then return end
-		
-		if input.KeyCode == options.CloseBind then
-			GUI["2"].Visible = not GUI["2"].Visible
-		end
-	end)
+	function GUI:MainUIVisibility(State)
+		GUI["2"].Visible = State
+	end
 
 	function GUI:UpdateTheme(Color)
 		local oldThemeColor = Library.Theme
