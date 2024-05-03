@@ -114,7 +114,7 @@ function Library:Window(options)
 		Icon = "rbxassetid://16863027979",
 		Theme = Color3.fromRGB(0, 255, 0),
 		Size = UDim2.new(0, 850, 0, 677),
-		CloseBind = Enum.KeyCode.RightControl,
+		CloseBind = nil,
 		KeybindList = false,
 		Watermark = false,
 		Indicators = false,
