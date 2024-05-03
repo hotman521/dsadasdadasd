@@ -266,7 +266,7 @@ function Library:Window(options)
 		GUI["1c"] = Instance.new("Frame", GUI["1"]);
 		GUI["1c"]["BorderSizePixel"] = 0;
 		GUI["1c"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
-		GUI["1c"]["Size"] = UDim2.new(0, 160, 0, 30);
+		GUI["1c"]["Size"] = UDim2.new(0, 180, 0, 30);
 		GUI["1c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["1c"]["Position"] = UDim2.fromOffset(10, (viewport.Y / 2) - (GUI["1c"].Size.Y.Offset / 2));
 		GUI["1c"]["Name"] = [[GUI]];
@@ -375,9 +375,6 @@ function Library:Window(options)
 				GUI["zz"] = Instance.new("UIStroke", GUI["1c"]);
 				GUI["zz"]["Color"] = Color3.fromRGB(21, 21, 21);
 			end
-
-			GUI["hh"].Size = UDim2.new(0, GUI["ll"].TextBounds.X + 13, 0, GUI["hh"].Size.Y)
-			GUI["1c"].Size = UDim2.new(0, GUI["ll"].TextBounds.X + 13, 0, 30)
 		end
 
 		function GUI:RemoveKeybind(Toggle)
@@ -3839,6 +3836,7 @@ function Library:Window(options)
 						options = Library:Validate({
 							Default = Enum.KeyCode.W,
 							Mode = "Toggle",
+							HideFromList = false,
 							Flag = Library.NewFlag(),
 						}, options or {})
 						
@@ -4132,7 +4130,13 @@ function Library:Window(options)
 						end
 						
 						local function set(key)
-							Keybind.RegKeybind = key
+							
+							if typeof(key) == "EnumItem" then
+								Keybind.RegKeybind = key
+							elseif typeof(key) == "string" then
+								Keybind.RegKeybind = Enum.KeyCode[key]
+							end
+
 							if typeof(key) == "string" then
 								if key:find("KEY") then
 									key = Enum.KeyCode[key:gsub("KEY_", "")]
@@ -4222,19 +4226,23 @@ function Library:Window(options)
 							end
 							
 							if Keybind.Mode ~= "Off Hold" then
-								if Keybind.State then
-									GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-								else
-									GUI:RemoveKeybind(Toggle:GetName())
+								if not options.HideFromList then
+									if Keybind.State then
+										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+									else
+										GUI:RemoveKeybind(Toggle:GetName())
+									end
 								end
 
 								Library.Flags[Toggle:GetFlag()] = Keybind.State
 								Toggle:GetCallback(Keybind.State)
 							else
-								if not Keybind.State then
-									GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-								else
-									GUI:RemoveKeybind(Toggle:GetName())
+								if not options.HideFromList then
+									if not Keybind.State then
+										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+									else
+										GUI:RemoveKeybind(Toggle:GetName())
+									end
 								end
 
 								Library.Flags[Toggle:GetFlag()] = not Keybind.State
