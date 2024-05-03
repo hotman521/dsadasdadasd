@@ -3849,7 +3849,7 @@ function Library:Window(options)
 							Hover = false,
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
-							RegKeybind = nil,
+							RegKeybind = Enum.KeyCode[options.Default],
 							State = false,
 							Toggle = false,
 							Mode = options.Mode,
