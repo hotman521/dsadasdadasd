@@ -90,6 +90,17 @@ local function GetDictionaryLength(Dictionary: table)
 	return Length
 end
 --
+local protect_gui = function(Gui, Parent)
+    if gethui and syn and syn.protect_gui then 
+        Gui.Parent = gethui() 
+    elseif not gethui and syn and syn.protect_gui then 
+        syn.protect_gui(Gui)
+        Gui.Parent = Parent 
+    else 
+        Gui.Parent = Parent 
+    end
+end
+--
 function Library:NewFlag()
 	Library.UnnamedFlags += 1
 	--
@@ -103,7 +114,7 @@ function Library:Window(options)
 		Icon = "rbxassetid://16863027979",
 		Theme = Color3.fromRGB(0, 255, 0),
 		Size = UDim2.new(0, 850, 0, 677),
-		CloseBind = Enum.KeyCode.RightControl,
+		CloseBind = nil,
 		KeybindList = false,
 		Watermark = false,
 		Indicators = false,
@@ -119,11 +130,13 @@ function Library:Window(options)
 	Library.Theme = GUI.Theme
 	
 	do -- Main Frame
-		GUI["1"] = Instance.new("ScreenGui", runService:IsStudio() and players.LocalPlayer:WaitForChild("PlayerGui") or coreGui);
+		GUI["1"] = Instance.new("ScreenGui");
 		GUI["1"]["Name"] = [[MyLibrary]];
 		GUI["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
+
+		protect_gui(GUI["1"], coreGui)
 
 		-- StarterGui.MyLibrary.MainBackground
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
@@ -1082,13 +1095,35 @@ function Library:Window(options)
 		GUI["l2"].Visible = State
 	end
 
+	function GUI:MainUIVisibility(State)
+		GUI["2"].Visible = State
+	end
+
 	uis.InputBegan:Connect(function(input, gpe)
 		if gpe then return end
+		if options.CloseBind == nil then return end
 		
 		if input.KeyCode == options.CloseBind then
 			GUI["2"].Visible = not GUI["2"].Visible
 		end
 	end)
+
+	function GUI:UpdateTheme(Color)
+		local oldThemeColor = Library.Theme
+		Library.Theme = Color
+	
+		for _, UI in pairs(GUI["2"]:GetDescendants()) do
+			if UI:IsA("Frame") and UI.BackgroundColor3 == oldThemeColor then
+				UI.BackgroundColor3 = Library.Theme
+			elseif UI:IsA("TextLabel") and UI.TextColor3 == oldThemeColor then
+				UI.TextColor3 =  Library.Theme
+			elseif UI:IsA("ImageLabel") and UI.ImageColor3 == oldThemeColor then
+				UI.ImageColor3 =  Library.Theme
+			elseif UI:IsA("TextBox") and UI.TextColor3 == oldThemeColor then
+				UI.TextColor3 =  Library.Theme
+			end
+		end
+	end
 
 	-- StarterGui.MyLibrary.MainBackground.ResizableCorner
 	GUI["2mm"] = Instance.new("ImageButton", GUI["2"]);
@@ -1134,20 +1169,45 @@ function Library:Window(options)
 		end
 	end)
 
+	local originalTransparencies = {}
+
 	function GUI:FadeOut()
 		for _, UI in pairs(GUI["1"]:GetDescendants()) do
 			if UI:IsA("Frame") then
+				originalTransparencies[UI] = UI.BackgroundTransparency
 				Library:tween(UI, {BackgroundTransparency = 1})
 			elseif UI:IsA("TextLabel") then
+				originalTransparencies[UI] = UI.TextTransparency
 				Library:tween(UI, {TextTransparency = 1})
 			elseif UI:IsA("UIStroke") then
+				originalTransparencies[UI] = UI.Transparency
 				Library:tween(UI, {Transparency = 1})
 			elseif UI:IsA("ImageLabel") then
+				originalTransparencies[UI] = UI.ImageTransparency
 				Library:tween(UI, {ImageTransparency = 1})
 			elseif UI:IsA("TextBox") then
+				originalTransparencies[UI] = UI.TextTransparency
 				Library:tween(UI, {TextTransparency = 1})
 			end
 		end
+	end
+	
+	function GUI:FadeIn()
+		for UI, transparency in pairs(originalTransparencies) do
+			if UI:IsA("Frame") then
+				Library:tween(UI, {BackgroundTransparency = transparency})
+			elseif UI:IsA("TextLabel") then
+				Library:tween(UI, {TextTransparency = transparency})
+			elseif UI:IsA("UIStroke") then
+				Library:tween(UI, {Transparency = transparency})
+			elseif UI:IsA("ImageLabel") then
+				Library:tween(UI, {ImageTransparency = transparency})
+			elseif UI:IsA("TextBox") then
+				Library:tween(UI, {TextTransparency = transparency})
+			end
+		end
+		-- Clear stored values after fading in
+		originalTransparencies = {}
 	end
 	
 	do -- Navigation
@@ -4135,7 +4195,7 @@ function Library:Window(options)
 						uis.InputBegan:Connect(function(input, gpe)
 							if gpe then return end
 							
-							if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
+							if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Keybind.RegKeybind then
 								if Keybind.Mode == "Always" then
 									Keybind:Toggle(true)
 								else
@@ -4148,7 +4208,7 @@ function Library:Window(options)
 							if gpe then return end
 							
 							if Keybind.Mode == "On Hold" or Keybind.Mode == "Off Hold" then
-								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
+								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Keybind.RegKeybind then
 									Keybind:Toggle()
 								end
 							end
