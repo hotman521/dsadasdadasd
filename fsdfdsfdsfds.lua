@@ -3848,7 +3848,7 @@ function Library:Window(options)
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
 							RegKeybind = nil,
-							State = false,
+							State = true,
 							Toggle = false,
 							Mode = options.Mode,
 						}
@@ -5097,17 +5097,21 @@ function Library:Window(options)
 					Dropdown["c4"]["BackgroundTransparency"] = 1;
 					Dropdown["c4"]["Position"] = UDim2.new(1, -8, 0.5, 0);
 
-					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background
-					Dropdown["c5"] = Instance.new("Frame", Dropdown["c0"]);
+					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder
+					Dropdown["c5"] = Instance.new("ScrollingFrame", Dropdown["c0"]);
+					Dropdown["c5"]["Active"] = true;
 					Dropdown["c5"]["BorderSizePixel"] = 0;
+					Dropdown["c5"]["ScrollBarImageTransparency"] = 0;
+					Dropdown["c5"]["ScrollBarThickness"] = 2;
+					Dropdown["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Dropdown["c5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					Dropdown["c5"]["BackgroundTransparency"] = 1;
-					Dropdown["c5"]["BackgroundColor3"] = Color3.fromRGB(25, 25, 25);
-					Dropdown["c5"]["Visible"] = false;
-					Dropdown["c5"]["Size"] = UDim2.new(1, 0, 0, 22);
+					Dropdown["c5"]["Size"] = UDim2.new(1, 0, 0, 75);
+					Dropdown["c5"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 255, 0);
 					Dropdown["c5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["c5"]["Position"] = UDim2.new(0, 0, 1, 0);
-					Dropdown["c5"]["AutomaticSize"] = Enum.AutomaticSize.Y;
 					Dropdown["c5"]["Name"] = [[Background]];
+					Dropdown["c5"]["Visible"] = false;
 					Dropdown["c5"]["ZIndex"] = 100;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.UIListLayout
