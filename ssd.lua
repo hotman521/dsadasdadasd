@@ -1099,6 +1099,14 @@ function Library:Window(options)
 		GUI["2"].Visible = State
 	end
 
+	uis.InputBegan:Connect(function(input, gpe)
+		if gpe then return end
+		
+		if options.CloseBind ~= nil and input.KeyCode == options.CloseBind then
+			GUI["2"].Visible = not GUI["2"].Visible
+		end
+	end)
+
 	function GUI:UpdateTheme(Color)
 		local oldThemeColor = Library.Theme
 		Library.Theme = Color
