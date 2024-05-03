@@ -3848,7 +3848,7 @@ function Library:Window(options)
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
 							RegKeybind = nil,
-							State = false,
+							State = true,
 							Toggle = false,
 							Mode = options.Mode,
 						}
