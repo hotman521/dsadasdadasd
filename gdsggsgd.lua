@@ -348,7 +348,7 @@ function Library:Window(options)
 		end
 		
 		function GUI:AddKeybind(Toggle, Key, Mode)
-			if GUI["hh"]:FindFirstChild(tostring(Toggle)) and tostring(Mode) == "Always" then return end
+			if GUI["hh"]:FindFirstChild(tostring(Toggle)) and GUI["ll"].Text = string.format("[%s] %s [%s]", tostring(Key), tostring(Toggle), "Always") and tostring(Mode) == "Always" then return end
 			if GUI["hh"]:FindFirstChild(tostring(Toggle)) then GUI:RemoveKeybind(tostring(Toggle)) end
 
 			do -- Render
