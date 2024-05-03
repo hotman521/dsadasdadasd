@@ -3837,7 +3837,7 @@ function Library:Window(options)
 				do -- Methods
 					function Toggle:Keybind(options)
 						options = Library:Validate({
-							Default = Enum.KeyCode.W,
+							Default = "W",
 							Mode = "Toggle",
 							HideFromList = false,
 							Flag = Library.NewFlag(),
@@ -3848,7 +3848,7 @@ function Library:Window(options)
 						local Keybind = {
 							Hover = false,
 							MouseDown = false,
-							Keybind = options.Default ~= nil and options.Default or "None",
+							Keybind = options.Default ~= nil and Enum.KeyCode[options.Default] or "None",
 							RegKeybind = nil,
 							State = false,
 							Toggle = false,
