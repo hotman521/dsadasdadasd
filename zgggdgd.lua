@@ -338,9 +338,18 @@ function Library:Window(options)
 		-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.UIListLayout
 		GUI["c6"] = Instance.new("UIListLayout", GUI["hh"]);
 		GUI["c6"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+		function GUI:RemoveKeybind(Toggle)
+			for i, v in pairs(GUI["hh"]:GetChildren()) do
+				if v.Name == Toggle then
+					v:Destroy()
+				end
+			end
+		end
 		
 		function GUI:AddKeybind(Toggle, Key, Mode)
 			if GUI["hh"]:FindFirstChild(tostring(Toggle)) and tostring(Mode) == "Always" then return end
+			if GUI["hh"]:FindFirstChild(tostring(Toggle)) then GUI:RemoveKeybind(tostring(Toggle)) end
 
 			do -- Render
 				-- StarterGui.MyLibrary.GUI.ContentContainer.KeybindFrame
@@ -374,14 +383,6 @@ function Library:Window(options)
 				-- StarterGui.MyLibrary.GUI.UIStroke
 				GUI["zz"] = Instance.new("UIStroke", GUI["1c"]);
 				GUI["zz"]["Color"] = Color3.fromRGB(21, 21, 21);
-			end
-		end
-
-		function GUI:RemoveKeybind(Toggle)
-			for i, v in pairs(GUI["hh"]:GetChildren()) do
-				if v.Name == Toggle then
-					v:Destroy()
-				end
 			end
 		end
 		
