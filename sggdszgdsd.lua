@@ -3848,8 +3848,8 @@ function Library:Window(options)
 						local Keybind = {
 							Hover = false,
 							MouseDown = false,
-							Keybind = options.Default ~= nil and Enum.KeyCode[options.Default] or "None",
-							RegKeybind = nil,
+							Keybind = options.Default ~= nil and options.Default or "None",
+							RegKeybind = Enum.KeyCode[options.Default],
 							State = false,
 							Toggle = false,
 							Mode = options.Mode,
