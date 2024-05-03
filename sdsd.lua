@@ -1101,8 +1101,9 @@ function Library:Window(options)
 
 	uis.InputBegan:Connect(function(input, gpe)
 		if gpe then return end
+		if options.CloseBind == nil then return end
 		
-		if options.CloseBind ~= nil and input.KeyCode == options.CloseBind then
+		if input.KeyCode == options.CloseBind then
 			GUI["2"].Visible = not GUI["2"].Visible
 		end
 	end)
