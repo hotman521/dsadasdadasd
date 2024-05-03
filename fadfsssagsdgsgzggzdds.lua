@@ -4186,7 +4186,7 @@ function Library:Window(options)
 						uis.InputBegan:Connect(function(input, gpe)
 							if gpe then return end
 							
-							if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
+							if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Keybind.RegKeybind then
 								if Keybind.Mode == "Always" then
 									Keybind:Toggle(true)
 								else
@@ -4199,7 +4199,7 @@ function Library:Window(options)
 							if gpe then return end
 							
 							if Keybind.Mode == "On Hold" or Keybind.Mode == "Off Hold" then
-								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Enum.KeyCode[Keybind.Keybind] then
+								if input.UserInputType == Enum.UserInputType.Keyboard and Keybind.Keybind ~= "None" and input.KeyCode == Keybind.RegKeybind then
 									Keybind:Toggle()
 								end
 							end
