@@ -3849,7 +3849,7 @@ function Library:Window(options)
 							Hover = false,
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
-							RegKeybind = Enum.KeyCode[options.Default],
+							RegKeybind = options.Default ~= nil and Enum.KeyCode[options.Default] or nil,
 							State = false,
 							Toggle = false,
 							Mode = options.Mode,
@@ -4223,24 +4223,20 @@ function Library:Window(options)
 							end
 							
 							if Keybind.Mode ~= "Off Hold" then
-								if not options.HideFromList then
 									if Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
-								end
 
 								Library.Flags[Toggle:GetFlag()] = Keybind.State
 								Toggle:GetCallback(Keybind.State)
 							else
-								if not options.HideFromList then
 									if not Keybind.State then
 										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 									else
 										GUI:RemoveKeybind(Toggle:GetName())
 									end
-								end
 
 								Library.Flags[Toggle:GetFlag()] = not Keybind.State
 								Toggle:GetCallback(not Keybind.State)
