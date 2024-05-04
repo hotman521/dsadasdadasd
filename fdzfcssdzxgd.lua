@@ -2421,14 +2421,14 @@ function Library:Window(options)
 						function PlayerListTab:UpdateFlag(Player)
 							for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
 								if v.Name == Player.Name then
-									print(v.Name)
-									if v.Name == "Flags" then
+									local FlagsText = v:FindFirstChild("Flags")
+									if FlagsText then
 										Item.Flag = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
 										local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
-										v.Text = Item.Flag
-										v.TextColor3 = FlagColor
+										FlagsText.Text = Item.Flag
+										FlagsText.TextColor3 = FlagColor
 										print(Item.Flag)
-										print(v.Text)
+										print(FlagsText.Text)
 									end
 								end
 							end
