@@ -2427,11 +2427,18 @@ function Library:Window(options)
 										local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
 										FlagsText.Text = Item.Flag
 										FlagsText.TextColor3 = FlagColor
-										print(Item.Flag)
-										print(FlagsText.Text)
 									end
 								end
 							end
+						end
+
+						function GUI:GetPlayerFlag(Player)
+							return Item.Flag
+						end
+
+						function GUI:SetPlayerFlag(Player, Flag)
+							Tab:GetFlag(Player) = Flag
+							Item.Flag = Flag
 						end
 						
 						function Item:Activate()
