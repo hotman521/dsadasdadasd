@@ -4103,10 +4103,8 @@ function Library:Window(options)
 
 							if Toggle.Toggle then
 								Toggle:AddFrame()
-								Toggle["35"].ZIndex = 100
 							else
 								Toggle:RemoveFrame()
-								Toggle["35"].ZIndex = 2
 							end
 						end
 
@@ -4649,7 +4647,7 @@ function Library:Window(options)
 								
 								if ColorPicker.Toggle then
 									ColorPicker:AddFrame()
-									Toggle["35"].ZIndex = 100
+									Toggle["35"].ZIndex = zindexcount2 + 500
 								else
 									ColorPicker:RemoveFrame()
 									Toggle["35"].ZIndex = 2
