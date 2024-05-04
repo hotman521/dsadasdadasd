@@ -3742,7 +3742,7 @@ function Library:Window(options)
 					Toggle["35"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Toggle["35"]["Position"] = UDim2.new(0, 0, 0, 94);
 					Toggle["35"]["Name"] = [[Toggle]];
-					Toggle["35"]["ZIndex"] = 1000;
+					Toggle["35"]["ZIndex"] = 2;
 
 					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
 					Toggle["bf"] = Instance.new("TextButton", Toggle["35"]);
@@ -4099,8 +4099,10 @@ function Library:Window(options)
 
 							if Toggle.Toggle then
 								Toggle:AddFrame()
+								Toggle["35"].ZIndex = 100
 							else
 								Toggle:RemoveFrame()
+								Toggle["35"].ZIndex = 2
 							end
 						end
 
@@ -4643,8 +4645,10 @@ function Library:Window(options)
 								
 								if ColorPicker.Toggle then
 									ColorPicker:AddFrame()
+									Toggle["35"].ZIndex = 100
 								else
 									ColorPicker:RemoveFrame()
+									Toggle["35"].ZIndex = 2
 								end
 							end
 							
