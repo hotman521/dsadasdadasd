@@ -5307,8 +5307,9 @@ function Library:Window(options)
 	function Library:Init()
 		
 		local gui = GUI["2"]
+		local size = Library.Size + UDim2.new(0, 1, 0, 1)
 
-		GUI:UpdateSize(Library.Size)
+		GUI:UpdateSize(size)
 
 		local dragging
 		local dragInput
