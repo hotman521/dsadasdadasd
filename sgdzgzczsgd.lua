@@ -4103,7 +4103,7 @@ function Library:Window(options)
 
 							if Toggle.Toggle then
 								Toggle:AddFrame()
-								Toggle["35"].ZIndex = 100
+								Toggle["35"].ZIndex = zindexcount2 + 50
 							else
 								Toggle:RemoveFrame()
 								Toggle["35"].ZIndex = 2
@@ -4649,7 +4649,7 @@ function Library:Window(options)
 								
 								if ColorPicker.Toggle then
 									ColorPicker:AddFrame()
-									Toggle["35"].ZIndex = 100
+									Toggle["35"].ZIndex = zindexcount2 + 50
 								else
 									ColorPicker:RemoveFrame()
 									Toggle["35"].ZIndex = 2
@@ -5029,7 +5029,7 @@ function Library:Window(options)
 					Dropdown["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["be"]["Position"] = UDim2.new(0, 0, 0, 57);
 					Dropdown["be"]["Name"] = [[DropdownOpen]];
-					Dropdown["be"]["ZIndex"] = 15;
+					Dropdown["be"]["ZIndex"] = zindexcount2 + 5;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Text
 					Dropdown["bf"] = Instance.new("TextLabel", Dropdown["be"]);
