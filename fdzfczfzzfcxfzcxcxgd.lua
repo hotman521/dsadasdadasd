@@ -2275,6 +2275,7 @@ function Library:Window(options)
 						local Item = {
 							Hover = false,
 							MouseDown = false,
+							CurrentFlag = "None",
 						}
 	
 						if Player == players.LocalPlayer then
@@ -2417,7 +2418,7 @@ function Library:Window(options)
 							Item["29"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 							Item["29"]["Size"] = UDim2.new(0.33000001311302185, 0, 1, 0);
 							Item["29"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-							Item["29"]["Text"] = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None";
+							Item["29"]["Text"] = "None";
 							Item["29"]["Name"] = [[Flags]];
 							Item["29"]["BackgroundTransparency"] = 1;
 							Item["29"]["Position"] = UDim2.new(0.6600000262260437, 0, 0, 0);
@@ -2430,9 +2431,14 @@ function Library:Window(options)
 						function PlayerListTab:UpdateFlag(Player)
 							for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
 								if v.Name == Player.Name then
+									print(v.Name)
 									if v.Name == "Flags" then
-										v.Text = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
-										v.TextColor3 = Tab:GetColor(Tab:GetFlag(Player))
+										Item.Flag = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
+										local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
+										v.Text = Item.Flag
+										v.TextColor3 = FlagColor
+										print(Item.Flag)
+										print(v.Text)
 									end
 								end
 							end
