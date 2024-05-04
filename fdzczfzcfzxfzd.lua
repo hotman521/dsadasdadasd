@@ -2423,6 +2423,8 @@ function Library:Window(options)
 						end
 						
 						function PlayerListTab:UpdateFlag(Player)
+							if Player == nil then return end
+							--
 							for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
 								if v.Name == Player.Name then
 									local FlagsText = v:FindFirstChild("Flags")
@@ -2437,6 +2439,8 @@ function Library:Window(options)
 						end
 
 						function Library:GetPlayerFlag(Player)
+							if Player == nil then return end
+
 							local Flag
 
 							for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
@@ -2453,6 +2457,8 @@ function Library:Window(options)
 						end
 
 						function Library:SetPlayerFlag(Player, Flag)
+							if Player == nil then return end
+
 							Tab:SetFlag(Flag)
 							PlayerListTab:UpdateFlag(Player)
 						end
