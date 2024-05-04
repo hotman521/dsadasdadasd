@@ -2440,12 +2440,6 @@ function Library:Window(options)
 							Tab:GetFlag(Player) = Flag
 							Item.Flag = Tab:GetFlag(Player)
 						end
-
-						function GUI:GetFlagColor(Player)
-							local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
-
-							return FlagColor
-						end
 						
 						function Item:Activate()
 							if not Item.Active then
