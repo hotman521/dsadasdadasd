@@ -4103,10 +4103,8 @@ function Library:Window(options)
 
 							if Toggle.Toggle then
 								Toggle:AddFrame()
-								Toggle["35"].ZIndex = 100
 							else
 								Toggle:RemoveFrame()
-								Toggle["35"].ZIndex = 2
 							end
 						end
 
@@ -4649,7 +4647,7 @@ function Library:Window(options)
 								
 								if ColorPicker.Toggle then
 									ColorPicker:AddFrame()
-									Toggle["35"].ZIndex = 100
+									Toggle["35"].ZIndex = zindexcount2 + 500
 								else
 									ColorPicker:RemoveFrame()
 									Toggle["35"].ZIndex = 2
@@ -5019,6 +5017,7 @@ function Library:Window(options)
 				end
 				
 				do -- Render
+					zindexcount2 -= 1
 	
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen
 					Dropdown["be"] = Instance.new("Frame", Section["f"]);
@@ -5029,7 +5028,7 @@ function Library:Window(options)
 					Dropdown["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["be"]["Position"] = UDim2.new(0, 0, 0, 57);
 					Dropdown["be"]["Name"] = [[DropdownOpen]];
-					Dropdown["be"]["ZIndex"] = 2;
+					Dropdown["be"]["ZIndex"] = zindexcount2 + 100;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Text
 					Dropdown["bf"] = Instance.new("TextLabel", Dropdown["be"]);
@@ -5242,11 +5241,9 @@ function Library:Window(options)
 					function Dropdown:Toggle()
 						if Dropdown.Open then
 							Dropdown["c5"].Visible = false
-							Dropdown["be"].ZIndex = 500
 							Library:tween(Dropdown["c4"], {Size = UDim2.new(0, 8, 0, 8)})
 						else
 							Dropdown["c5"].Visible = true
-							Dropdown["be"].ZIndex = 2
 							Library:tween(Dropdown["c4"], {Size = UDim2.new(0, 10, 0, 10)})
 						end
 						
