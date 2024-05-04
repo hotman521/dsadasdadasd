@@ -1927,6 +1927,10 @@ function Library:Window(options)
 					function Tab:GetFlag(Player)
 						return Flags.CurrentFlag
 					end
+
+					function Tab:SetFlag(Flag)
+						Flags.CurrentFlag = Flag
+					end
 					
 					function Tab:GetColor(Flag)
 						if Flag == "Priority" then
@@ -2437,7 +2441,7 @@ function Library:Window(options)
 						end
 
 						function GUI:SetPlayerFlag(Player, Flag)
-							Item.Flag = Flag
+							Tab:SetFlag(Flag)
 							PlayerListTab:UpdateFlag(Player)
 						end
 						
