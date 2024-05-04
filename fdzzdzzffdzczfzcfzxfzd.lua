@@ -2436,7 +2436,7 @@ function Library:Window(options)
 							end
 						end
 
-						function GUI:GetPlayerFlag(Player)
+						function Library:GetPlayerFlag(Player)
 							local Flag
 
 							for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
@@ -2452,7 +2452,7 @@ function Library:Window(options)
 							return Flag
 						end
 
-						function GUI:SetPlayerFlag(Player, Flag)
+						function Library:SetPlayerFlag(Player, Flag)
 							Tab:SetFlag(Flag)
 							PlayerListTab:UpdateFlag(Player)
 						end
