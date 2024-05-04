@@ -2435,6 +2435,17 @@ function Library:Window(options)
 						function GUI:GetPlayerFlag(Player)
 							return Item.Flag
 						end
+
+						function GUI:SetPlayerFlag(Player, Flag)
+							Tab:GetFlag(Player) = Flag
+							Item.Flag = Tab:GetFlag(Player)
+						end
+
+						function GUI:GetFlagColor(Player)
+							local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
+
+							return FlagColor
+						end
 						
 						function Item:Activate()
 							if not Item.Active then
