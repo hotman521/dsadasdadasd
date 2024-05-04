@@ -3076,7 +3076,6 @@ function Library:Window(options)
 			local Section = {}
 
 			do -- Section
-				zindexcount -= 1
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.HomeSection.Left.Section
 				Section["9"] = Instance.new("Frame", Tab["7"]);
 				Section["9"]["BorderSizePixel"] = 0;
@@ -3085,7 +3084,7 @@ function Library:Window(options)
 				Section["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 				Section["9"]["Name"] = [[Section]];
 				Section["9"]["AutomaticSize"] = Enum.AutomaticSize.Y;
-				Section["9"]["ZIndex"] = zindexcount;
+				Section["9"]["ZIndex"] = 1;
 				
 				-- StarterGui.MyLibrary.MainBackground.ContentContainer.HomeSection.Left.Section.UIStroke
 				Section["a"] = Instance.new("UIStroke", Section["9"]);
@@ -3270,7 +3269,7 @@ function Library:Window(options)
 					Label["41"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Label["41"]["Position"] = UDim2.new(0, 0, 0, 119);
 					Label["41"]["Name"] = [[Label]];
-					Label["41"]["ZIndex"] = (zindexcount - 10) + 1;
+					Label["41"]["ZIndex"] = 1;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Left.Section.ContentContainer.Label.Text
 					Label["42"] = Instance.new("TextLabel", Label["41"]);
@@ -3746,7 +3745,7 @@ function Library:Window(options)
 					Toggle["35"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Toggle["35"]["Position"] = UDim2.new(0, 0, 0, 94);
 					Toggle["35"]["Name"] = [[Toggle]];
-					Toggle["35"]["ZIndex"] = 2;
+					Toggle["35"]["ZIndex"] = 1;
 
 					-- StarterGui.MyLibrary.MainBackground.Navigation.ButtonHolder.Inactive.TextButton
 					Toggle["bf"] = Instance.new("TextButton", Toggle["35"]);
@@ -4106,7 +4105,7 @@ function Library:Window(options)
 								Toggle["35"].ZIndex = 100
 							else
 								Toggle:RemoveFrame()
-								Toggle["35"].ZIndex = 2
+								Toggle["35"].ZIndex = 1
 							end
 						end
 
@@ -4652,7 +4651,7 @@ function Library:Window(options)
 									Toggle["35"].ZIndex = 100
 								else
 									ColorPicker:RemoveFrame()
-									Toggle["35"].ZIndex = 2
+									Toggle["35"].ZIndex = 1
 								end
 							end
 							
@@ -5029,7 +5028,7 @@ function Library:Window(options)
 					Dropdown["be"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 					Dropdown["be"]["Position"] = UDim2.new(0, 0, 0, 57);
 					Dropdown["be"]["Name"] = [[DropdownOpen]];
-					Dropdown["be"]["ZIndex"] = 2;
+					Dropdown["be"]["ZIndex"] = 1;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Text
 					Dropdown["bf"] = Instance.new("TextLabel", Dropdown["be"]);
@@ -5119,7 +5118,7 @@ function Library:Window(options)
 					Dropdown["c5"]["Position"] = UDim2.new(0, 0, 1, 0);
 					Dropdown["c5"]["Name"] = [[Background]];
 					Dropdown["c5"]["Visible"] = false;
-					Dropdown["c5"]["ZIndex"] = 100;
+					Dropdown["c5"]["ZIndex"] = 1;
 
 					-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.Right.Section.ContentContainer.DropdownOpen.Options.Background.UIListLayout
 					Dropdown["c6"] = Instance.new("UIListLayout", Dropdown["c5"]);
@@ -5246,7 +5245,7 @@ function Library:Window(options)
 							Library:tween(Dropdown["c4"], {Size = UDim2.new(0, 8, 0, 8)})
 						else
 							Dropdown["c5"].Visible = true
-							Dropdown["be"].ZIndex = 2
+							Dropdown["be"].ZIndex = 1
 							Library:tween(Dropdown["c4"], {Size = UDim2.new(0, 10, 0, 10)})
 						end
 						
