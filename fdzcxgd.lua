@@ -2171,15 +2171,14 @@ function Library:Window(options)
 					end
 	
 					function Tab:UpdateFlagDropdown()
-						print(PlayerListTab.CurrentPlayer["25"])
 						if tostring(PlayerListTab.CurrentPlayer["25"]) ~= tostring(players.LocalPlayer.Name) then
 							Flags:RemoveAll()
 							for i, v in pairs(options.FlagList) do
 								Flags:Add(i, v)
 							end
 						else
-							print("test")
 							Flags:RemoveAll()
+							PlayerListTab["5c"].Text = "Local Player"
 							Flags:Add("LocalPlayer", "Local Player")
 						end
 					end
@@ -2428,12 +2427,10 @@ function Library:Window(options)
 						end
 						
 						function PlayerListTab:UpdateFlag(Player)
-							if Player ~= players.LocalPlayer then
-								for i, v in pairs(Item["25"]:GetChildren()) do
-									if v.Name == "Flags" then
-										v.Text = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
-										v.TextColor3 = Tab:GetColor(Tab:GetFlag(Player))
-									end
+							for i, v in pairs(Item["25"]:GetChildren()) do
+								if v.Name == "Flags" then
+									v.Text = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
+									v.TextColor3 = Tab:GetColor(Tab:GetFlag(Player))
 								end
 							end
 						end
