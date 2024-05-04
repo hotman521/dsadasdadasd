@@ -2265,7 +2265,7 @@ function Library:Window(options)
 						local Item = {
 							Hover = false,
 							MouseDown = false,
-							CurrentFlag = "None",
+							Flag = "None",
 						}
 	
 						if Player == players.LocalPlayer then
