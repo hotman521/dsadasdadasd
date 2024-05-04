@@ -16,6 +16,7 @@ local zindexcount2 = 999
 local Library = {
 	Flags = {},
 	Theme = Color3.fromRGB(0, 255, 0),
+	Size = UDim2.new(0, 850, 0, 677),
 	UnnamedFlags = 0,
 }
 
@@ -128,6 +129,7 @@ function Library:Window(options)
 	}
 
 	Library.Theme = GUI.Theme
+	Library.Size = options.Size
 	
 	do -- Main Frame
 		GUI["1"] = Instance.new("ScreenGui");
@@ -249,6 +251,10 @@ function Library:Window(options)
 
 	function GUI:UpdateTitle(Text)
 		GUI["59"].Text = Text
+	end
+
+	function GUI:UpdateSize(Size)
+		GUI["2"].Size = Size
 	end
 
 	function GUI:UpdateTextPosition(Pos)
@@ -1459,8 +1465,6 @@ function Library:Window(options)
 			scrollingFrame2.ChildRemoved:Connect(updateScrollingFrameSize)
 
 			updateScrollingFrameSize()
-
-
 
 			end
 			-- Methods
@@ -5303,6 +5307,9 @@ function Library:Window(options)
 	function Library:Init()
 		
 		local gui = GUI["2"]
+		local size = Library.Size + UDim2.new(0, 1, 0, 1)
+
+		GUI:UpdateSize(size)
 
 		local dragging
 		local dragInput
