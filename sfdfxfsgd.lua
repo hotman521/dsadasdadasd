@@ -5242,7 +5242,7 @@ function Library:Window(options)
 					function Dropdown:Toggle()
 						if Dropdown.Open then
 							Dropdown["c5"].Visible = false
-							Dropdown["be"].ZIndex = 500
+							Dropdown["be"].ZIndex = 100
 							Library:tween(Dropdown["c4"], {Size = UDim2.new(0, 8, 0, 8)})
 						else
 							Dropdown["c5"].Visible = true
