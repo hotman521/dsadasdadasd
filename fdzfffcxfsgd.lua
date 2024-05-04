@@ -4664,7 +4664,7 @@ function Library:Window(options)
 						return ColorPicker
 					end
 					
-					function Toggle:Toggle(b)
+					function Toggle:ToggleUI(b)
 						if b == nil then
 							Toggle.State = not Toggle.State
 						else
@@ -4684,7 +4684,7 @@ function Library:Window(options)
 				end
 
 				if options.Default == true then
-					Toggle:Toggle(true)
+					Toggle:ToggleUI(true)
 				end
 				
 				do -- Logic
@@ -4707,7 +4707,7 @@ function Library:Window(options)
 						if Toggle.Hover then
 							Toggle.MouseDown = true
 							Library:tween(Toggle["39"], {Color = Color3.fromRGB(80, 80, 80)})
-							Toggle:Toggle()
+							Toggle:ToggleUI()
 						end
 					end)
 
