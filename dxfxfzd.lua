@@ -4183,6 +4183,7 @@ function Library:Window(options)
 							Mode = "Toggle",
 							HideFromList = false,
 							Flag = Library.NewFlag(),
+							Callback = function() end,
 						}, options or {})
 						
 						Toggle.Keybind = true
@@ -4497,6 +4498,8 @@ function Library:Window(options)
 							if key and (keys[key] or uis:GetStringForKeyCode(key) ~= "") then
 								local key_str = keys[key] or uis:GetStringForKeyCode(key)
 								Keybind.Keybind = key_str
+								options.Callback(key)
+								Library.Flags[options.Flag] = key
 								Toggle["36"].Size = UDim2.new(1, -Keybind["36"].AbsoluteSize.X + 20, 1, -4)
 								Keybind["38"].Text = key_str
 								Keybind["36"].Size = UDim2.new(0, Keybind["38"].TextBounds.X + 25, 0, 13)
