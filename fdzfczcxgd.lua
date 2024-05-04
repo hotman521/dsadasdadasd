@@ -1909,16 +1909,6 @@ function Library:Window(options)
 					PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 				end
 				
-				function PlayerListTab:UpdateFlag(Player, Flag)
-					if not Player then return end
-					
-					for Index, Value in pairs(PlayerListTab["24"]:GetChildren()) do
-						if Value.Name == Player.Name then
-							local Flags = Value:FindFirstChild("Flags")
-							Flags.Text = Flag
-						end
-					end
-				end
 	
 				function PlayerListTab:AddFlags(options)
 					options = Library:Validate({
