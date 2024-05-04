@@ -2438,7 +2438,8 @@ function Library:Window(options)
 
 						function GUI:SetPlayerFlag(Player, Flag)
 							Tab:GetFlag(Player) = Flag
-							Item.Flag = Tab:GetFlag(Player)
+							Item.Flag = Flag
+							PlayerListTab:UpdateFlag(Player)
 						end
 						
 						function Item:Activate()
