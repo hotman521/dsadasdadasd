@@ -4183,6 +4183,7 @@ function Library:Window(options)
 							Mode = "Toggle",
 							HideFromList = false,
 							Flag = Library.NewFlag(),
+							Callback = function() end,
 						}, options or {})
 						
 						Toggle.Keybind = true
@@ -4497,6 +4498,8 @@ function Library:Window(options)
 							if key and (keys[key] or uis:GetStringForKeyCode(key) ~= "") then
 								local key_str = keys[key] or uis:GetStringForKeyCode(key)
 								Keybind.Keybind = key_str
+								options.Callback(key)
+								Library.Flags[options.Flag] = key
 								Toggle["36"].Size = UDim2.new(1, -Keybind["36"].AbsoluteSize.X + 20, 1, -4)
 								Keybind["38"].Text = key_str
 								Keybind["36"].Size = UDim2.new(0, Keybind["38"].TextBounds.X + 25, 0, 13)
@@ -4564,34 +4567,36 @@ function Library:Window(options)
 						end)
 						
 						function Keybind:Toggle(b)
-							if b == nil then
-								Keybind.State = not Keybind.State
-							else
-								Keybind.State = b
-							end
-							
-							if Keybind.Mode ~= "On Hold" then
-								if not options.HideFromList then
-									if Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
-									end
+							if Toggle:GetState() then
+								if b == nil then
+									Keybind.State = not Keybind.State
+								else
+									Keybind.State = b
 								end
-
-								Library.Flags[Toggle:GetFlag()] = Keybind.State
-								Toggle:GetCallback(Keybind.State)
-							else
-								if not options.HideFromList then
-									if not Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
+								
+								if Keybind.Mode ~= "On Hold" then
+									if not options.HideFromList then
+										if Keybind.State then
+											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+										else
+											GUI:RemoveKeybind(Toggle:GetName())
+										end
 									end
-								end
 
-								Library.Flags[Toggle:GetFlag()] = not Keybind.State
-								Toggle:GetCallback(not Keybind.State)
+									Library.Flags[Toggle:GetFlag()] = Keybind.State
+									Toggle:GetCallback(Keybind.State)
+								else
+									if not options.HideFromList then
+										if not Keybind.State then
+											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+										else
+											GUI:RemoveKeybind(Toggle:GetName())
+										end
+									end
+
+									Library.Flags[Toggle:GetFlag()] = not Keybind.State
+									Toggle:GetCallback(not Keybind.State)
+								end
 							end
 						end
 						
