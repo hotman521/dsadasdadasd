@@ -394,11 +394,11 @@ for _, asset in ipairs(assets) do
 end
 --
 do -- Circles
-    for Index = 1, 4 do
-        local Circle = Index == 1 and "SilentAimFOV" or Index == 2 and "AimAssistFOV" or Index == 3 and "UniversalAimAssistFOV" or "TriggerBotFOV"
+    for Index = 1, 2 do
+        local Circle = Index == 1 and "SilentAimFOV" or Index == 2 and "AimAssistFOV"
         --
         Visuals[Circle .. "Circle"] = Drawing.new("Circle")
-        Visuals[Circle .. "Circle"].Filled = false
+        Visuals[Circle .. "Circle"].Filled = true
         Visuals[Circle .. "Circle"].ZIndex = 59
         --
         Visuals[Circle .. "Outline"] = Drawing.new("Circle")
