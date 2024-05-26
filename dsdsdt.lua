@@ -401,11 +401,13 @@ do -- Circles
         Visuals[Circle .. "Circle"].Filled = false
         Visuals[Circle .. "Circle"].Thickness = 1.75
         Visuals[Circle .. "Circle"].ZIndex = 60
+        Visuals[Circle .. "Circle"].Visible = false
         --
         Visuals[Circle .. "Outline"] = Drawing.new("Circle")
         Visuals[Circle .. "Outline"].Thickness = 4
         Visuals[Circle .. "Outline"].Filled = false
         Visuals[Circle .. "Outline"].ZIndex = 59
+        Visuals[Circle .. "Outline"].Visible = false
     end
 end
 --
@@ -875,11 +877,7 @@ local PredictionLine = Drawing.new("Line")
                 local MousePosition = Utility:MousePosition()
                 --
                 do -- Universal
-                    if not (Visuals.TriggerBotFOVCircle) then
-                        return
-                    end
-                    --
-                    if not (Visuals.UniversalAimAssistFOVCircle) then
+                    if not (Visuals.TriggerBotFOVCircle) or not (Visuals.SilentAimFOVCircle) or not (Visuals.SilentAimFOVOutline) or not (Visuals.UniversalAimAssistFOVCircle) or not (Visuals.AimAssistFOVCircle) or not (TracerLine) then
                         return
                     end
                     --
@@ -889,7 +887,13 @@ local PredictionLine = Drawing.new("Line")
                     Visuals.TriggerBotFOVCircle.Transparency = Library.Flags["UniversalDeadzoneFOVTransparency"]
                     Visuals.TriggerBotFOVCircle.Color = Library.Flags["UniversalDeadzoneColor"]
                     Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-
+                    --
+                    Visuals.TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
+                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3 - 1
+                    Visuals.TriggerBotFOVCircle.NumSides = 1000
+                    Visuals.TriggerBotFOVCircle.Transparency = 1
+                    Visuals.TriggerBotFOVCircle.Color = Color3.fromRGB(0, 0, 0)
+                    Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     --
                     Visuals.UniversalAimAssistFOVCircle.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
                     Visuals.UniversalAimAssistFOVCircle.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3
@@ -897,11 +901,13 @@ local PredictionLine = Drawing.new("Line")
                     Visuals.UniversalAimAssistFOVCircle.Transparency = Library.Flags["UniversalAimAssistFOVTransparency"]
                     Visuals.UniversalAimAssistFOVCircle.Color = Library.Flags["UniversalAimAssistColor"]
                     Visuals.UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-
-                end
-                --
-                if not (Visuals.SilentAimFOVCircle) then
-                    return
+                    --
+                    Visuals.UniversalAimAssistFOVOutline.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
+                    Visuals.UniversalAimAssistFOVOutline.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3 - 1
+                    Visuals.UniversalAimAssistFOVOutline.NumSides = 1000
+                    Visuals.UniversalAimAssistFOVOutline.Transparency = 1
+                    Visuals.UniversalAimAssistFOVOutline.Color = Color3.fromRGB(0, 0, 0)
+                    Visuals.UniversalAimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 end
                 --
                 Visuals.SilentAimFOVCircle.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
@@ -932,14 +938,6 @@ local PredictionLine = Drawing.new("Line")
                 Visuals.SilentAimFOVOutline.NumSides = 1000
                 Visuals.SilentAimFOVOutline.Transparency = 1
                 Visuals.SilentAimFOVOutline.Color = Color3.fromRGB(0, 0, 0)
-                --
-                if not (Visuals.AimAssistFOVCircle) then
-                    return
-                end
-                --
-                if not (TracerLine) then
-                    return
-                end
                 --
                 TracerLine.Visible = Library.Flags["TracerEnabled"] and true or false
                 TracerLine.Transparency = Library.Flags["TracerTransparency"]
