@@ -393,34 +393,25 @@ for _, asset in ipairs(assets) do
     end
 end
 --
-local SilentAimFOVCircle = Drawing.new("Circle")
-SilentAimFOVCircle.Transparency = 0.5
-SilentAimFOVCircle.Thickness = 2
-SilentAimFOVCircle.Color = Color3.fromRGB(255, 255, 255)
-SilentAimFOVCircle.Filled = false
---
-local AimAssistFOVCircle = Drawing.new("Circle")
-AimAssistFOVCircle.Transparency = 0.5
-AimAssistFOVCircle.Thickness = 2
-AimAssistFOVCircle.Color = Color3.fromRGB(255, 255, 255)
-AimAssistFOVCircle.Filled = false
+do -- Circles
+    for Index = 1, 4 do
+        local Circle = Index == 1 and "SilentAimFOV" or Index == 2 and "AimAssistFOV" or Index == 3 and "UniversalAimAssistFOV" or "TriggerBotFOV"
+        --
+        Visuals[Circle .. "Circle"] = Drawing.new("Circle")
+        Visuals[Circle .. "Circle"].Filled = false
+        Visuals[Circle .. "Circle"].ZIndex = 59
+        --
+        Visuals[Circle .. "Outline"] = Drawing.new("Circle")
+        Visuals[Circle .. "Outline"].Thickness = 1.5
+        Visuals[Circle .. "Outline"].Filled = false
+        Visuals[Circle .. "Outline"].ZIndex = 60
+    end
+end
 --
 local TracerLine = Drawing.new("Line")
 TracerLine.Transparency = 0.5
 TracerLine.Thickness = 2
 TracerLine.Color = Color3.fromRGB(0, 255, 0)
---
-local UniversalAimAssistFOVCircle = Drawing.new("Circle")
-UniversalAimAssistFOVCircle.Transparency = 0.5
-UniversalAimAssistFOVCircle.Thickness = 2
-UniversalAimAssistFOVCircle.Color = Color3.fromRGB(255, 255, 255)
-UniversalAimAssistFOVCircle.Filled = false
---
-local TriggerBotFOVCircle = Drawing.new("Circle")
-TriggerBotFOVCircle.Transparency = 0.5
-TriggerBotFOVCircle.Thickness = 2
-TriggerBotFOVCircle.Color = Color3.fromRGB(255, 255, 255)
-TriggerBotFOVCircle.Filled = false
 --
 local PredictionDot = Drawing.new("Circle")
 local PredictionLine = Drawing.new("Line")
@@ -883,52 +874,60 @@ local PredictionLine = Drawing.new("Line")
                 local MousePosition = Utility:MousePosition()
                 --
                 do -- Universal
-                    if not (TriggerBotFOVCircle) then
+                    if not (Visuals.TriggerBotFOVCircle) then
                         return
                     end
                     --
-                    if not (UniversalAimAssistFOVCircle) then
+                    if not (Visuals.UniversalAimAssistFOVCircle) then
                         return
                     end
                     --
-                    TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
-                    TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3
-                    TriggerBotFOVCircle.NumSides = 1000
-                    TriggerBotFOVCircle.Transparency = Library.Flags["UniversalDeadzoneFOVTransparency"]
-                    TriggerBotFOVCircle.Color = Library.Flags["UniversalDeadzoneColor"]
-                    TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    Visuals.TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
+                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3
+                    Visuals.TriggerBotFOVCircle.NumSides = 1000
+                    Visuals.TriggerBotFOVCircle.Transparency = Library.Flags["UniversalDeadzoneFOVTransparency"]
+                    Visuals.TriggerBotFOVCircle.Color = Library.Flags["UniversalDeadzoneColor"]
+                    Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     --
-                    UniversalAimAssistFOVCircle.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
-                    UniversalAimAssistFOVCircle.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3
-                    UniversalAimAssistFOVCircle.NumSides = 1000
-                    UniversalAimAssistFOVCircle.Transparency = Library.Flags["UniversalAimAssistFOVTransparency"]
-                    UniversalAimAssistFOVCircle.Color = Library.Flags["UniversalAimAssistColor"]
-                    UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    Visuals.UniversalAimAssistFOVCircle.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
+                    Visuals.UniversalAimAssistFOVCircle.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3
+                    Visuals.UniversalAimAssistFOVCircle.NumSides = 1000
+                    Visuals.UniversalAimAssistFOVCircle.Transparency = Library.Flags["UniversalAimAssistFOVTransparency"]
+                    Visuals.UniversalAimAssistFOVCircle.Color = Library.Flags["UniversalAimAssistColor"]
+                    Visuals.UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 end
                 --
-                if not (SilentAimFOVCircle) then
+                if not (Visuals.SilentAimFOVCircle) then
                     return
                 end
                 --
-                SilentAimFOVCircle.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
-                SilentAimFOVCircle.Radius = Library.Flags["SilentAimFieldOfView"] * 3
-                SilentAimFOVCircle.Filled = Library.Flags["SilentAimFOVFilled"]
-                SilentAimFOVCircle.NumSides = 1000
-                SilentAimFOVCircle.Transparency = Library.Flags["SilentAimFieldOfViewTransparency"]
-                SilentAimFOVCircle.Color = Library.Flags["SilentAimColor"]
+                Visuals.SilentAimFOVCircle.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
+                Visuals.SilentAimFOVCircle.Radius = Library.Flags["SilentAimFieldOfView"] * 3
+                Visuals.SilentAimFOVCircle.Filled = Library.Flags["SilentAimFOVFilled"]
+                Visuals.SilentAimFOVCircle.NumSides = 1000
+                Visuals.SilentAimFOVCircle.Transparency = Library.Flags["SilentAimFieldOfViewTransparency"]
+                Visuals.SilentAimFOVCircle.Color = Library.Flags["SilentAimColor"]
+                --
                 if Library.Flags["SilentAimFOVType"] == "Mouse" then
-                    SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 else
                     if LuckyHub.Locals.Target ~= nil and LuckyHub.Locals.AimPoint ~= nil then
                         local Position = workspace.CurrentCamera:WorldToViewportPoint(LuckyHub.Locals.AimPoint)
                         --
-                        SilentAimFOVCircle.Position = Vector2.new(Position.X, Position.Y)
+                        Visuals.SilentAimFOVCircle.Position = Vector2.new(Position.X, Position.Y)
                     else
-                        SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                        Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     end
                 end
                 --
-                if not (AimAssistFOVCircle) then
+                Visuals.SilentAimFOVOutline.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
+                Visuals.SilentAimFOVOutline.Radius = Library.Flags["SilentAimFieldOfView"] * 3
+                Visuals.SilentAimFOVOutline.Filled = false
+                Visuals.SilentAimFOVOutline.NumSides = 1000
+                Visuals.SilentAimFOVOutline.Transparency = 1
+                Visuals.SilentAimFOVOutline.Color = Color3.fromRGB(0, 0, 0)
+                --
+                if not (Visuals.AimAssistFOVCircle) then
                     return
                 end
                 --
@@ -953,13 +952,21 @@ local PredictionLine = Drawing.new("Line")
                     TracerLine.Visible = false
                 end
                 --
-                AimAssistFOVCircle.Visible = Library.Flags["AimAssistFOVEnabled"] and Library.Flags["AimAssistUseFOV"] and true or false
-                AimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                AimAssistFOVCircle.Radius = Library.Flags["AimAssistFieldOfView"] * 3
-                AimAssistFOVCircle.Filled = Library.Flags["AimAssistFOVFilled"]
-                AimAssistFOVCircle.NumSides = 1000
-                AimAssistFOVCircle.Transparency = Library.Flags["AimAssistFieldOfViewTransparency"]
-                AimAssistFOVCircle.Color = Library.Flags["AimAssistColor"]
+                Visuals.AimAssistFOVCircle.Visible = Library.Flags["AimAssistFOVEnabled"] and Library.Flags["AimAssistUseFOV"] and true or false
+                Visuals.AimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                Visuals.AimAssistFOVCircle.Radius = Library.Flags["AimAssistFieldOfView"] * 3
+                Visuals.AimAssistFOVCircle.Filled = Library.Flags["AimAssistFOVFilled"]
+                Visuals.AimAssistFOVCircle.NumSides = 1000
+                Visuals.AimAssistFOVCircle.Transparency = Library.Flags["AimAssistFieldOfViewTransparency"]
+                Visuals.AimAssistFOVCircle.Color = Library.Flags["AimAssistColor"]
+                --
+                Visuals.AimAssistFOVOutline.Visible = Library.Flags["AimAssistFOVEnabled"] and Library.Flags["AimAssistUseFOV"] and true or false
+                Visuals.AimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                Visuals.AimAssistFOVOutline.Radius = Library.Flags["AimAssistFieldOfView"] * 3
+                Visuals.AimAssistFOVOutline.Filled = false
+                Visuals.AimAssistFOVOutline.NumSides = 1000
+                Visuals.AimAssistFOVOutline.Transparency = 1
+                Visuals.AimAssistFOVOutline.Color = Color3.fromRGB(0, 0, 0)
             end
             --
             function LuckyHub:FilterObject(Object)
@@ -1016,7 +1023,7 @@ local PredictionLine = Drawing.new("Line")
                     local Position, OnScreen = Workspace.CurrentCamera:WorldToScreenPoint(RootPart.Position)
                     local Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(MousePosition.X, MousePosition.Y)).Magnitude
                     --
-                    if Library.Flags["SilentAimUseFOV"] and not (Distance <= SilentAimFOVCircle.Radius) then continue end
+                    if Library.Flags["SilentAimUseFOV"] and not (Distance <= Visuals.SilentAimFOVCircle.Radius) then continue end
                     --
                     if (Distance < Closest) and OnScreen then
                         Target = Player
@@ -1138,7 +1145,7 @@ local PredictionLine = Drawing.new("Line")
                         Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(ClientPosition.X, ClientPosition.Y)).Magnitude
                     end
                     --
-                    if Library.Flags["UniversalAimAssistUseFOV"] and not (Distance <= UniversalAimAssistFOVCircle.Radius) then continue end
+                    if Library.Flags["UniversalAimAssistUseFOV"] and not (Distance <= Visuals.UniversalAimAssistFOVCircle.Radius) then continue end
                     --
                     if (Distance < Closest) and OnScreen then
                         Target = Player
@@ -1198,7 +1205,7 @@ local PredictionLine = Drawing.new("Line")
                     local Position = Workspace.CurrentCamera:WorldToViewportPoint(LuckyHub.Locals.UniversalTarget.Character[LuckyHub.Locals.UniversalHitPart].CFrame.Position + (LuckyHub.Locals.UniversalTarget.Character[LuckyHub.Locals.UniversalHitPart].Velocity * Library.Flags["UniversalAimAssistPredictionAmount"]))
                     local Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(MouseLocation.X, MouseLocation.Y)).Magnitude
                     --
-                    if ((tick() - LuckyHub.Locals.LastStutter) >= (Library.Flags["UniversalAimAssistStutter"] / 1000)) and (Distance >= TriggerBotFOVCircle.Radius) then
+                    if ((tick() - LuckyHub.Locals.LastStutter) >= (Library.Flags["UniversalAimAssistStutter"] / 1000)) and (Distance >= Visuals.TriggerBotFOVCircle.Radius) then
                         LuckyHub.Locals.LastStutter = tick()
                         --
                         local MovePosition = Vector2.new(Position.X, Position.Y)
@@ -1307,8 +1314,8 @@ local PredictionLine = Drawing.new("Line")
                     local Position, OnScreen = Workspace.CurrentCamera:WorldToViewportPoint(RootPart.Position)
                     local Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(MousePosition.X, MousePosition.Y)).Magnitude
                     --
-                    if Library.Flags["SilentAimUseFOV"] and not (Distance <= SilentAimFOVCircle.Radius) then
-                        SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    if Library.Flags["SilentAimUseFOV"] and not (Distance <= Visuals.SilentAimFOVCircle.Radius) then
+                        Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                         Cursor.mode = "mouse"
                         return
                     end
