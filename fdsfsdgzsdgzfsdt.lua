@@ -2052,7 +2052,7 @@ local PredictionLine = Drawing.new("Line")
                                                     LuckyHub:HitSound(LuckyHub.SoundEffects[Library.Flags["HitDetectionSoundType"]])
                                                 end
                                             else
-                                                LuckyHub:HitNotification("Missed due to prediction error.", 2)
+                                                if Library.Flags["HitDetectionNotifications"] then LuckyHub:HitNotification("Missed due to prediction error.", 2) end
                                             end
                                         end
                                     end
