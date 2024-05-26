@@ -1295,7 +1295,8 @@ function Library:Window(options)
 			Name = "Main",
 			Icon = "rbxassetid://16863175349",
 			PlayerList = false,
-			SkinList = false
+			SkinList = false,
+			GunList = false,
 		}, options or {})
 
 		local Tab = {
