@@ -394,7 +394,7 @@ for _, asset in ipairs(assets) do
 end
 --
 do -- Circles
-    for Index = 1, 4 do
+    for Index = 1, 2 do
         local Circle = Index == 1 and "SilentAimFOV" or Index == 2 and "AimAssistFOV"
         --
         Visuals[Circle .. "Circle"] = Drawing.new("Circle")
