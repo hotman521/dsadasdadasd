@@ -403,7 +403,7 @@ do -- Circles
         Visuals[Circle .. "Circle"].ZIndex = 60
         --
         Visuals[Circle .. "Outline"] = Drawing.new("Circle")
-        Visuals[Circle .. "Outline"].Thickness = 3.5
+        Visuals[Circle .. "Outline"].Thickness = 4
         Visuals[Circle .. "Outline"].Filled = false
         Visuals[Circle .. "Outline"].ZIndex = 59
     end
@@ -890,12 +890,26 @@ local PredictionLine = Drawing.new("Line")
                     Visuals.TriggerBotFOVCircle.Color = Library.Flags["UniversalDeadzoneColor"]
                     Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     --
+                    Visuals.TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
+                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3 - 1
+                    Visuals.TriggerBotFOVCircle.NumSides = 1000
+                    Visuals.TriggerBotFOVCircle.Transparency = 1
+                    Visuals.TriggerBotFOVCircle.Color = Color3.fromRGB(0, 0, 0)
+                    Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    --
                     Visuals.UniversalAimAssistFOVCircle.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
                     Visuals.UniversalAimAssistFOVCircle.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3
                     Visuals.UniversalAimAssistFOVCircle.NumSides = 1000
                     Visuals.UniversalAimAssistFOVCircle.Transparency = Library.Flags["UniversalAimAssistFOVTransparency"]
                     Visuals.UniversalAimAssistFOVCircle.Color = Library.Flags["UniversalAimAssistColor"]
                     Visuals.UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    --
+                    Visuals.UniversalAimAssistFOVOutline.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
+                    Visuals.UniversalAimAssistFOVOutline.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3 - 1
+                    Visuals.UniversalAimAssistFOVOutline.NumSides = 1000
+                    Visuals.UniversalAimAssistFOVOutline.Transparency = 1
+                    Visuals.UniversalAimAssistFOVOutline.Color = Color3.fromRGB(0, 0, 0)
+                    Visuals.UniversalAimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 end
                 --
                 if not (Visuals.SilentAimFOVCircle) then
