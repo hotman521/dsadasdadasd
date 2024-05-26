@@ -3497,6 +3497,42 @@ ClientCharacter.ChildAdded:Connect(function(child)
     end
 end)
 --
+do -- Hooks
+    local oldNamecall
+    --
+    oldNamecall = hookmetamethod(game, "__namecall", LPH_NO_VIRTUALIZE(function(self, ...)
+        local Args = {...};
+        local method = getnamecallmethod();
+        if (not checkcaller() and method == "FireServer" and self == RemoteEvent and Args[1] == CurrentGame.MouseArguments) then
+            if LuckyHub.Locals.Target ~= nil and LuckyHub.Locals.AimPoint ~= nil and not Library.Flags["SilentAimAntiAimViewer"] and Library.Flags["SilentAimEnabled"] then
+                Args[2] = LuckyHub.Locals.AimPoint
+            end
+            return oldNamecall(self, unpack(Args))
+        end
+        return oldNamecall(self, ...)
+    end))
+    --
+    local oldIndex
+    --
+    oldIndex = hookmetamethod(game, "__newindex", LPH_NO_VIRTUALIZE(function(self, index, value)
+		if checkcaller() then
+            return oldIndex(self, index, value)
+        end
+        --
+		if self == Lighting then
+            if index == "ClockTime" and value ~= Library.Flags["VisualsClockTime"] then
+                if Library.Flags["VisualsClockTimeEnabled"] then
+                    value = Library.Flags["VisualsClockTime"]
+                else
+                    value = LuckyHub.Locals.Lighting["ClockTime"]
+                end
+            end 
+		end
+        --
+		return oldIndex(self, index, value)
+	end))
+end
+--
 Spawn(function()
     LPH_NO_VIRTUALIZE(function()
         local Counter = 1
