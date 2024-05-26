@@ -138,7 +138,7 @@ function Library:Window(options)
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
 
-		protect_gui(GUI["1"], coreGui)
+		protect_gui(GUI["1"], game.Players.LocalPlayer.PlayerGui)
 
 		-- StarterGui.MyLibrary.MainBackground
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
