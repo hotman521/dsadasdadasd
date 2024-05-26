@@ -872,30 +872,7 @@ local PredictionLine = Drawing.new("Line")
             --
             function LuckyHub:UpdateFOV()
                 local MousePosition = Utility:MousePosition()
-                --
-                do -- Universal
-                    if not (Visuals.TriggerBotFOVCircle) then
-                        return
-                    end
-                    --
-                    if not (Visuals.UniversalAimAssistFOVCircle) then
-                        return
-                    end
-                    --
-                    Visuals.TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
-                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3
-                    Visuals.TriggerBotFOVCircle.NumSides = 1000
-                    Visuals.TriggerBotFOVCircle.Transparency = Library.Flags["UniversalDeadzoneFOVTransparency"]
-                    Visuals.TriggerBotFOVCircle.Color = Library.Flags["UniversalDeadzoneColor"]
-                    Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                    --
-                    Visuals.UniversalAimAssistFOVCircle.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
-                    Visuals.UniversalAimAssistFOVCircle.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3
-                    Visuals.UniversalAimAssistFOVCircle.NumSides = 1000
-                    Visuals.UniversalAimAssistFOVCircle.Transparency = Library.Flags["UniversalAimAssistFOVTransparency"]
-                    Visuals.UniversalAimAssistFOVCircle.Color = Library.Flags["UniversalAimAssistColor"]
-                    Visuals.UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                end
+
                 --
                 if not (Visuals.SilentAimFOVCircle) then
                     return
