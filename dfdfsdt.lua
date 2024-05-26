@@ -399,7 +399,7 @@ do -- Circles
         --
         Visuals[Circle .. "Circle"] = Drawing.new("Circle")
         Visuals[Circle .. "Circle"].Filled = false
-        Visuals[Circle .. "Circle"].Thickness = 1.75
+        Visuals[Circle .. "Circle"].Thickness = 1
         Visuals[Circle .. "Circle"].ZIndex = 60
         Visuals[Circle .. "Circle"].Visible = false
         --
