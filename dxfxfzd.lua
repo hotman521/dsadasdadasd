@@ -138,7 +138,7 @@ function Library:Window(options)
 		GUI["1"]["ResetOnSpawn"] = false;
 		GUI["1"]["IgnoreGuiInset"] = true;
 
-		protect_gui(GUI["1"], coreGui)
+		protect_gui(GUI["1"], players.LocalPlayer.PlayerGui)
 
 		-- StarterGui.MyLibrary.MainBackground
 		GUI["2"] = Instance.new("Frame", GUI["1"]);
@@ -4567,34 +4567,36 @@ function Library:Window(options)
 						end)
 						
 						function Keybind:Toggle(b)
-							if b == nil then
-								Keybind.State = not Keybind.State
-							else
-								Keybind.State = b
-							end
-							
-							if Keybind.Mode ~= "On Hold" then
-								if not options.HideFromList then
-									if Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
-									end
+							if Toggle:GetState() then
+								if b == nil then
+									Keybind.State = not Keybind.State
+								else
+									Keybind.State = b
 								end
-
-								Library.Flags[Toggle:GetFlag()] = Keybind.State
-								Toggle:GetCallback(Keybind.State)
-							else
-								if not options.HideFromList then
-									if not Keybind.State then
-										GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
-									else
-										GUI:RemoveKeybind(Toggle:GetName())
+								
+								if Keybind.Mode ~= "On Hold" then
+									if not options.HideFromList then
+										if Keybind.State then
+											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+										else
+											GUI:RemoveKeybind(Toggle:GetName())
+										end
 									end
-								end
 
-								Library.Flags[Toggle:GetFlag()] = not Keybind.State
-								Toggle:GetCallback(not Keybind.State)
+									Library.Flags[Toggle:GetFlag()] = Keybind.State
+									Toggle:GetCallback(Keybind.State)
+								else
+									if not options.HideFromList then
+										if not Keybind.State then
+											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+										else
+											GUI:RemoveKeybind(Toggle:GetName())
+										end
+									end
+
+									Library.Flags[Toggle:GetFlag()] = not Keybind.State
+									Toggle:GetCallback(not Keybind.State)
+								end
 							end
 						end
 						
