@@ -889,7 +889,7 @@ local PredictionLine = Drawing.new("Line")
                     Visuals.TriggerBotFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     --
                     Visuals.TriggerBotFOVCircle.Visible = Library.Flags["UniversalDeadzoneFOVEnabled"] and true or false
-                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3 - 1
+                    Visuals.TriggerBotFOVCircle.Radius = Library.Flags["UniversalAimAssistDeadzone"] * 3 - 1.5
                     Visuals.TriggerBotFOVCircle.NumSides = 1000
                     Visuals.TriggerBotFOVCircle.Transparency = 1
                     Visuals.TriggerBotFOVCircle.Color = Color3.fromRGB(0, 0, 0)
@@ -903,7 +903,7 @@ local PredictionLine = Drawing.new("Line")
                     Visuals.UniversalAimAssistFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     --
                     Visuals.UniversalAimAssistFOVOutline.Visible = Library.Flags["UniversalAimAssistFOVEnabled"] and Library.Flags["UniversalAimAssistUseFOV"] and true or false
-                    Visuals.UniversalAimAssistFOVOutline.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3 - 1
+                    Visuals.UniversalAimAssistFOVOutline.Radius = Library.Flags["UniversalAimAssistFieldOfView"] * 3 - 1.5
                     Visuals.UniversalAimAssistFOVOutline.NumSides = 1000
                     Visuals.UniversalAimAssistFOVOutline.Transparency = 1
                     Visuals.UniversalAimAssistFOVOutline.Color = Color3.fromRGB(0, 0, 0)
@@ -933,7 +933,7 @@ local PredictionLine = Drawing.new("Line")
                 end
                 --
                 Visuals.SilentAimFOVOutline.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
-                Visuals.SilentAimFOVOutline.Radius = Library.Flags["SilentAimFieldOfView"] * 3 - 1
+                Visuals.SilentAimFOVOutline.Radius = Library.Flags["SilentAimFieldOfView"] * 3 - 1.5
                 Visuals.SilentAimFOVOutline.Filled = false
                 Visuals.SilentAimFOVOutline.NumSides = 1000
                 Visuals.SilentAimFOVOutline.Transparency = 1
@@ -966,7 +966,7 @@ local PredictionLine = Drawing.new("Line")
                 --
                 Visuals.AimAssistFOVOutline.Visible = Library.Flags["AimAssistFOVEnabled"] and Library.Flags["AimAssistUseFOV"] and true or false
                 Visuals.AimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                Visuals.AimAssistFOVOutline.Radius = Library.Flags["AimAssistFieldOfView"] * 3 - 1
+                Visuals.AimAssistFOVOutline.Radius = Library.Flags["AimAssistFieldOfView"] * 3 - 1.5
                 Visuals.AimAssistFOVOutline.Filled = false
                 Visuals.AimAssistFOVOutline.NumSides = 1000
                 Visuals.AimAssistFOVOutline.Transparency = 1
