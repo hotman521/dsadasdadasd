@@ -887,21 +887,21 @@ local PredictionLine = Drawing.new("Line")
                 --
                 if Library.Flags["SilentAimFOVType"] == "Mouse" then
                     Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                    Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y) - Vector2.new(1, 1)
+                    Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 else
                     if LuckyHub.Locals.Target ~= nil and LuckyHub.Locals.AimPoint ~= nil then
                         local Position = workspace.CurrentCamera:WorldToViewportPoint(LuckyHub.Locals.AimPoint)
                         --
                         Visuals.SilentAimFOVCircle.Position = Vector2.new(Position.X, Position.Y)
-                        Visuals.SilentAimFOVOutline.Position = Vector2.new(Position.X, Position.Y) - Vector2.new(1, 1)
+                        Visuals.SilentAimFOVOutline.Position = Vector2.new(Position.X, Position.Y)
                     else
                         Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
-                        Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y) - Vector2.new(1, 1)
+                        Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     end
                 end
                 --
                 Visuals.SilentAimFOVOutline.Visible = Library.Flags["SilentAimFOVEnabled"] and Library.Flags["SilentAimUseFOV"] and true or false
-                Visuals.SilentAimFOVOutline.Radius = Library.Flags["SilentAimFieldOfView"] * 3
+                Visuals.SilentAimFOVOutline.Radius = Library.Flags["SilentAimFieldOfView"] * 3 - 1
                 Visuals.SilentAimFOVOutline.Filled = false
                 Visuals.SilentAimFOVOutline.NumSides = 1000
                 Visuals.SilentAimFOVOutline.Transparency = 1
@@ -941,8 +941,8 @@ local PredictionLine = Drawing.new("Line")
                 Visuals.AimAssistFOVCircle.Color = Library.Flags["AimAssistColor"]
                 --
                 Visuals.AimAssistFOVOutline.Visible = Library.Flags["AimAssistFOVEnabled"] and Library.Flags["AimAssistUseFOV"] and true or false
-                Visuals.AimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y) - Vector2.new(1, 1)
-                Visuals.AimAssistFOVOutline.Radius = Library.Flags["AimAssistFieldOfView"] * 3
+                Visuals.AimAssistFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                Visuals.AimAssistFOVOutline.Radius = Library.Flags["AimAssistFieldOfView"] * 3 - 1
                 Visuals.AimAssistFOVOutline.Filled = false
                 Visuals.AimAssistFOVOutline.NumSides = 1000
                 Visuals.AimAssistFOVOutline.Transparency = 1
