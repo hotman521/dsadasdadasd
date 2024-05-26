@@ -1961,7 +1961,7 @@ local PredictionLine = Drawing.new("Line")
                     end
                 end
             end
-            return ClosestPlayer
+            return ClosestPlayer, Radius
         end
         --
         function LuckyHub:HitDetection()
@@ -2023,7 +2023,7 @@ local PredictionLine = Drawing.new("Line")
                                         end
                                         --
                                         if Library.Flags["HitDetectionEnabled"] then
-                                            local Player = LuckyHub:GetClosestPlayerDamage(EndPos, 20)
+                                            local Player, Distance = LuckyHub:GetClosestPlayerDamage(EndPos, 20)
                                             --
                                             if Player then
                                                 --
@@ -2052,7 +2052,7 @@ local PredictionLine = Drawing.new("Line")
                                                     LuckyHub:HitSound(LuckyHub.SoundEffects[Library.Flags["HitDetectionSoundType"]])
                                                 end
                                             else
-                                                if Library.Flags["HitDetectionNotifications"] then LuckyHub:HitNotification("Missed due to prediction error.", 2) end
+                                                if Library.Flags["HitDetectionNotifications"] then LuckyHub:HitNotification("Missed due to prediction error. (" .. Distance .. ")", 2) end
                                             end
                                         end
                                     end
