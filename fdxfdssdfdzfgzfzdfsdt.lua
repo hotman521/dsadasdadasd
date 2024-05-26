@@ -887,13 +887,16 @@ local PredictionLine = Drawing.new("Line")
                 --
                 if Library.Flags["SilentAimFOVType"] == "Mouse" then
                     Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                    Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                 else
                     if LuckyHub.Locals.Target ~= nil and LuckyHub.Locals.AimPoint ~= nil then
                         local Position = workspace.CurrentCamera:WorldToViewportPoint(LuckyHub.Locals.AimPoint)
                         --
                         Visuals.SilentAimFOVCircle.Position = Vector2.new(Position.X, Position.Y)
+                        Visuals.SilentAimFOVOutline.Position = Vector2.new(Position.X, Position.Y)
                     else
                         Visuals.SilentAimFOVCircle.Position = Vector2.new(MousePosition.X, MousePosition.Y)
+                        Visuals.SilentAimFOVOutline.Position = Vector2.new(MousePosition.X, MousePosition.Y)
                     end
                 end
                 --
