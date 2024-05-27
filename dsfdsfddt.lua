@@ -1998,6 +1998,7 @@ local PredictionLine = Drawing.new("Line")
                                 if (Find({"[Double-Barrel SG]", "[TacticalShotgun]", "[Shotgun]"}, Gun.Name) and ChildrenAdded <= 5) or (ChildrenAdded == 1) then
                                     local GunBeam = Object:WaitForChild("GunBeam")
                                     local StartPos, EndPos = Object.Position, GunBeam.Attachment1.WorldPosition
+                                    local ImpactColor = Library.Flags["BulletImpactsColor"]
                                     --
                                     if StartPos and EndPos then
                                         if Library.Flags["BulletTracers"] then
@@ -2010,32 +2011,32 @@ local PredictionLine = Drawing.new("Line")
                                             end
                                         end
                                         --
+                                        if Library.Flags["BulletImpacts"] then
+                                            local Impact = Instance.new("Part")
+                                            Impact.Anchored = true
+                                            Impact.CanCollide = false 
+                                            Impact.Parent = Workspace
+                                            Impact.Material = "Neon"
+                                            Impact.Shape = Enum.PartType.Block 
+                                            Impact.Transparency = 0
+                                            Impact.Color = ImpactColor
+                                            Impact.Size = Vector3.new(0.4, 0.4, 0.4)
+                                            Impact.CFrame = CFrame.new(EndPos)
+                                            --
+                                            Delay(1.5, function()
+                                                for i = 0, 1, 0.05 do
+                                                    Wait()
+                                                    Impact.Transparency = NumberSequence.new(i)
+                                                end
+                                                --
+                                                Impact:Destroy()
+                                            end)
+                                        end
+                                        --
                                         if Library.Flags["HitDetectionEnabled"] then
                                             local Player, Distance = LuckyHub:GetClosestPlayerDamage(EndPos, 20)
                                             --
                                             if Player then
-                                                --
-                                                if Library.Flags["BulletImpacts"] then
-                                                    local Impact = Instance.new("Part")
-                                                    Impact.Anchored = true
-                                                    Impact.CanCollide = false 
-                                                    Impact.Parent = Workspace
-                                                    Impact.Material = "Neon"
-                                                    Impact.Shape = Enum.PartType.Block 
-                                                    Impact.Transparency = 0
-                                                    Impact.Color = Library.Flags["BulletImpactsHitColor"]
-                                                    Impact.Size = Vector3.new(0.4, 0.4, 0.4)
-                                                    Impact.CFrame = CFrame.new(EndPos)
-                                                    --
-                                                    Delay(1.5, function()
-                                                        for i = 0, 1, 0.05 do
-                                                            Wait()
-                                                            Impact.Transparency = NumberSequence.new(i)
-                                                        end
-                                                        --
-                                                        Impact:Destroy()
-                                                    end)
-                                                end
                                                 --
                                                 if Library.Flags["HitDetectionNotifications"] then
                                                     local Health = Player.Character and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health
