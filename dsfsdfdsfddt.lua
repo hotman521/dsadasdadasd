@@ -2062,27 +2062,7 @@ local PredictionLine = Drawing.new("Line")
                                                     LuckyHub:HitSound(LuckyHub.SoundEffects[Library.Flags["HitDetectionSoundType"]])
                                                 end
                                             else
-                                                if Library.Flags["BulletImpacts"] then
-                                                    local Impact = Instance.new("Part")
-                                                    Impact.Anchored = true
-                                                    Impact.CanCollide = false 
-                                                    Impact.Parent = Workspace
-                                                    Impact.Material = "Neon"
-                                                    Impact.Shape = Enum.PartType.Block 
-                                                    Impact.Transparency = 0
-                                                    Impact.Color = Library.Flags["BulletImpactsColor"]
-                                                    Impact.Size = Vector3.new(0.4, 0.4, 0.4)
-                                                    Impact.CFrame = CFrame.new(EndPos)
-                                                    --
-                                                    Delay(1.5, function()
-                                                        for i = 0, 1, 0.05 do
-                                                            Wait()
-                                                            Impact.Transparency = NumberSequence.new(i)
-                                                        end
-                                                        --
-                                                        Impact:Destroy()
-                                                    end)
-                                                end
+                                                if Library.Flags["HitDetectionNotifications"] then LuckyHub:HitNotification("Missed due to prediction error. (" .. Distance .. ")", 2) end
                                             end
                                         end
                                     end
