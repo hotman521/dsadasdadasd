@@ -2154,8 +2154,6 @@ do -- Main Tab
             SilentAimToggle:SetMode(Mode)
         end
         --
-        SilentAimSection:Toggle({Name = "Anti Aim Viewer", Default = true, Flag = "SilentAimAntiAimViewer"})
-        --
         SilentAimSection:Toggle({Name = "Anti Curve", Default = true, Flag = "SilentAimAntiCurve"})
         --
         SilentAimSection:Toggle({Name = "No Ground Shots", Default = true, Flag = "SilentAimNoGroundShots"})
@@ -2212,11 +2210,11 @@ do -- Main Tab
         local SilentAimFOV = FOVSection:Toggle({Name = "Silent Aim FOV", Flag = "SilentAimFOVEnabled", Default = false})
         SilentAimFOV:ColorPicker({Name = "Silent Aim FOV Color", Flag = "SilentAimColor", Default = Color3.fromRGB(0, 255, 0)})
         --
-        FOVSection:Toggle({Name = "Silent Aim FOV Filled", Flag = "SilentAimFOVFilled", Default = true})
+        FOVSection:Toggle({Name = "Silent Aim FOV Filled", Flag = "SilentAimFOVFilled", Default = false})
         --
         FOVSection:Dropdown({Name = "Silent Aim FOV Type", Flag = "SilentAimFOVType", Content = {"Mouse", "Sticky"}, Default = "Mouse"})
         --
-        FOVSection:Slider({Name = "Silent Aim FOV Transparency", Flag = "SilentAimFieldOfViewTransparency", Min = 0, Max = 1, Default = 0.25, Decimal = 0.01})
+        FOVSection:Slider({Name = "Silent Aim FOV Transparency", Flag = "SilentAimFieldOfViewTransparency", Min = 0, Max = 1, Default = 1, Decimal = 0.01})
         --
         local AimAssistFOV = FOVSection:Toggle({Name = "Aim Assist FOV", Flag = "AimAssistFOVEnabled", Default = false})
         AimAssistFOV:ColorPicker({Name = "Aim Assist FOV Color", Flag = "AimAssistColor", Default = Color3.fromRGB(255, 255, 255)})
@@ -3460,7 +3458,7 @@ Client.CharacterAdded:Connect(function(Character)
                     end
                 end
                 --
-                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimAntiAimViewer"] and Library.Flags["SilentAimEnabled"] then
+                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
                     RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
                 end
             end)
@@ -3520,7 +3518,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
                 end
             end
             --
-            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimAntiAimViewer"] and Library.Flags["SilentAimEnabled"] then
+            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
                 RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
             end
         end)
