@@ -3,9 +3,6 @@ repeat task.wait() until game:IsLoaded()
 if game.CoreGui:FindFirstChild("MyLibrary") then return end
 --
 if not LPH_OBFUSCATED then
-    LPH_JIT_MAX = function(...)
-        return (...)
-    end
     LPH_NO_VIRTUALIZE = function(...)
         return (...)
     end
@@ -18,6 +15,24 @@ end)()
 local Lighting = game:GetService("Lighting")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
+local asset = game:GetService("MarketplaceService"):GetProductInfo(2788229376)
+local update_stamp = tostring(asset.Updated)
+--
+function ConvertTimeStamp(time_stamp)
+	local date_pattern = "%d%d%d%d%-%d%d%-%d%d"
+	local stamp_date = string.sub(time_stamp, string.find(time_stamp, date_pattern))
+
+	local split_date = string.split(stamp_date, "-")
+
+	local year = split_date[1]
+	local month = tonumber(split_date[2])
+	local day = tonumber(split_date[3])
+
+	return string.format("%d/%d/%d", month, day, year)
+end
+--
+local converted_stamp = ConvertTimeStamp(update_stamp)
+local trimmed_stamp = converted_stamp:match("^%s*(.-)%s*$")
 --
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/hotman521/dsadasdadasd/main/fsdfdsfdsfds.lua"))()
 --
@@ -26,7 +41,7 @@ local CurrentGame, RemoteEvent, SupportedGames;
 local SupportedGames = {
     [1008451066] = {
         Name = "Da Hood",
-        MouseArguments = "UpdateMousePos1",
+        MouseArguments = "UpdateMousePosI",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -324,6 +339,12 @@ do -- Folders
     if not isfolder("LuckyHub/Configs/Private") then
         makefolder("LuckyHub/Configs/Private")
     end
+end
+--
+if Client and ClientCharacter then
+	if trimmed_stamp ~= "5/28/2024" then
+		Client:Kick("Da Hood has updated please ping me to update the script.")
+	end
 end
 --
 for Index, Player in pairs(Players:GetPlayers()) do
@@ -2010,32 +2031,32 @@ local PredictionLine = Drawing.new("Line")
                                             end
                                         end
                                         --
+                                        if Library.Flags["BulletImpacts"] then
+                                            local Impact = Instance.new("Part")
+                                            Impact.Anchored = true
+                                            Impact.CanCollide = false 
+                                            Impact.Parent = Workspace
+                                            Impact.Material = "Neon"
+                                            Impact.Shape = Enum.PartType.Block 
+                                            Impact.Transparency = 0
+                                            Impact.Color = Library.Flags["BulletImpactsColor"]
+                                            Impact.Size = Vector3.new(0.4, 0.4, 0.4)
+                                            Impact.CFrame = CFrame.new(EndPos)
+                                            --
+                                            Delay(1.5, function()
+                                                for i = 0, 1, 0.05 do
+                                                    Wait()
+                                                    Impact.Transparency = NumberSequence.new(i)
+                                                end
+                                                --
+                                                Impact:Destroy()
+                                            end)
+                                        end
+                                        --
                                         if Library.Flags["HitDetectionEnabled"] then
                                             local Player, Distance = LuckyHub:GetClosestPlayerDamage(EndPos, 20)
                                             --
                                             if Player then
-                                                --
-                                                if Library.Flags["BulletImpacts"] then
-                                                    local Impact = Instance.new("Part")
-                                                    Impact.Anchored = true
-                                                    Impact.CanCollide = false 
-                                                    Impact.Parent = Workspace
-                                                    Impact.Material = "Neon"
-                                                    Impact.Shape = Enum.PartType.Block 
-                                                    Impact.Transparency = 0
-                                                    Impact.Color = Library.Flags["BulletImpactsHitColor"]
-                                                    Impact.Size = Vector3.new(0.4, 0.4, 0.4)
-                                                    Impact.CFrame = CFrame.new(EndPos)
-                                                    --
-                                                    Delay(1.5, function()
-                                                        for i = 0, 1, 0.05 do
-                                                            Wait()
-                                                            Impact.Transparency = NumberSequence.new(i)
-                                                        end
-                                                        --
-                                                        Impact:Destroy()
-                                                    end)
-                                                end
                                                 --
                                                 if Library.Flags["HitDetectionNotifications"] then
                                                     local Health = Player.Character and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health
@@ -2060,28 +2081,6 @@ local PredictionLine = Drawing.new("Line")
                                                 --
                                                 if Library.Flags["HitDetectionSoundType"] ~= "None" then
                                                     LuckyHub:HitSound(LuckyHub.SoundEffects[Library.Flags["HitDetectionSoundType"]])
-                                                end
-                                            else
-                                                if Library.Flags["BulletImpacts"] then
-                                                    local Impact = Instance.new("Part")
-                                                    Impact.Anchored = true
-                                                    Impact.CanCollide = false 
-                                                    Impact.Parent = Workspace
-                                                    Impact.Material = "Neon"
-                                                    Impact.Shape = Enum.PartType.Block 
-                                                    Impact.Transparency = 0
-                                                    Impact.Color = Library.Flags["BulletImpactsColor"]
-                                                    Impact.Size = Vector3.new(0.4, 0.4, 0.4)
-                                                    Impact.CFrame = CFrame.new(EndPos)
-                                                    --
-                                                    Delay(1.5, function()
-                                                        for i = 0, 1, 0.05 do
-                                                            Wait()
-                                                            Impact.Transparency = NumberSequence.new(i)
-                                                        end
-                                                        --
-                                                        Impact:Destroy()
-                                                    end)
                                                 end
                                             end
                                         end
@@ -2616,11 +2615,8 @@ do -- Visuals
             --
             local BulletImpactsEnabled = BulletTracerSection:Toggle({Name = "Impacts", Flag = "BulletImpacts"})
             --
-            local BulletImpactHitColor = BulletTracerSection:Label({Message = "Impact Hit Color"})
-            BulletImpactHitColor:ColorPicker({Name = "Impact Hit Color", Flag = "BulletImpactsHitColor", Default = Color3.fromRGB(0, 255, 0)})
-            --
             local BulletImpactColor = BulletTracerSection:Label({Message = "Impact Color"})
-            BulletImpactColor:ColorPicker({Name = "Impact Color", Flag = "BulletImpactsColor", Default = Color3.fromRGB(255, 0, 0)})
+            BulletImpactColor:ColorPicker({Name = "Impact Color", Flag = "BulletImpactsColor", Default = Color3.fromRGB(0, 255, 0)})
         end
         --
         do -- In game crosshair
@@ -3151,16 +3147,6 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
             ESP.UpdateTarget(LuckyHub.Locals.AimAssistTarget)
         end
 end))
---
-local AnchoredCheck
---
-Spawn(function()
-    while Wait() do
-        AnchoredCheck = true
-        Wait(0.2)
-        AnchoredCheck = false
-    end
-end)
 --
 Spawn(function()
     while true do 
