@@ -9,6 +9,7 @@ local stats = game:GetService("Stats")
 
 local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
+local tweenInfoDrag = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
 local zindexcount = 999
 local zindexcount2 = 999
@@ -1144,7 +1145,6 @@ function Library:Window(options)
 	local cornerFrame = GUI["2mm"]
 	local mainFrame = GUI["2"]
 
-	local userInputService = game:GetService("UserInputService")
 	local isDragging = false
 	local originalSize = mainFrame.Size
 	local originalMousePosition = Vector2.new()
@@ -1153,23 +1153,27 @@ function Library:Window(options)
 
 	cornerFrame.MouseButton1Down:Connect(function()
 		isDragging = true
-		originalMousePosition = userInputService:GetMouseLocation()
+		originalMousePosition = uis:GetMouseLocation()
+		originalSize = mainFrame.Size
 	end)
 
-	userInputService.InputChanged:Connect(function(input)
+	uis.InputChanged:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement and isDragging then
-			local currentMousePosition = userInputService:GetMouseLocation()
+			local currentMousePosition = uis:GetMouseLocation()
 			local delta = currentMousePosition - originalMousePosition
 			local newSize = UDim2.new(0, math.clamp(originalSize.X.Offset + delta.X, minSize.X.Offset, maxSize.X.Offset), 0, math.clamp(originalSize.Y.Offset + delta.Y, minSize.Y.Offset, maxSize.Y.Offset))
-			mainFrame.Size = newSize
-			cornerFrame.Position = UDim2.new(0, mainFrame.AbsoluteSize.X - cornerFrame.Size.X.Offset, 0, mainFrame.AbsoluteSize.Y - cornerFrame.Size.Y.Offset)
+			local tween = tweenService:Create(mainFrame, tweenInfoDrag, {Size = newSize})
+			tween:Play()
+
+			tween.Completed:Connect(function()
+				cornerFrame.Position = UDim2.new(0, mainFrame.AbsoluteSize.X - cornerFrame.Size.X.Offset, 0, mainFrame.AbsoluteSize.Y - cornerFrame.Size.Y.Offset)
+			end)
 		end
 	end)
 
-	userInputService.InputEnded:Connect(function(input)
+	uis.InputEnded:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			isDragging = false
-			originalSize = mainFrame.Size
 		end
 	end)
 
@@ -5647,12 +5651,7 @@ function Library:Window(options)
 	end
 	
 	function Library:Init()
-		
 		local gui = GUI["2"]
-		local size = Library.Size + UDim2.new(0, 1, 0, 1)
-
-		GUI:UpdateSize(size)
-
 		local dragging
 		local dragInput
 		local dragStart
@@ -5660,7 +5659,8 @@ function Library:Window(options)
 
 		local function update(input)
 			local delta = input.Position - dragStart
-			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			local newPos = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			tweenService:Create(gui, tweenInfoDrag, {Position = newPos}):Play()
 		end
 
 		GUI["57"].InputBegan:Connect(function(input)
