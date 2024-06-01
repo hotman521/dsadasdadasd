@@ -1182,7 +1182,7 @@ function Library:Window(options)
 	
 	cornerFrame.MouseEnter:Connect(function()
 		Hover = true
-		mouse.Icon = "rbxassetid://17700530863"
+		mouse.Icon = "rbxassetid://17700660626"
 	end)
 
 	cornerFrame.MouseLeave:Connect(function()
