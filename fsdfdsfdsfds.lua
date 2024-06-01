@@ -10,6 +10,7 @@ local stats = game:GetService("Stats")
 local viewport = workspace.CurrentCamera.ViewportSize
 local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut)
 local tweenInfoDrag = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local mouse = players.LocalPlayer:GetMouse()
 
 local zindexcount = 999
 local zindexcount2 = 999
