@@ -403,7 +403,7 @@ function Library:Window(options)
 
 			local function update(input)
 				local delta = input.Position - dragStart
-				gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+				tweenService:Create(gui, tweenInfoDrag, {Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)}):Play()
 			end
 
 			gui.InputBegan:Connect(function(input)
@@ -834,7 +834,7 @@ function Library:Window(options)
 
 			local function update(input)
 				local delta = input.Position - dragStart
-				gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+				tweenService:Create(gui, tweenInfoDrag, {Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)}):Play()
 			end
 
 			gui.InputBegan:Connect(function(input)
@@ -1131,30 +1131,33 @@ function Library:Window(options)
 	end
 
 	-- StarterGui.MyLibrary.MainBackground.ResizableCorner
-	GUI["2mm"] = Instance.new("ImageButton", GUI["2"]);
+	GUI["2mm"] = Instance.new("Frame", GUI["2"]);
 	GUI["2mm"]["BorderSizePixel"] = 0;
 	GUI["2mm"]["BackgroundTransparency"] = 1;
-	GUI["2mm"]["ImageTransparency"] = 1;
 	GUI["2mm"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-	GUI["2mm"]["Image"] = [[rbxasset://textures/ui/GuiImagePlaceholder.png]];
 	GUI["2mm"]["Size"] = UDim2.new(0, 20, 0, 20);
 	GUI["2mm"]["Name"] = [[ResizableCorner]];
 	GUI["2mm"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	GUI["2mm"]["Position"] = UDim2.new(0.975, 0, 0.966, 0);
-	
+
 	local cornerFrame = GUI["2mm"]
 	local mainFrame = GUI["2"]
 
 	local isDragging = false
+	local Hover = false
 	local originalSize = mainFrame.Size
 	local originalMousePosition = Vector2.new()
 	local minSize = UDim2.new(0, 650, 0, 477)
 	local maxSize = UDim2.new(0, 950, 0, 777)
-
-	cornerFrame.MouseButton1Down:Connect(function()
-		isDragging = true
-		originalMousePosition = uis:GetMouseLocation()
-		originalSize = mainFrame.Size
+	
+	uis.InputBegan:Connect(function(input, gpe)
+		if gpe then return end
+		
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and Hover then
+			isDragging = true
+			originalMousePosition = uis:GetMouseLocation()
+			originalSize = mainFrame.Size
+		end
 	end)
 
 	uis.InputChanged:Connect(function(input)
@@ -1175,6 +1178,16 @@ function Library:Window(options)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			isDragging = false
 		end
+	end)
+	
+	cornerFrame.MouseEnter:Connect(function()
+		Hover = true
+		mouse.Icon = "rbxassetid://17700530863"
+	end)
+
+	cornerFrame.MouseLeave:Connect(function()
+		Hover = false
+		mouse.Icon = ""
 	end)
 
 	local originalTransparencies = {}
