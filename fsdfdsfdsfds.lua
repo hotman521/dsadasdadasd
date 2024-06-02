@@ -245,9 +245,9 @@ function Library:Window(options)
 		GUI["6"]["BackgroundColor3"] = Color3.fromRGB(21, 21, 21);
 		GUI["6"]["AnchorPoint"] = Vector2.new(1, 0);
 		GUI["6"]["BackgroundTransparency"] = 1;
-		GUI["6"]["Size"] = UDim2.new(1, -80, 0.9330000281333923, 0);
+		GUI["6"]["Size"] = UDim2.new(1, -80, 1, -41);
 		GUI["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-		GUI["6"]["Position"] = UDim2.new(1, 0, 0.06700000166893005, 0);
+		GUI["6"]["Position"] = UDim2.new(1, 0, 0, 40);
 		GUI["6"]["Name"] = [[ContentContainer]];
 	end
 
